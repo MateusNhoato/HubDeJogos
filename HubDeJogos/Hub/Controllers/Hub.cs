@@ -2,6 +2,7 @@
 using HubDeJogos.Views;
 using HubDeJogos.Models.Enums;
 using HubDeJogos.Hub.Repositories;
+using HubDeJogos.Repositories;
 
 namespace HubDeJogos.Controllers
 {
@@ -15,6 +16,10 @@ namespace HubDeJogos.Controllers
         {
             Jogadores jogadores = new Jogadores();
             jogadores.CarregarListaDeJogadores();
+            
+            Partidas.CarregarPartidas();
+
+
             if(jogadores.ListaDeJogadores != null)
                 _jogadores = jogadores.ListaDeJogadores;
             else
@@ -45,6 +50,9 @@ namespace HubDeJogos.Controllers
                         break;
                     case "4":
                         RankingDosJogadores();
+                        break;
+                    case "5":
+                        HistoricoDePartidas();
                         break;
                     default:
                         Console.WriteLine("Opção não encontrada.");
@@ -236,6 +244,16 @@ namespace HubDeJogos.Controllers
                 tecla = Console.ReadKey().Key;
             }
             return senha;
+        }
+
+        private void HistoricoDePartidas()
+        {
+            _tela.ImprimirHistoricoMenu(null);
+            foreach(Partida partida in Partidas.HistoricoDePartidas)
+            {
+                Console.WriteLine(partida);
+            }
+            Utilidades.Utilidades.AperteEnterParaContinuar();
         }
 
         public void PassarListaDeJogadoresParaRepositorio()

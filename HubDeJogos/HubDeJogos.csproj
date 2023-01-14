@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="Hub\Repositories\Data\" />
+    <Folder Include="Hub\Repositories\Data\" />
     <Folder Include="JogoDaVelha\Controllers\" />
     <Folder Include="Xadrez\Models\" />
     <Folder Include="Xadrez\Controllers\" />

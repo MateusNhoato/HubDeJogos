@@ -4,35 +4,32 @@ namespace HubDeJogos.JogoDaVelha.Models
 {
     public class TabuleiroJogoDaVelha : Tabuleiro
     {
-        public override object[,] TabuleiroMatriz { get; set; }
-        public List<string>? JogadasPossiveis { get; private set; }
-        private static int _tamanhoDoTabuleiro;
+        public override object[,] TabuleiroMatriz { get; protected set; }
+        public List<string>? JogadasPossiveis { get; protected set; }
+        public override int Tamanho { get; protected set; }
+   
 
 
         // construtor para tabuleiro novo
         public TabuleiroJogoDaVelha(int tamanho)
         {
             // configurando o tabuleiro e gerando lista de jogadas possíveis
-            Tamanho = tamanho;
-            GerarTabuleiro();
+            Tamanho = tamanho * 2 - 1;
+            TabuleiroMatriz = GerarTabuleiro();
             JogadasPossiveis = ListarJogadasPossiveis();
 
         }
         // construtor para tabuleiro de registro 
-        public TabuleiroJogoDaVelha(string[,] matrizTabuleiro, int tamanhoDoTabuleiro)
+        public TabuleiroJogoDaVelha(object[,] matrizTabuleiro, int tamanho) : base(matrizTabuleiro, tamanho)
         {
             TabuleiroMatriz = matrizTabuleiro;
-            Tamanho = (tamanhoDoTabuleiro + 1) / 2;
+            Tamanho = (tamanho + 1) / 2;
         }
 
-        public override int Tamanho
-        {
-            get { return _tamanhoDoTabuleiro; }
-            set { _tamanhoDoTabuleiro = value * 2 - 1; }
-        }
+        
 
         // função para gerar o tabuleiro de 3 até 10 
-        protected override void GerarTabuleiro()
+        private string[,] GerarTabuleiro()
         {
             int cont = 1;
             string[,] matrizTabuleiro = new string[Tamanho, Tamanho];
@@ -66,7 +63,7 @@ namespace HubDeJogos.JogoDaVelha.Models
 
                 }
             }
-           TabuleiroMatriz = matrizTabuleiro;
+           return matrizTabuleiro;
         }
 
         // função para criar lista de jogadas possíveis
@@ -80,7 +77,23 @@ namespace HubDeJogos.JogoDaVelha.Models
             return jogadasPossiveis;
         }
 
+        public override string TabuleiroParaImpressao()
+        {
+            string tabuleiroParaImpressao = string.Empty;
 
+            for (int i = 0; i < Tamanho; i++)
+            {
+                for (int j = 0; j < Tamanho; j++)
+                {
+                    string stringAux = TabuleiroMatriz[i, j] as string;
+                    if (int.TryParse(stringAux, out int n))
+                        tabuleiroParaImpressao += "   ;";
+                    else
+                        tabuleiroParaImpressao += $"{TabuleiroMatriz[i, j]};";
+                }
+            }
+            return tabuleiroParaImpressao;
+        }
 
 
     }

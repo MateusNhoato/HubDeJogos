@@ -5,17 +5,18 @@ using HubDeJogos.Models;
 using HubDeJogos.Repositories;
 using HubDeJogos.JogoDaVelha.Models;
 using HubDeJogos.JogoDaVelha.Views;
-
+using HubDeJogos.Hub.Repositories;
 
 namespace HubDeJogos.JogoDaVelha.Services
 {
     public class JogoDaVelha
     {
-        private Tela _tela = new Tela();
+        private readonly Tela _tela = new Tela();
         private readonly Jogador _jogador1;
         private readonly Jogador _jogador2;
-        private Partida _partidaJogador1;
-        private Partida _partidaJogador2;
+        private readonly Partida _partidaJogador1;
+        private readonly Partida _partidaJogador2;
+      
         public JogoDaVelha(Jogador jogador1, Jogador jogador2)
         {
             _jogador1 = jogador1;
@@ -130,7 +131,16 @@ namespace HubDeJogos.JogoDaVelha.Services
                             _partidaJogador2.Resultado = Resultado.Vitoria;
                             _partidaJogador1.Resultado = Resultado.Derrota;
                         }   
-                    }              
+                    }
+                //colocando o tabuleiro na partida
+                _partidaJogador1.Tabuleiro= tabuleiro;
+                _partidaJogador2.Tabuleiro= tabuleiro;
+
+                //adicionando a partida no histórico de partidas
+                Partidas.HistoricoDePartidas.Add(_partidaJogador1);
+                Partidas.SalvarPartidas();
+                
+                //adicionando a partida nos históricos dos jogadores
                 _jogador1.HistoricoDePartidas.Add(_partidaJogador1);
                 _jogador2.HistoricoDePartidas.Add(_partidaJogador2);
                 Utilidades.Utilidades.AperteEnterParaContinuar();
@@ -168,7 +178,7 @@ namespace HubDeJogos.JogoDaVelha.Services
 
                 for (int j = 0; j < tabuleiro.Tamanho; j += 2)
                 {
-                    // utilizando o .Trim() pois usei espaços no X e na O para ficar com espaçamento
+                    // utilizando o .Trim() pois usei espaços no X e na O para ficar com espaçamento correto
                     string stringAux = tabuleiro.TabuleiroMatriz[i, j] as string;
                     string valor = stringAux.Trim();
 
@@ -189,7 +199,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                     }
 
                     // adicionando os valores nas colunas                   
-                    colunas[posicaoAuxiliarParaVetoresI][posicaoAuxiliarParaVetoresJ] = stringAux.Trim();
+                    colunas[posicaoAuxiliarParaVetoresJ][posicaoAuxiliarParaVetoresI] = stringAux.Trim();
                 }
                 // checkando os valores únicos da linha
                 valoresNaLinha = valoresNaLinha.Distinct().ToArray();

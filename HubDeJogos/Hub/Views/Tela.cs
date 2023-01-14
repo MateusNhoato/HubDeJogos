@@ -75,6 +75,7 @@ namespace HubDeJogos.Views
             Console.WriteLine("2- Registrar Novo Jogador");
             Console.WriteLine("3- Listar Jogadores");
             Console.WriteLine("4- Ranking dos Jogadores");
+            Console.WriteLine("5- Historico de Partidas");
             Console.WriteLine("0- Sair");
             Console.Write("\nDigite a opção desejada: ");
         }
@@ -112,7 +113,7 @@ namespace HubDeJogos.Views
             Console.WriteLine(_jogos + "\n\n");
             Console.WriteLine("1- Jogar");
             Console.WriteLine("2- Histórico Dos Jogadores");
-            Console.WriteLine("0- Sair");
+            Console.WriteLine("0- Voltar");
             Console.Write("\nDigite a opção desejada: ");
         }
 
@@ -122,15 +123,16 @@ namespace HubDeJogos.Views
             Console.WriteLine(_jogos + "\n\n");
             Console.WriteLine("1- Jogo da Velha");
             Console.WriteLine("2- Xadrez");
-            Console.WriteLine("0- Sair");
+            Console.WriteLine("0- Voltar");
             Console.Write("\nDigite a opção desejada: ");
         }
 
-        public void ImprimirHistoricoMenu(string nomeDoJogador)
+        public void ImprimirHistoricoMenu(string? nomeDoJogador)
         {
             Console.Clear();
             Console.WriteLine(_historico + "\n");
-            Console.WriteLine($"Histórico de {nomeDoJogador}:\n\n");
+            if(nomeDoJogador!= null)
+                Console.WriteLine($"Histórico de {nomeDoJogador}:\n");
         }
         public void ImprimirHistoricoMenu(string nomeDoJogador1, string nomeDoJogador2)
         {
@@ -138,7 +140,7 @@ namespace HubDeJogos.Views
             Console.WriteLine(_historico + "\n\n");
             Console.WriteLine($"1- Histórico De {nomeDoJogador1}");
             Console.WriteLine($"2- Histórico De {nomeDoJogador2}");
-            Console.WriteLine("0- Sair");
+            Console.WriteLine("0- Voltar");
             Console.Write("\nDigite a opção desejada: ");
         }
         #endregion

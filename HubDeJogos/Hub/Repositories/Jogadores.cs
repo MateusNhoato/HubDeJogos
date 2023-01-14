@@ -5,7 +5,7 @@ namespace HubDeJogos.Hub.Repositories
 {
     public class Jogadores
     {
-        private static string _pathJogadoresJson = @"..\..\..\Hub\Repositories\Data\DadosDosJogadores.Json";
+        private static string _path = @"..\..\..\Hub\Repositories\Data\DadosDosJogadores.Json";
         public List<Jogador> ListaDeJogadores { get; private set; }
 
         public Jogadores() { }
@@ -14,12 +14,12 @@ namespace HubDeJogos.Hub.Repositories
         {          
             try
             {               
-                string stringJson = File.ReadAllText(_pathJogadoresJson);               
+                string stringJson = File.ReadAllText(_path);               
                 ListaDeJogadores = JsonConvert.DeserializeObject<List<Jogador>>(stringJson);
             }
             catch (FileNotFoundException)
             {
-                File.Create(_pathJogadoresJson).Close();
+                File.Create(_path).Close();
                 ListaDeJogadores = new List<Jogador>();
             }               
         }
@@ -30,11 +30,11 @@ namespace HubDeJogos.Hub.Repositories
             string json = JsonConvert.SerializeObject(ListaDeJogadores);
             try
             {
-                File.WriteAllText(_pathJogadoresJson, json);
+                File.WriteAllText(_path, json);
             }
             catch(FileNotFoundException)
             {
-                File.Create(_pathJogadoresJson).Close();
+                File.Create(_path).Close();
             }
         }
 
@@ -44,11 +44,11 @@ namespace HubDeJogos.Hub.Repositories
             string json = JsonConvert.SerializeObject(jogadores);
             try
             {
-                File.WriteAllText(_pathJogadoresJson, json);
+                File.WriteAllText(_path, json);
             }
             catch (FileNotFoundException)
             {
-                File.Create(_pathJogadoresJson).Close();
+                File.Create(_path).Close();
             }
         }
     }
