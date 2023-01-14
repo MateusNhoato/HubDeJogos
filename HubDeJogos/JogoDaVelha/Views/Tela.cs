@@ -9,18 +9,20 @@ namespace HubDeJogos.JogoDaVelha.Views
         {
             Console.Clear();
             Console.WriteLine("\n");
-            for (int i = 0; i < tabuleiro.TamanhoDoTabuleiro; i++)
+            for (int i = 0; i < tabuleiro.Tamanho; i++)
             {
                 Console.Write("   ");
-                for (int j = 0; j < tabuleiro.TamanhoDoTabuleiro; j++)
+                for (int j = 0; j < tabuleiro.Tamanho; j++)
                 {
                     ConsoleColor aux = Console.ForegroundColor;
-                    if (tabuleiro.MatrizTabuleiro[i, j].Trim() == "X")
+                    string stringAux = tabuleiro.TabuleiroMatriz[i, j] as string;
+
+                    if (stringAux.Trim() == "X")
                         Console.ForegroundColor = ConsoleColor.DarkBlue;
-                    else if (tabuleiro.MatrizTabuleiro[i, j].Trim() == "O")
+                    else if (stringAux.Trim() == "O")
                         Console.ForegroundColor = ConsoleColor.DarkRed;
 
-                    Console.Write(tabuleiro.MatrizTabuleiro[i, j]);
+                    Console.Write(tabuleiro.TabuleiroMatriz[i, j]);
                     Console.ForegroundColor = aux;
                 }
                 Console.WriteLine();

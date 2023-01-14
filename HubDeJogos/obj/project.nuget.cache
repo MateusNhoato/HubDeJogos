@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "r6kPHk7VHZcO2YJGMavOlY8N+BTRSPAAXmFalXTbH9/btTPxVl5dMOm3agTPJnAfRz9pDTq8N78ZujD2YHkPKQ==",
+  "dgSpecHash": "fg+G770kMNZD8I8dSu3lGBICWn/lG5PHzAEwEfvueyvKdAlgByboUjZFfR1bO91yVEVjgBKizE8PTmpCtpvv1A==",
   "success": true,
   "projectFilePath": "D:\\projetos_C#\\HubDeJogos\\HubDeJogos\\HubDeJogos.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\manho\\.nuget\\packages\\newtonsoft.json\\12.0.1\\newtonsoft.json.12.0.1.nupkg.sha512",
+    "C:\\Users\\manho\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

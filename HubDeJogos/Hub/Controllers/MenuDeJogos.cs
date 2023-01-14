@@ -3,20 +3,22 @@ using HubDeJogos.Models.Enums;
 using HubDeJogos.Repositories;
 using HubDeJogos.Views;
 using HubDeJogos.JogoDaVelha.Services;
-
+using HubDeJogos.Hub.Repositories;
 
 namespace HubDeJogos.Controllers
 {
     public class MenuDeJogos
     {
         private readonly Tela _tela = new Tela();
-        private Jogador _jogador1;
-        private Jogador _jogador2;
+        private readonly Hub _hub;
+        private readonly Jogador _jogador1;
+        private readonly Jogador _jogador2;
 
-        public MenuDeJogos(Jogador jogador1, Jogador jogador2)
+        public MenuDeJogos(Jogador jogador1, Jogador jogador2, Hub hub)
         {
             _jogador1 = jogador1;
             _jogador2 = jogador2;
+            _hub = hub;
         }
 
         public void Menu()
@@ -69,12 +71,8 @@ namespace HubDeJogos.Controllers
 
     private void NovoJogoDaVelha()
         {
-            Partida partida = new Partida(Jogo.JogoDaVelha);
-            partida.Jogador = _jogador1;
-            partida.Oponente = _jogador2;
-            partida.Resultado = Resultado.Vitoria;
-            JogoDaVelha.Services.JogoDaVelha jogo = new JogoDaVelha.Services.JogoDaVelha(_jogador1, _jogador2, partida);
-
+             new JogoDaVelha.Services.JogoDaVelha(_jogador1, _jogador2);
+            _hub.PassarListaDeJogadoresParaRepositorio();
         }
 
     private void HistoricoDosJogadores()

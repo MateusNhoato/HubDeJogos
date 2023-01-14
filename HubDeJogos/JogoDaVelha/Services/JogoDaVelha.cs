@@ -1,5 +1,6 @@
 ﻿
 using HubDeJogos.JogoDaVelha.Models.Enums;
+using HubDeJogos.Models.Enums;
 using HubDeJogos.Models;
 using HubDeJogos.Repositories;
 using HubDeJogos.JogoDaVelha.Models;
@@ -11,15 +12,16 @@ namespace HubDeJogos.JogoDaVelha.Services
     public class JogoDaVelha
     {
         private Tela _tela = new Tela();
-
         private readonly Jogador _jogador1;
         private readonly Jogador _jogador2;
-        private Partida _partida;
-        public JogoDaVelha(Jogador jogador1, Jogador jogador2, Partida partida)
+        private Partida _partidaJogador1;
+        private Partida _partidaJogador2;
+        public JogoDaVelha(Jogador jogador1, Jogador jogador2)
         {
             _jogador1 = jogador1;
             _jogador2 = jogador2;
-            _partida = partida;
+            _partidaJogador1 = new Partida(Jogo.JogoDaVelha, jogador1.NomeDeUsuario, jogador2.NomeDeUsuario);
+            _partidaJogador2 = new Partida(Jogo.JogoDaVelha, jogador2.NomeDeUsuario, jogador1.NomeDeUsuario);
             Jogar();
         }
         
@@ -27,13 +29,14 @@ namespace HubDeJogos.JogoDaVelha.Services
         private void Jogada(string posicaoDaJogada, string simbolo, TabuleiroJogoDaVelha tabuleiro)
         {
 
-            for (int i = 0; i < tabuleiro.TamanhoDoTabuleiro; i++)
+            for (int i = 0; i < tabuleiro.Tamanho; i++)
             {
-                for (int j = 0; j < tabuleiro.TamanhoDoTabuleiro; j++)
+                for (int j = 0; j < tabuleiro.Tamanho; j++)
                 {
-                    if (tabuleiro.MatrizTabuleiro[i, j].Trim().Equals(posicaoDaJogada))
+                    string stringAux = tabuleiro.TabuleiroMatriz[i, j] as string;
+                    if (stringAux.Trim().Equals(posicaoDaJogada))
                     {
-                        tabuleiro.MatrizTabuleiro[i, j] = simbolo;
+                        tabuleiro.TabuleiroMatriz[i, j] = simbolo;
                     }
                 }
             }
@@ -47,7 +50,7 @@ namespace HubDeJogos.JogoDaVelha.Services
             string? vencedor;
             do
             {
-                Console.Write("\n  Digite o tamanho do jogo (3 a 10): ");
+                Console.Write("\nDigite o tamanho do jogo (3 a 10): ");
                 if (int.TryParse(Console.ReadLine(), out tamanho))
                 {
                     if (tamanho >= 3 && tamanho <= 10)
@@ -71,8 +74,8 @@ namespace HubDeJogos.JogoDaVelha.Services
                 do
                 {
                     _tela.ImprimirTabuleiro(tabuleiro);
-                    Console.WriteLine($"\n  Vez de {jogador.NomeDeUsuario}\n");
-                    Console.Write($"  Digite a posição da jogada ({jogada.Trim()}): ");
+                    Console.WriteLine($"\nVez de {jogador.NomeDeUsuario}\n");
+                    Console.Write($"Digite a posição da jogada ({jogada.Trim()}): ");
                     posicao = Console.ReadLine();
                 } while (!tabuleiro.JogadasPossiveis.Contains(posicao));
 
@@ -106,46 +109,32 @@ namespace HubDeJogos.JogoDaVelha.Services
                     // alterando o resultado para empate e adicionando a partida nos históricos
                     if (vencedor == "Velha")
                     {
-                        Console.WriteLine("\n  Deu velha. Empate.");
+                        Console.WriteLine("\nDeu velha. Empate.");
                         
-                        _partida.Resultado = HubDeJogos.Models.Enums.Resultado.Empate;
-                        _jogador1.HistoricoDePartidas.Add(_partida);
-
-                        _partida.Jogador = _jogador2;
-                        _partida.Oponente = _jogador1;
-                        _jogador2.HistoricoDePartidas.Add(_partida);
-
+                        _partidaJogador1.Resultado = Resultado.Empate;
+                        _partidaJogador2.Resultado = Resultado.Empate;
                     }
-                    // retornau algo que não é null e nem velha, logo teve um vencedor (x ou o)
+                    // retornou algo que não é null e nem velha, logo teve um vencedor (x ou o)
                     else
                     {
-                        Console.WriteLine($"\n  Vencedor: {jogador.NomeDeUsuario} ({vencedor}).");
+                        Console.WriteLine($"\nVencedor: {jogador.NomeDeUsuario} ({vencedor}).");
 
                         // alterando os resultados da partida para adicionar nos históricos respectivos
                         if (jogador.Equals(_jogador1))
                         {
-
-                            jogador.HistoricoDePartidas.Add(_partida);
-
-                            _partida.Jogador = _jogador2;
-                            _partida.Oponente = jogador;
-                            _partida.Resultado = HubDeJogos.Models.Enums.Resultado.Derrota;
-                            _jogador2.HistoricoDePartidas.Add(_partida);
+                            _partidaJogador1.Resultado = Resultado.Vitoria;
+                            _partidaJogador2.Resultado = Resultado.Derrota;
                         }
                         else
                         {
-                            _partida.Jogador = _jogador2;
-                            _partida.Oponente = _jogador1;
-                            jogador.HistoricoDePartidas.Add(_partida);
-
-                            _partida.Jogador = _jogador1;
-                            _partida.Oponente = _jogador2;
-                            _partida.Resultado = HubDeJogos.Models.Enums.Resultado.Derrota;
-                            _jogador1.HistoricoDePartidas.Add(_partida);
+                            _partidaJogador2.Resultado = Resultado.Vitoria;
+                            _partidaJogador1.Resultado = Resultado.Derrota;
                         }   
-                    }
-                    Utilidades.Utilidades.AperteEnterParaContinuar();
-                    break;
+                    }              
+                _jogador1.HistoricoDePartidas.Add(_partidaJogador1);
+                _jogador2.HistoricoDePartidas.Add(_partidaJogador2);
+                Utilidades.Utilidades.AperteEnterParaContinuar();
+                break;
                 }
             }
         }
@@ -155,7 +144,7 @@ namespace HubDeJogos.JogoDaVelha.Services
         private string? CheckarVitoriaOuVelha(TabuleiroJogoDaVelha tabuleiro)
         {
 
-            int tamanhoAuxiliar = (tabuleiro.TamanhoDoTabuleiro + 1) / 2;
+            int tamanhoAuxiliar = (tabuleiro.Tamanho + 1) / 2;
 
             string[] valoresNaDiagonalPrincipal = new string[tamanhoAuxiliar];
             string[] valoresNaDiagonalSecundaria = new string[tamanhoAuxiliar];
@@ -166,21 +155,22 @@ namespace HubDeJogos.JogoDaVelha.Services
 
             // lista das colunas
             List<string[]> colunas = new List<string[]>();
-            for (int i = 0; i < tabuleiro.TamanhoDoTabuleiro + 1; i += 2)
+            for (int i = 0; i < tabuleiro.Tamanho + 1; i += 2)
             {
                 colunas.Add(new string[tamanhoAuxiliar]);
             }
 
             // loop de checkagem
-            for (int i = 0; i < tabuleiro.TamanhoDoTabuleiro; i += 2)
+            for (int i = 0; i < tabuleiro.Tamanho; i += 2)
             {
 
                 string[] valoresNaLinha = new string[tamanhoAuxiliar];
 
-                for (int j = 0; j < tabuleiro.TamanhoDoTabuleiro; j += 2)
+                for (int j = 0; j < tabuleiro.Tamanho; j += 2)
                 {
                     // utilizando o .Trim() pois usei espaços no X e na O para ficar com espaçamento
-                    string valor = tabuleiro.MatrizTabuleiro[i, j].Trim();
+                    string stringAux = tabuleiro.TabuleiroMatriz[i, j] as string;
+                    string valor = stringAux.Trim();
 
                     int posicaoAuxiliarParaVetoresJ = (int)Math.Floor(j / 2.0);
                     int posicaoAuxiliarParaVetoresI = (int)Math.Floor(i / 2.0);
@@ -199,7 +189,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                     }
 
                     // adicionando os valores nas colunas                   
-                    colunas[posicaoAuxiliarParaVetoresI][posicaoAuxiliarParaVetoresJ] = tabuleiro.MatrizTabuleiro[j, i].Trim();
+                    colunas[posicaoAuxiliarParaVetoresI][posicaoAuxiliarParaVetoresJ] = stringAux.Trim();
                 }
                 // checkando os valores únicos da linha
                 valoresNaLinha = valoresNaLinha.Distinct().ToArray();

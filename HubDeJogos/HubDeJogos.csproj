@@ -8,11 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Hub\Repositories\Data\" />
     <Folder Include="JogoDaVelha\Controllers\" />
     <Folder Include="Xadrez\Models\" />
     <Folder Include="Xadrez\Controllers\" />
     <Folder Include="Xadrez\Services\" />
     <Folder Include="Xadrez\Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
   </ItemGroup>
 
 </Project>

@@ -2,9 +2,9 @@
 {
     public enum Resultado
     {
-        Vitoria = 1,
-        Derrota = -1,
-        Empate = 0
+        Vitoria,
+        Derrota,
+        Empate 
 
     }
 }

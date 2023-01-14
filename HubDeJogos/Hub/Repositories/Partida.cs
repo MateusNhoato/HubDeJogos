@@ -1,35 +1,45 @@
 ﻿using HubDeJogos.Models;
 using HubDeJogos.Models.Enums;
+using Newtonsoft.Json;
+using System.Text;
+
 namespace HubDeJogos.Repositories
 {
     public class Partida
     {
-        public Guid Id { get; private set; }
+        public DateTime DateTime { get; private set; }
         public Jogo Jogo { get; private set; }
        
         public Resultado Resultado { get; set; }
-        public Jogador Jogador { get; set; }
-        public Jogador Oponente { get; set; }
+        public string Jogador { get; set; }
+        public string Oponente { get; set; }
 
-        public Partida(Jogo jogo)
+       
+        public Partida(Jogo jogo, string jogador, string oponente)
         {
-            Id = new Guid();
+            DateTime = DateTime.Now;
             Jogo = jogo;
-        }
-        public Partida(Guid id, Jogo jogo,Jogador jogador ,Jogador oponente, Resultado resultado) : this(jogo)
-        {
-            Id = id;
             Jogador = jogador;
             Oponente = oponente;
+        }
+
+        [JsonConstructor]
+        public Partida(DateTime dateTime, Jogo jogo, string jogador , string oponente, Resultado resultado) : this(jogo, jogador, oponente)
+        {
+            DateTime = dateTime;
             Resultado = resultado;
         }
 
 
         public override string ToString()
         {
-            return $"Partida de {Jogo} | Id: {Id}:\n" +
-                   $"{Jogador.NomeDeUsuario} contra {Oponente.NomeDeUsuario}\n" +                 
-                   $"Resultado: {Resultado}\n";
+            DateTime dateTime = new DateTime(DateTime.Year, DateTime.Month, DateTime.Day, DateTime.Hour, DateTime.Minute, 0, DateTime.Kind);
+            StringBuilder sb = new StringBuilder();
+
+            return $"{Utilidades.Utilidades.Linha}" +
+                $"Partida de {Jogo} | {dateTime}\n" +
+                $"{Jogador} contra {Oponente}\n" +
+                $"Resultado: {Resultado}\n";
         }
     }
 }

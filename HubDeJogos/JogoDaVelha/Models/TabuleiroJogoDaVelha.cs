@@ -4,7 +4,7 @@ namespace HubDeJogos.JogoDaVelha.Models
 {
     public class TabuleiroJogoDaVelha : Tabuleiro
     {
-        public string[,] MatrizTabuleiro { get; private set; }
+        public override object[,] TabuleiroMatriz { get; set; }
         public List<string>? JogadasPossiveis { get; private set; }
         private static int _tamanhoDoTabuleiro;
 
@@ -13,36 +13,33 @@ namespace HubDeJogos.JogoDaVelha.Models
         public TabuleiroJogoDaVelha(int tamanho)
         {
             // configurando o tabuleiro e gerando lista de jogadas possíveis
-            TamanhoDoTabuleiro = tamanho;
-            MatrizTabuleiro = GerarTabuleiro();
+            Tamanho = tamanho;
+            GerarTabuleiro();
             JogadasPossiveis = ListarJogadasPossiveis();
 
         }
         // construtor para tabuleiro de registro 
         public TabuleiroJogoDaVelha(string[,] matrizTabuleiro, int tamanhoDoTabuleiro)
         {
-            MatrizTabuleiro = matrizTabuleiro;
-            TamanhoDoTabuleiro = (tamanhoDoTabuleiro + 1) / 2;
+            TabuleiroMatriz = matrizTabuleiro;
+            Tamanho = (tamanhoDoTabuleiro + 1) / 2;
         }
 
-        public int TamanhoDoTabuleiro
+        public override int Tamanho
         {
             get { return _tamanhoDoTabuleiro; }
             set { _tamanhoDoTabuleiro = value * 2 - 1; }
         }
 
-        public override object[,] TabuleiroMatriz { get => throw new NotImplementedException(); protected set => throw new NotImplementedException(); }
-
-
         // função para gerar o tabuleiro de 3 até 10 
-        protected override string[,] GerarTabuleiro()
+        protected override void GerarTabuleiro()
         {
             int cont = 1;
-            string[,] matrizTabuleiro = new string[TamanhoDoTabuleiro, TamanhoDoTabuleiro];
+            string[,] matrizTabuleiro = new string[Tamanho, Tamanho];
 
-            for (int i = 0; i < TamanhoDoTabuleiro; i++)
+            for (int i = 0; i < Tamanho; i++)
             {
-                for (int j = 0; j < TamanhoDoTabuleiro; j++)
+                for (int j = 0; j < Tamanho; j++)
                 {
                     if (i % 2 == 0)
                     {
@@ -69,14 +66,14 @@ namespace HubDeJogos.JogoDaVelha.Models
 
                 }
             }
-            return matrizTabuleiro;
+           TabuleiroMatriz = matrizTabuleiro;
         }
 
         // função para criar lista de jogadas possíveis
         private List<string> ListarJogadasPossiveis()
         {
             List<string> jogadasPossiveis = new List<string>();
-            for (int i = 1; i <= Math.Pow((TamanhoDoTabuleiro + 1) / 2, 2); i++)
+            for (int i = 1; i <= Math.Pow((Tamanho + 1) / 2, 2); i++)
             {
                 jogadasPossiveis.Add($"{i}");
             }

@@ -1,17 +1,24 @@
 ﻿using HubDeJogos.Models;
 using HubDeJogos.Views;
 using HubDeJogos.Models.Enums;
+using HubDeJogos.Hub.Repositories;
 
 namespace HubDeJogos.Controllers
 {
     public class Hub
     {
-        private readonly List<Jogador> _jogadores;
         private readonly Tela _tela = new();
+        private readonly List<Jogador> _jogadores;
+        
 
-        public Hub(List<Jogador> jogadores)
+        public Hub()
         {
-            _jogadores = jogadores;
+            Jogadores jogadores = new Jogadores();
+            jogadores.CarregarListaDeJogadores();
+            if(jogadores.ListaDeJogadores != null)
+                _jogadores = jogadores.ListaDeJogadores;
+            else
+                _jogadores= new List<Jogador>();
         }
 
         public void Menu()
@@ -20,7 +27,6 @@ namespace HubDeJogos.Controllers
             string? opcao;
             do
             {
-
                 _tela.ImprimirMenuDoHub();
                 opcao = Console.ReadLine();
 
@@ -82,7 +88,7 @@ namespace HubDeJogos.Controllers
 
             if (jogador1 != jogador2)
             {
-                MenuDeJogos menudeJogos = new(jogador1, jogador2);
+                MenuDeJogos menudeJogos = new(jogador1, jogador2, this);
                 menudeJogos.Menu();
             }
             else
@@ -101,12 +107,7 @@ namespace HubDeJogos.Controllers
             Console.Write("Senha: ");
 
             string senha = PedirSenha();
-            if(string.IsNullOrEmpty(senha))
-            {
-                Console.WriteLine("Campo senha não foi preenchido.");
-                Utilidades.Utilidades.AperteEnterParaContinuar();
-                return;
-            }
+            
             if (nomeDoUsuário.Length > 1)
             {
                 foreach (Jogador jogador in _jogadores)
@@ -122,6 +123,7 @@ namespace HubDeJogos.Controllers
                 {
                     Jogador jogador = new Jogador(nomeDoUsuário, senha);
                     _jogadores.Add(jogador);
+                    PassarListaDeJogadoresParaRepositorio();
                     Console.WriteLine("\nNovo jogador cadastrado com sucesso!!");
                 }
                 else
@@ -149,7 +151,7 @@ namespace HubDeJogos.Controllers
         private void RankingDosJogadores()
         {
             var jogadores = _jogadores
-                .OrderBy(j => j.GetPontuacao(Jogo.JogoDaVelha) + j.GetPontuacao(Jogo.Xadrez))
+                .OrderByDescending(j => j.GetPontuacao(Jogo.JogoDaVelha) + j.GetPontuacao(Jogo.Xadrez))
                 .ThenBy(j => j.HistoricoDePartidas.Count(p => p.Resultado.Equals(Resultado.Vitoria)))
                 .ThenByDescending(j => j.HistoricoDePartidas.Count(p => p.Resultado.Equals(Resultado.Derrota)))
                 .ToList();
@@ -164,6 +166,9 @@ namespace HubDeJogos.Controllers
                 {
                     if (i > 10)
                         break;
+                    if (jogadores[i].GetPontuacao(Jogo.JogoDaVelha)
+                        + jogadores[i].GetPontuacao(Jogo.Xadrez) <= 0)
+                        continue;
                     Console.WriteLine($"Top {i + 1}: {jogadores[i]}\n");
                 }
             }
@@ -208,7 +213,9 @@ namespace HubDeJogos.Controllers
             var tecla = Console.ReadKey().Key;
             while (tecla != ConsoleKey.Enter)
             {
-                if (tecla != ConsoleKey.Backspace && tecla != ConsoleKey.Escape)
+                if (tecla != ConsoleKey.Backspace 
+                    && tecla != ConsoleKey.Escape
+                    && tecla != ConsoleKey.Spacebar)
                 {
                     Console.Write("\b");
                     Console.Write("*");
@@ -229,6 +236,12 @@ namespace HubDeJogos.Controllers
                 tecla = Console.ReadKey().Key;
             }
             return senha;
+        }
+
+        public void PassarListaDeJogadoresParaRepositorio()
+        {
+            Jogadores jogadores = new Jogadores();
+            jogadores.SalvarJogadores(_jogadores);
         }
     }
 }
