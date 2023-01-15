@@ -21,6 +21,10 @@ namespace HubDeJogos.Xadrez.Views
                 if (partida.Xeque)
                     Console.WriteLine("Xeque!");
             }
+            else if(partida.Empate)
+            {
+                Console.WriteLine("Empate!");
+            }
             else
             {
                 Console.WriteLine("XEQUEMATE!");
@@ -91,9 +95,9 @@ namespace HubDeJogos.Xadrez.Views
             Console.BackgroundColor = fundoOriginal;
         }
 
-        public PosicaoXadrez LerPosicaoXadrez()
+        public PosicaoXadrez LerPosicaoXadrez(string s)
         {
-            string s = Console.ReadLine().ToLower();
+            s = s.ToLower();
             char coluna = s[0];
             int linha = int.Parse(s[1] + "");
             return new PosicaoXadrez(coluna, linha);
