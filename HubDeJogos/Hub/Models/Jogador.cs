@@ -18,7 +18,8 @@ namespace HubDeJogos.Models
             NomeDeUsuario = nomeDeUsuario;
             Senha = senha;
         }
-        [Newtonsoft.Json.JsonConstructor]
+
+        [JsonConstructor]
         public Jogador(string nomeDeUsuario, string senha, List<Partida> historicoDePartidas) : this(nomeDeUsuario, senha)
         {
 

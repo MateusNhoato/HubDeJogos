@@ -80,6 +80,7 @@ namespace HubDeJogos.Controllers
     private void NovoJogoDeXadrez(bool tutorial)
         {
             new Xadrez.Services.Xadrez(_jogador1, _jogador2, tutorial);
+            _hub.PassarListaDeJogadoresParaRepositorio();
         }
         private void HistoricoDosJogadores()
         {

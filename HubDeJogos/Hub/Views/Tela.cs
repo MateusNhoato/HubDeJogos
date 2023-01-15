@@ -1,4 +1,7 @@
-﻿using HubDeJogos.Repositories;
+﻿using HubDeJogos.Models.Enums;
+using HubDeJogos.Models;
+using HubDeJogos.Repositories;
+using System.Text;
 
 namespace HubDeJogos.Views
 {
@@ -65,6 +68,39 @@ namespace HubDeJogos.Views
 |       ||   | |_____  |  |   |  |  |_|  ||    __  ||   | |      _||  |_|  |
 |   _   ||   |  _____| |  |   |  |       ||   |  | ||   | |     |_ |       |
 |__| |__||___| |_______|  |___|  |_______||___|  |_||___| |_______||_______|";
+
+        #region Jogador
+        public void ImprimirPartida(Partida partida)
+        {
+            DateTime dateTime = new DateTime(partida.DateTime.Year, partida.DateTime.Month, partida.DateTime.Day, partida.DateTime.Hour,    partida.DateTime.Minute, 0, partida.DateTime.Kind);
+            
+            
+            Console.WriteLine($"{Utilidades.Utilidades.Linha}\n");
+            Console.WriteLine($"Partida de {partida.Jogo} | {dateTime}\n");
+            Console.WriteLine($"{partida.NomeJogadorGanhou} VS {partida.NomeJogadorPerdeu}\n");
+
+            // imprimir tabuleiro
+            if(partida.Jogo == Jogo.JogoDaVelha)
+            {
+                JogoDaVelha.Views.Tela _tela = new();
+                _tela.ImprimirTabuleiro(partida.Tabuleiro);
+            }
+            else
+            {
+                Xadrez.Views.Tela _tela = new();
+                _tela.ImprimirTabuleiro(partida.Tabuleiro);
+            }
+
+
+            if (partida.Resultado == Resultado.Empate)
+                Console.WriteLine($"Resultado: {partida.Resultado}\n");
+            else
+                Console.WriteLine($"Vencedor: {partida.NomeJogadorGanhou}\n");
+
+        }
+
+        #endregion
+
 
         #region Hub
         public void ImprimirMenuDoHub()

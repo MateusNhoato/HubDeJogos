@@ -22,6 +22,7 @@ public class Xadrez
     private readonly HashSet<Peca> _capturadas;
     public bool Xeque { get; private set; }
     public bool Empate { get; private set; } = false;
+    public bool Render { get; private set; } = false;
     private readonly Tela _tela = new();
     private readonly Jogador _jogador1;
     private readonly Jogador _jogador2;
@@ -83,11 +84,12 @@ public class Xadrez
                 {
                     Console.Clear();
                     _tela.ImprimirPartida(this);
-                    Console.Write("\nOrigem: ");
+                    Console.Write("\nJogada: ");
                     jogada = Console.ReadLine().ToLower();
                     if (jogada == "render")
                     {
                         Terminada = true;
+                        Render = true;
                         MudaJogador();
                         break;
                     }
@@ -102,7 +104,7 @@ public class Xadrez
                         Console.Clear();
                         _tela.ImprimirPartida(this);
                         Console.WriteLine($"{nomeDoJogador}({cor}) sugeriu um empate. Caso queria aceitar basta digitar 'empate'");
-                        Console.Write("\nOrigem: ");
+                        Console.Write("\nJogada: ");
                         jogada = Console.ReadLine().ToLower();
 
                         if (jogada == "empate")
@@ -149,6 +151,7 @@ public class Xadrez
         }
         Console.Clear();
         _tela.ImprimirPartida(this);
+        Utilidades.Utilidades.AperteEnterParaContinuar();
 
         // informações da partida para registro
         string vencedor = _jogador1.NomeDeUsuario;
@@ -174,7 +177,7 @@ public class Xadrez
         _jogador1.HistoricoDePartidas.Add(partida);
         _jogador2.HistoricoDePartidas.Add(partida);
 
-        Utilidades.Utilidades.AperteEnterParaContinuar();
+        
     }
 
 

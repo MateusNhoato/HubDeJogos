@@ -3,8 +3,8 @@ using HubDeJogos.Hub.Repositories;
 using HubDeJogos.Models;
 
 
-Console.BackgroundColor = ConsoleColor.Cyan;
-Console.ForegroundColor= ConsoleColor.Black;
+Console.BackgroundColor = ConsoleColor.DarkCyan;
+Console.ForegroundColor= ConsoleColor.White;
 Console.Clear();
 
 Hub hub = new Hub();

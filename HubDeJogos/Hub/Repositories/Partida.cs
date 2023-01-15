@@ -32,7 +32,7 @@ namespace HubDeJogos.Repositories
             DateTime = dateTime;            
         }
 
-
+        
         public override string ToString()
         {
             DateTime dateTime = new DateTime(DateTime.Year, DateTime.Month, DateTime.Day, DateTime.Hour, DateTime.Minute, 0, DateTime.Kind);

@@ -1,11 +1,12 @@
 ﻿using HubDeJogos.JogoDaVelha.Models;
+using HubDeJogos.Models;
 
 namespace HubDeJogos.JogoDaVelha.Views
 {
     public class Tela
     {
         // função para imprimir o tabuleiro
-        public void ImprimirTabuleiro(TabuleiroJogoDaVelha tabuleiro)
+        public void ImprimirTabuleiro(Tabuleiro tabuleiro)
         {
             Console.Clear();
             Console.WriteLine("\n");
@@ -18,7 +19,7 @@ namespace HubDeJogos.JogoDaVelha.Views
                     string stringAux = tabuleiro.TabuleiroMatriz[i, j] as string;
 
                     if (stringAux.Trim() == "X")
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
                     else if (stringAux.Trim() == "O")
                         Console.ForegroundColor = ConsoleColor.DarkRed;
 

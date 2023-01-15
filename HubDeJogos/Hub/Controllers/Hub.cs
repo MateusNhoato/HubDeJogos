@@ -259,10 +259,10 @@ namespace HubDeJogos.Controllers
         private void HistoricoDePartidas()
         {
             _tela.ImprimirHistoricoMenu(null);
-            if(Partidas.HistoricoDePartidas.Count > 0)           
+            if (Partidas.HistoricoDePartidas.Count > 0)
                 foreach (Partida partida in Partidas.HistoricoDePartidas)
-                    Console.WriteLine(partida);
-            
+                    _tela.ImprimirPartida(partida);
+
             else
                 Console.WriteLine("Nenhuma partida foi registrada até o momento.");
             
