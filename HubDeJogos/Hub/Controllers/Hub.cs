@@ -55,7 +55,7 @@ namespace HubDeJogos.Controllers
                         HistoricoDePartidas();
                         break;
                     default:
-                        Console.WriteLine("Opção não encontrada.");
+                        Console.WriteLine("  Opção não encontrada.");
                         break;
                 }
             } while (opcao != "0");
@@ -66,13 +66,13 @@ namespace HubDeJogos.Controllers
             _tela.ImprimirLogIn();
             if (_jogadores.Count < 2)
             {
-                Console.WriteLine("Parece que ainda não temos dois jogadores para escolher essa opção!\n" +
-                    "Redirecionando para Registar Novo Jogador.");
+                Console.WriteLine("  Parece que ainda não temos dois jogadores para escolher essa opção!\n" +
+                    "  Redirecionando para Registar Novo Jogador.");
 
                 for (int i = 0; i < 3; i++)
                 {
                     Thread.Sleep(500);
-                    Console.Write(". ");
+                    Console.Write("  . ");
                 }
                 Utilidades.Utilidades.AperteEnterParaContinuar();
                 RegistrarJogador();
@@ -101,7 +101,7 @@ namespace HubDeJogos.Controllers
             }
             else
             {
-                Console.WriteLine("Não é possível jogar contra si mesmo.");
+                Console.WriteLine("  Não é possível jogar contra si mesmo.");
                 Utilidades.Utilidades.AperteEnterParaContinuar();
             }
         }
@@ -109,10 +109,10 @@ namespace HubDeJogos.Controllers
         private void RegistrarJogador()
         {
             _tela.ImprimirRegistrar();
-            Console.Write("Nome do Usuário: ");
+            Console.Write("  Nome do Usuário: ");
             string? nomeDoUsuário = Console.ReadLine();
 
-            Console.Write("Senha: ");
+            Console.Write("  Senha: ");
 
             string senha = PedirSenha();
             
@@ -122,7 +122,7 @@ namespace HubDeJogos.Controllers
                 {
                     if(nomeDoUsuário.Equals(jogador.NomeDeUsuario))
                     {
-                        Console.WriteLine("\nJogador já cadastrado.");
+                        Console.WriteLine("\n  Jogador já cadastrado.");
                         Utilidades.Utilidades.AperteEnterParaContinuar();
                         return;
                     }
@@ -132,13 +132,13 @@ namespace HubDeJogos.Controllers
                     Jogador jogador = new Jogador(nomeDoUsuário, senha);
                     _jogadores.Add(jogador);
                     PassarListaDeJogadoresParaRepositorio();
-                    Console.WriteLine("\nNovo jogador cadastrado com sucesso!!");
+                    Console.WriteLine("\n  Novo jogador cadastrado com sucesso!!");
                 }
                 else
-                    Console.WriteLine("Senha precisa ter entre 6 a 10 caracteres (letras e números).");
+                    Console.WriteLine("  Senha precisa ter entre 6 a 10 caracteres (letras e números).");
             }
             else
-                Console.WriteLine("Nome de usuário precisa ter pelo menos 2 caracteres.");
+                Console.WriteLine("  Nome de usuário precisa ter pelo menos 2 caracteres.");
 
             Utilidades.Utilidades.AperteEnterParaContinuar();
         }
@@ -147,11 +147,11 @@ namespace HubDeJogos.Controllers
         {
             _tela.ImprimirListaDeJogadores();
             if (_jogadores.Count < 1)
-                Console.WriteLine("\nNenhum jogador cadastrado.");
+                Console.WriteLine("\n  Nenhum jogador cadastrado.");
 
             else            
                 foreach (Jogador jogador in _jogadores)
-                    Console.WriteLine(jogador + "\n");
+                    Console.WriteLine($"  {jogador}\n");
             
             Utilidades.Utilidades.AperteEnterParaContinuar();
         }
@@ -174,7 +174,7 @@ namespace HubDeJogos.Controllers
             _tela.ImprimirRanking();
 
             if (jogadores.Count < 1)
-                Console.WriteLine("\nNenhum jogador cadastrado.");
+                Console.WriteLine("\n  Nenhum jogador cadastrado.");
             else
             {
                 for (int i = 0; i < jogadores.Count; i++)
@@ -184,7 +184,7 @@ namespace HubDeJogos.Controllers
                     if (jogadores[i].GetPontuacao(Jogo.JogoDaVelha)
                         + jogadores[i].GetPontuacao(Jogo.Xadrez) <= 0)
                         continue;
-                    Console.WriteLine($"Top {i + 1}: {jogadores[i]}\n");
+                    Console.WriteLine($"  Top {i + 1}: {jogadores[i]}\n");
                 }
             }
             Utilidades.Utilidades.AperteEnterParaContinuar();
@@ -198,12 +198,12 @@ namespace HubDeJogos.Controllers
             _tela.ImprimirLogIn();
             Jogador? jogador = null;
 
-            Console.Write("Nome do Usuário: ");
+            Console.Write("  Nome do Usuário: ");
             string? nomeDeUsuario = Console.ReadLine();
 
             if (!(string.IsNullOrEmpty(nomeDeUsuario)))
             {
-                Console.Write("Senha: ");
+                Console.Write("  Senha: ");
                 string senha = PedirSenha();
 
                 if (!(string.IsNullOrEmpty(senha)))
@@ -216,9 +216,9 @@ namespace HubDeJogos.Controllers
 
             }
             if(jogador != null)
-                Console.WriteLine("\nJogador logado com sucesso!");
+                Console.WriteLine("\n  Jogador logado com sucesso!");
             else
-                Console.WriteLine("\nJogador não encontrado");
+                Console.WriteLine("\n  Jogador não encontrado");
             Utilidades.Utilidades.AperteEnterParaContinuar();
             return  jogador;
         }
@@ -264,7 +264,7 @@ namespace HubDeJogos.Controllers
                     _tela.ImprimirPartida(partida);
 
             else
-                Console.WriteLine("Nenhuma partida foi registrada até o momento.");
+                Console.WriteLine("  Nenhuma partida foi registrada até o momento.");
             
             
             Utilidades.Utilidades.AperteEnterParaContinuar();

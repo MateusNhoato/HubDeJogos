@@ -32,33 +32,5 @@ namespace HubDeJogos.Repositories
             DateTime = dateTime;            
         }
 
-        
-        public override string ToString()
-        {
-            DateTime dateTime = new DateTime(DateTime.Year, DateTime.Month, DateTime.Day, DateTime.Hour, DateTime.Minute, 0, DateTime.Kind);
-            string[] tabuleiroArray = Tabuleiro.TabuleiroParaImpressao().Split(';');
-            int countAux = 0;
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"{Utilidades.Utilidades.Linha}\n");
-            sb.AppendLine($"Partida de {Jogo} | {dateTime}\n");
-            sb.AppendLine($"{NomeJogadorGanhou} VS {NomeJogadorPerdeu}\n");
-            
-            for(int i = 0; i< Tabuleiro.Tamanho; i++)
-            {
-                for(int j=0; j<Tabuleiro.Tamanho; j++)
-                {
-                    sb.Append(tabuleiroArray[countAux++]);
-                }
-                sb.AppendLine();
-            }
-            sb.AppendLine();
-            if(Resultado == Resultado.Empate)
-                sb.AppendLine($"Resultado: {Resultado}\n");
-            else
-                sb.AppendLine($"Vencedor: {NomeJogadorGanhou}\n");
-
-
-            return sb.ToString();
-        }
     }
 }

@@ -80,8 +80,7 @@ namespace HubDeJogos.JogoDaVelha.Models
             {
                 for (int j = 0; j < Tamanho; j++)
                 {
-                    
-                    if (int.TryParse(TabuleiroMatriz[i, j], out int n))
+                    if (int.TryParse(TabuleiroMatriz[i, j], out _))
                         TabuleiroMatriz[i, j] = "   ";
                 }
             }

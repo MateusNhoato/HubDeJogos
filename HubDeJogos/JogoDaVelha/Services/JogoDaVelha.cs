@@ -49,7 +49,7 @@ namespace HubDeJogos.JogoDaVelha.Services
             string? vencedor;
             do
             {
-                Console.Write("\nDigite o tamanho do jogo (3 a 10): ");
+                Console.Write("\n  Digite o tamanho do jogo (3 a 10): ");
                 if (int.TryParse(Console.ReadLine(), out tamanho))
                 {
                     if (tamanho >= 3 && tamanho <= 10)
@@ -72,9 +72,20 @@ namespace HubDeJogos.JogoDaVelha.Services
                 string posicao;
                 do
                 {
+                    Console.Clear();
+                    Console.WriteLine("\n");
                     _tela.ImprimirTabuleiro(tabuleiro);
-                    Console.WriteLine($"\nVez de {jogador.NomeDeUsuario}\n");
-                    Console.Write($"Digite a posição da jogada ({jogada.Trim()}): ");
+
+                    ConsoleColor aux = Console.ForegroundColor;
+                    
+
+                    Console.WriteLine($"\n  Vez de {jogador.NomeDeUsuario}\n");
+                    Console.Write("  Posição da jogada (");
+                    Console.ForegroundColor = (jogador.Equals(_jogador1)) ? ConsoleColor.Black : ConsoleColor.DarkRed;
+                    Console.Write($"{jogada.Trim()}");
+                    Console.ForegroundColor = aux;
+                    Console.Write("): ");
+                    
                     posicao = Console.ReadLine();
                 } while (!tabuleiro.JogadasPossiveis.Contains(posicao));
 
@@ -102,19 +113,26 @@ namespace HubDeJogos.JogoDaVelha.Services
                 }
                 else
                 {
+                    Console.Clear();
+                    Console.WriteLine("\n");
                     _tela.ImprimirTabuleiro(tabuleiro);
+
+                    //settando parâmetros da partida
                     Resultado resultado = Resultado.Empate;
                     string jogadorGanhou = _jogador1.NomeDeUsuario;
                     string jogadorPerdeu = _jogador2.NomeDeUsuario;
+                    
+
+
                     // CheckarVitoriaOuVelha retornou velha 
                     if (vencedor == "Velha")
-                        Console.WriteLine("\nDeu velha. Empate.");
+                        Console.WriteLine("\n  Deu velha");
 
                     // retornou algo que não é null e nem velha, logo teve um vencedor (x ou o)
                     else
                     {
                         resultado = Resultado.Decisivo;
-                        Console.WriteLine($"\nVencedor: {jogador.NomeDeUsuario} ({vencedor}).");
+                        Console.WriteLine($"\n  Vencedor: {jogador.NomeDeUsuario} ({vencedor})");
 
                         // alterando o vencedor/perdedor
                         if (jogador.Equals(_jogador2))
@@ -124,6 +142,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                         }
                     }
                     // alterando o tabuleiro para registrá-lo
+                    tabuleiro.AlterarTabuleiroMatrizParaRegistro();
                     Partida partida = new Partida(Jogo.JogoDaVelha, jogadorGanhou, jogadorPerdeu, resultado, tabuleiro);
 
                     //adicionando a partida no histórico de partidas

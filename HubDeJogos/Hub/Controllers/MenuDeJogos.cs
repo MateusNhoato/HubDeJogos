@@ -40,7 +40,7 @@ namespace HubDeJogos.Controllers
                         HistoricoDosJogadores();
                         break;
                     default:
-                        Console.WriteLine("Opção não encontrada.");
+                        Console.WriteLine("  Opção não encontrada.");
                         break;
                 }
             } while (opcao != "0");
@@ -66,7 +66,7 @@ namespace HubDeJogos.Controllers
                         NovoJogoDeXadrez(true);
                         break;
                     default:
-                        Console.WriteLine("Opção não encontrada.");
+                        Console.WriteLine("  Opção não encontrada.");
                         break;
                 }
             } while (opcao != "0");
@@ -102,7 +102,7 @@ namespace HubDeJogos.Controllers
                         _tela.ImprimirHistoricoDoJogador(_jogador2.HistoricoDePartidas);
                         break;
                     default:
-                        Console.WriteLine("Opção não encontrada.");
+                        Console.WriteLine("  Opção não encontrada.");
                         break;
                 }
             } while (opcao != "0");

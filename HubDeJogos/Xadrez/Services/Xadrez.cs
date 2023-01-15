@@ -24,8 +24,8 @@ public class Xadrez
     public bool Empate { get; private set; } = false;
     public bool Render { get; private set; } = false;
     private readonly Tela _tela = new();
-    private readonly Jogador _jogador1;
-    private readonly Jogador _jogador2;
+    public readonly Jogador Jogador1;
+    public readonly Jogador Jogador2;
 
 
     public Xadrez(Jogador jogador1, Jogador jogador2, bool tutorial)
@@ -38,8 +38,8 @@ public class Xadrez
         _pecas = new HashSet<Peca>();
         _capturadas = new HashSet<Peca>();
         Xeque = false;
-        _jogador1 = jogador1;
-        _jogador2 = jogador2;
+        Jogador1 = jogador1;
+        Jogador2 = jogador2;
         ColocarPecas();
 
         if (tutorial)
@@ -84,7 +84,7 @@ public class Xadrez
                 {
                     Console.Clear();
                     _tela.ImprimirPartida(this);
-                    Console.Write("\nJogada: ");
+                    Console.Write("\n  Jogada: ");
                     jogada = Console.ReadLine().ToLower();
                     if (jogada == "render")
                     {
@@ -97,14 +97,14 @@ public class Xadrez
                     else if (jogada == "empate")
                     {
                         string nomeDoJogador =
-                            (CorAtual == Cor.Branca) ? _jogador1.NomeDeUsuario : _jogador2.NomeDeUsuario;
+                            (CorAtual == Cor.Branca) ? Jogador1.NomeDeUsuario : Jogador2.NomeDeUsuario;
                         Cor cor = CorAtual;
                         // mudando de jogador para ver se o outro jogador concorda com o empate
                         MudaJogador();
                         Console.Clear();
                         _tela.ImprimirPartida(this);
-                        Console.WriteLine($"{nomeDoJogador}({cor}) sugeriu um empate. Caso queria aceitar basta digitar 'empate'");
-                        Console.Write("\nJogada: ");
+                        Console.WriteLine($"  {nomeDoJogador}({cor}) sugeriu um empate. Caso queria aceitar basta digitar 'empate'");
+                        Console.Write("\n  Jogada: ");
                         jogada = Console.ReadLine().ToLower();
 
                         if (jogada == "empate")
@@ -132,7 +132,7 @@ public class Xadrez
                 {
                     Console.Clear();
                     _tela.ImprimirTabuleiro(Tabuleiro, posicoesPossiveis);
-                    Console.Write("\nDestino: ");
+                    Console.Write("\n  Destino: ");
                     jogada = Console.ReadLine().ToLower();
                 } while (!rg.IsMatch(jogada));
 
@@ -154,14 +154,14 @@ public class Xadrez
         Utilidades.Utilidades.AperteEnterParaContinuar();
 
         // informações da partida para registro
-        string vencedor = _jogador1.NomeDeUsuario;
-        string perdedor = _jogador2.NomeDeUsuario;
+        string vencedor = Jogador1.NomeDeUsuario;
+        string perdedor = Jogador2.NomeDeUsuario;
         Resultado resultado = Resultado.Decisivo;
 
         if (CorAtual is Cor.Preta)
         {
-            vencedor = _jogador2.NomeDeUsuario;
-            perdedor = _jogador1.NomeDeUsuario;
+            vencedor = Jogador2.NomeDeUsuario;
+            perdedor = Jogador1.NomeDeUsuario;
         }
 
         if (Empate)
@@ -174,8 +174,8 @@ public class Xadrez
         //adicionando a partida aos historicos
         Partidas.HistoricoDePartidas.Add(partida);
         Partidas.SalvarPartidas();
-        _jogador1.HistoricoDePartidas.Add(partida);
-        _jogador2.HistoricoDePartidas.Add(partida);
+        Jogador1.HistoricoDePartidas.Add(partida);
+        Jogador2.HistoricoDePartidas.Add(partida);
 
         
     }
@@ -242,11 +242,11 @@ public class Xadrez
     public void ValidarPosicaoDeOrigem(Posicao pos)
     {
         if (Tabuleiro.Peca(pos) == null)
-            throw new TabuleiroException("Não existe peça na posição de origem escolhida!");
+            throw new TabuleiroException("  Não existe peça na posição de origem escolhida!");
         if (CorAtual != Tabuleiro.Peca(pos).Cor)
-            throw new TabuleiroException("A peça escolhida não é sua!");
+            throw new TabuleiroException("  A peça escolhida não é sua!");
         if (!Tabuleiro.Peca(pos).ExisteMovimentosPossiveis())
-            throw new TabuleiroException("Não há movimentos possíveis para a peça!");
+            throw new TabuleiroException("  Não há movimentos possíveis para a peça!");
     }
 
     public void DesfazMovimento(Posicao origem, Posicao destino, Peca pecaCapturada)
@@ -309,7 +309,7 @@ public class Xadrez
         if (EstaEmXeque(CorAtual))
         {
             DesfazMovimento(origem, destino, pecaCapturada);
-            throw new TabuleiroException("Você não pode se colocar em xeque!");
+            throw new TabuleiroException("  Você não pode se colocar em xeque!");
         }
 
         Peca peca = Tabuleiro.Peca(destino);
@@ -367,7 +367,7 @@ public class Xadrez
     public void ValidarPosicaoDeDestino(Posicao origem, Posicao destino)
     {
         if (!Tabuleiro.Peca(origem).MovimentoPossivel(destino))
-            throw new TabuleiroException("Posição de destino inválida.");
+            throw new TabuleiroException("  Posição de destino inválida.");
     }
 
 
