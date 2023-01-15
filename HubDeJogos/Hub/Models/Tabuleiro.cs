@@ -6,7 +6,7 @@ namespace HubDeJogos.Models
     
     public class Tabuleiro
     {
-        public virtual object[,]? TabuleiroMatriz { get; protected set; }
+        public virtual string[,]? TabuleiroMatriz { get; protected set; }
         public virtual int Tamanho { get; protected set; }
         
         public Tabuleiro() { }
@@ -16,7 +16,7 @@ namespace HubDeJogos.Models
         }
 
         [JsonConstructor]
-        public Tabuleiro(object[,] tabuleiroMatriz, int tamanho) : this (tamanho)
+        public Tabuleiro(string[,] tabuleiroMatriz, int tamanho) : this (tamanho)
         {
             TabuleiroMatriz = tabuleiroMatriz;
         }

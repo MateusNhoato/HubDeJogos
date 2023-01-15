@@ -32,8 +32,8 @@ namespace HubDeJogos.JogoDaVelha.Services
             {
                 for (int j = 0; j < tabuleiro.Tamanho; j++)
                 {
-                    string stringAux = tabuleiro.TabuleiroMatriz[i, j] as string;
-                    if (stringAux.Trim().Equals(posicaoDaJogada))
+                     
+                    if (tabuleiro.TabuleiroMatriz[i, j].Trim().Equals(posicaoDaJogada))
                     {
                         tabuleiro.TabuleiroMatriz[i, j] = simbolo;
                     }
@@ -124,7 +124,6 @@ namespace HubDeJogos.JogoDaVelha.Services
                         }
                     }
                     // alterando o tabuleiro para registrá-lo
-                    tabuleiro.AlterarTabuleiroMatrizParaRegistro();
                     Partida partida = new Partida(Jogo.JogoDaVelha, jogadorGanhou, jogadorPerdeu, resultado, tabuleiro);
 
                     //adicionando a partida no histórico de partidas
@@ -170,8 +169,8 @@ namespace HubDeJogos.JogoDaVelha.Services
                 for (int j = 0; j < tabuleiro.Tamanho; j += 2)
                 {
                     // utilizando o .Trim() pois usei espaços no X e na O para ficar com espaçamento correto
-                    string stringAux = tabuleiro.TabuleiroMatriz[i, j] as string;
-                    string valor = stringAux.Trim();
+                    
+                    string valor = tabuleiro.TabuleiroMatriz[i, j].Trim();
 
                     int posicaoAuxiliarParaVetoresJ = (int)Math.Floor(j / 2.0);
                     int posicaoAuxiliarParaVetoresI = (int)Math.Floor(i / 2.0);
@@ -190,7 +189,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                     }
 
                     // adicionando os valores nas colunas                   
-                    colunas[posicaoAuxiliarParaVetoresJ][posicaoAuxiliarParaVetoresI] = stringAux.Trim();
+                    colunas[posicaoAuxiliarParaVetoresJ][posicaoAuxiliarParaVetoresI] = tabuleiro.TabuleiroMatriz[i, j].Trim();
                 }
                 // checkando os valores únicos da linha
                 valoresNaLinha = valoresNaLinha.Distinct().ToArray();

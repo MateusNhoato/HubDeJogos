@@ -6,10 +6,7 @@ namespace HubDeJogos.JogoDaVelha.Models
     public class TabuleiroJogoDaVelha : Tabuleiro, IAlteraTabuleiro
     {
         public List<string>? JogadasPossiveis { get; protected set; }
-        public override int Tamanho { get; protected set; }
    
-
-
         // construtor para tabuleiro novo
         public TabuleiroJogoDaVelha(int tamanho)
         {
@@ -20,7 +17,7 @@ namespace HubDeJogos.JogoDaVelha.Models
 
         }
         // construtor para tabuleiro de registro 
-        public TabuleiroJogoDaVelha(object[,] matrizTabuleiro, int tamanho) : base(matrizTabuleiro, tamanho)
+        public TabuleiroJogoDaVelha(string[,] matrizTabuleiro, int tamanho) : base(matrizTabuleiro, tamanho)
         {
             TabuleiroMatriz = matrizTabuleiro;
             Tamanho = (tamanho + 1) / 2;
@@ -83,8 +80,8 @@ namespace HubDeJogos.JogoDaVelha.Models
             {
                 for (int j = 0; j < Tamanho; j++)
                 {
-                    string stringAux = TabuleiroMatriz[i, j] as string;
-                    if (int.TryParse(stringAux, out int n))
+                    
+                    if (int.TryParse(TabuleiroMatriz[i, j], out int n))
                         TabuleiroMatriz[i, j] = "   ";
                 }
             }

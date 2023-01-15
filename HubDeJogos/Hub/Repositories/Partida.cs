@@ -1,4 +1,5 @@
-﻿using HubDeJogos.Models;
+﻿using HubDeJogos.Hub.Models.Interfaces;
+using HubDeJogos.Models;
 using HubDeJogos.Models.Enums;
 using Newtonsoft.Json;
 using System.Text;
@@ -21,7 +22,7 @@ namespace HubDeJogos.Repositories
             Jogo = jogo;
             NomeJogadorGanhou = nomeJogadorGanhou;
             NomeJogadorPerdeu = nomeJogadorPerdeu;
-            Resultado = resultado;
+            Resultado = resultado;      
             Tabuleiro = tabuleiro;
         }
 

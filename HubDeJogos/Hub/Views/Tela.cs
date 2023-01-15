@@ -123,6 +123,7 @@ namespace HubDeJogos.Views
             Console.WriteLine(_jogos + "\n\n");
             Console.WriteLine("1- Jogo da Velha");
             Console.WriteLine("2- Xadrez");
+            Console.WriteLine("3- Tutorial do Xadrez");
             Console.WriteLine("0- Voltar");
             Console.Write("\nDigite a opção desejada: ");
         }

@@ -60,7 +60,7 @@ namespace HubDeJogos.Controllers
                         NovoJogoDaVelha();
                         break;
                     case "2":
-
+                        NovoJogoDeXadrez();
                         break;
                     default:
                         Console.WriteLine("Opção não encontrada.");
@@ -74,8 +74,11 @@ namespace HubDeJogos.Controllers
              new JogoDaVelha.Services.JogoDaVelha(_jogador1, _jogador2);
             _hub.PassarListaDeJogadoresParaRepositorio();
         }
-
-    private void HistoricoDosJogadores()
+    private void NovoJogoDeXadrez()
+        {
+            new Xadrez.Services.Xadrez(_jogador1, _jogador2);
+        }
+        private void HistoricoDosJogadores()
         {
             string opcao;
             do
