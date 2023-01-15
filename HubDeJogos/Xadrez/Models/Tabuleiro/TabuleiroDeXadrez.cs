@@ -7,74 +7,88 @@ namespace HubDeJogos.Xadrez.Models.Tabuleiro
     {
         public int Linhas { get; set; }
         public int Colunas { get; set; }
-        private Peca[,] Pecas;
+        private readonly Peca[,] _pecas;
 
         public TabuleiroDeXadrez(int tamanho)
         {
             Tamanho = tamanho;
             Linhas = tamanho;
             Colunas = tamanho;
-            Pecas = new Peca[Linhas, Colunas];           
+            _pecas = new Peca[Linhas, Colunas];
+            TabuleiroMatriz = new string[Tamanho, Tamanho];
         }
 
-        public Peca peca(int linha, int coluna)
+        public Peca Peca(int linha, int coluna)
         {
-            return Pecas[linha, coluna];
+            return _pecas[linha, coluna];
         }
 
-        public Peca peca(Posicao pos)
+        public Peca Peca(Posicao pos)
         {
-            return Pecas[pos.Linha, pos.Coluna];
+            return _pecas[pos.Linha, pos.Coluna];
         }
 
-        public bool existePeca(Posicao pos)
+        public bool ExistePeca(Posicao pos)
         {
-            validarPosicao(pos);
-            return peca(pos) != null;
+            ValidarPosicao(pos);
+            return Peca(pos) != null;
         }
-        public void colocarPeca(Peca p, Posicao pos)
+        public void ColocarPeca(Peca p, Posicao pos)
         {
-            if (existePeca(pos))
+            if (ExistePeca(pos))
                 throw new TabuleiroException("Já existe uma peça nessa posição!");
 
-            Pecas[pos.Linha, pos.Coluna] = p;
+            _pecas[pos.Linha, pos.Coluna] = p;
             p.Posicao = pos;
         }
 
-        public Peca retirarPeca(Posicao pos)
+        public Peca RetirarPeca(Posicao pos)
         {
-            if (peca(pos) == null)
+            if (Peca(pos) == null)
                 return null;
-            Peca aux = peca(pos);
+            Peca aux = Peca(pos);
             aux.Posicao = null;
-            Pecas[pos.Linha, pos.Coluna] = null;
+            _pecas[pos.Linha, pos.Coluna] = null;
             return aux;
 
         }
 
-        public bool posicaoValida(Posicao pos)
+        public bool PosicaoValida(Posicao pos)
         {
             if (pos.Linha < 0 || pos.Linha >= Linhas) return false;
             if (pos.Coluna < 0 || pos.Coluna >= Colunas) return false;
             return true;
         }
-        public void validarPosicao(Posicao pos)
+        public void ValidarPosicao(Posicao pos)
         {
-            if (!posicaoValida(pos))
+            if (!PosicaoValida(pos))
                 throw new TabuleiroException("Posição inválida!");
         }
 
         public void AlterarTabuleiroMatrizParaRegistro()
         {
-            TabuleiroMatriz = new string[Tamanho,Tamanho];
-
-            for (int i=0; i<Tamanho; i++)
+            //for (int i=0; i<Tamanho; i++)
+            //{
+            //    for(int j=0; j<Tamanho; i++)
+            //    {
+            //        if (_pecas[i, j] != null)
+            //            TabuleiroMatriz[i, j] = _pecas[i, j].ToString() + " ";
+            //        else
+            //            TabuleiroMatriz[i, j] = "-";
+            //    }
+            //}
+            for(int i=0; i<_pecas.GetLength(1); i++) 
             {
-                for(int j=0; j<Tamanho; i++)
+                for(int j=0; j<_pecas.GetLength(0); j++)
                 {
-                    TabuleiroMatriz[i,j] = Pecas[i,j].ToString();
+                    if (_pecas[i,j] != null)
+                       TabuleiroMatriz[i,j] = _pecas[i,j].ToString() + " ";
+                    else
+                        TabuleiroMatriz[i, j] = "- ";
                 }
-            }           
+                Console.WriteLine();
+            }
+           
         }
     }
 

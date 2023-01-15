@@ -11,7 +11,7 @@ public class Posicao
        Coluna= coluna;
     }
 
-    public void definirValores(int linha, int coluna)
+    public void DefinirValores(int linha, int coluna)
     {
         Linha = linha;
         Coluna = coluna;

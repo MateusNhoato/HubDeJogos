@@ -13,48 +13,48 @@ namespace HubDeJogos.Xadrez.Models.Pecas
         }
 
 
-        private bool podeMover(Posicao pos)
+        private bool PodeMover(Posicao pos)
         {
-            Peca p = Tab.peca(pos);
+            Peca p = Tab.Peca(pos);
             return p == null || p.Cor != Cor;
         }
 
-        public override bool[,] movimentosPossiveis()
+        public override bool[,] MovimentosPossiveis()
         {
             bool[,] matriz = new bool[Tab.Linhas, Tab.Colunas];
 
             Posicao pos = new Posicao(0, 0);
 
-            pos.definirValores(Posicao.Linha - 1, Posicao.Coluna - 2);
-            if(Tab.posicaoValida(pos) && podeMover(pos))
+            pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 2);
+            if(Tab.PosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
-            pos.definirValores(Posicao.Linha - 2, Posicao.Coluna - 1);
-            if (Tab.posicaoValida(pos) && podeMover(pos))
+            pos.DefinirValores(Posicao.Linha - 2, Posicao.Coluna - 1);
+            if (Tab.PosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
-            pos.definirValores(Posicao.Linha - 2, Posicao.Coluna + 1);
-            if (Tab.posicaoValida(pos) && podeMover(pos))
+            pos.DefinirValores(Posicao.Linha - 2, Posicao.Coluna + 1);
+            if (Tab.PosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
-            pos.definirValores(Posicao.Linha - 1, Posicao.Coluna + 2);
-            if (Tab.posicaoValida(pos) && podeMover(pos))
+            pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 2);
+            if (Tab.PosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
-            pos.definirValores(Posicao.Linha + 1, Posicao.Coluna + 2);
-            if (Tab.posicaoValida(pos) && podeMover(pos))
+            pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna + 2);
+            if (Tab.PosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
-            pos.definirValores(Posicao.Linha + 2, Posicao.Coluna + 1);
-            if (Tab.posicaoValida(pos) && podeMover(pos))
+            pos.DefinirValores(Posicao.Linha + 2, Posicao.Coluna + 1);
+            if (Tab.PosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
-            pos.definirValores(Posicao.Linha + 2, Posicao.Coluna - 1);
-            if (Tab.posicaoValida(pos) && podeMover(pos))
+            pos.DefinirValores(Posicao.Linha + 2, Posicao.Coluna - 1);
+            if (Tab.PosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
-            pos.definirValores(Posicao.Linha + 1, Posicao.Coluna - 2);
-            if (Tab.posicaoValida(pos) && podeMover(pos))
+            pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 2);
+            if (Tab.PosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
             return matriz;

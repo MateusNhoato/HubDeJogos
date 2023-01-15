@@ -20,9 +20,9 @@ namespace HubDeJogos.Xadrez.Models.Pecas
             QteMovimentos= 0;
         }
 
-        public bool existeMovimentosPossiveis()
+        public bool ExisteMovimentosPossiveis()
         {
-            bool[,] matriz = movimentosPossiveis();
+            bool[,] matriz = MovimentosPossiveis();
             for(int i=0; i< Tab.Linhas; i++)
             {
                 for(int j=0; j < Tab.Colunas; j++)
@@ -34,16 +34,16 @@ namespace HubDeJogos.Xadrez.Models.Pecas
             return false;
         }
 
-        public void incrementarQteMovimentos() => QteMovimentos++;
+        public void IncrementarQteMovimentos() => QteMovimentos++;
        
 
-        public void decrementarQteMovimentos() => QteMovimentos--;
+        public void DecrementarQteMovimentos() => QteMovimentos--;
         
-        public bool movimentoPossivel(Posicao pos)
+        public bool MovimentoPossivel(Posicao pos)
         {
-            return movimentosPossiveis()[pos.Linha, pos.Coluna];
+            return MovimentosPossiveis()[pos.Linha, pos.Coluna];
         }
-        public abstract bool[,] movimentosPossiveis();
+        public abstract bool[,] MovimentosPossiveis();
         
     }
 }
