@@ -11,21 +11,19 @@ namespace HubDeJogos.JogoDaVelha.Services
 {
     public class JogoDaVelha
     {
-        private readonly Tela _tela = new Tela();
+        private readonly Tela _tela = new();
         private readonly Jogador _jogador1;
         private readonly Jogador _jogador2;
-        private readonly Partida _partidaJogador1;
-        private readonly Partida _partidaJogador2;
-      
+
+
         public JogoDaVelha(Jogador jogador1, Jogador jogador2)
         {
             _jogador1 = jogador1;
             _jogador2 = jogador2;
-            _partidaJogador1 = new Partida(Jogo.JogoDaVelha, jogador1.NomeDeUsuario, jogador2.NomeDeUsuario);
-            _partidaJogador2 = new Partida(Jogo.JogoDaVelha, jogador2.NomeDeUsuario, jogador1.NomeDeUsuario);
+
             Jogar();
         }
-        
+
         // função de jogada de cada jogador
         private void Jogada(string posicaoDaJogada, string simbolo, TabuleiroJogoDaVelha tabuleiro)
         {
@@ -105,46 +103,39 @@ namespace HubDeJogos.JogoDaVelha.Services
                 else
                 {
                     _tela.ImprimirTabuleiro(tabuleiro);
-
+                    Resultado resultado = Resultado.Empate;
+                    string jogadorGanhou = _jogador1.NomeDeUsuario;
+                    string jogadorPerdeu = _jogador2.NomeDeUsuario;
                     // CheckarVitoriaOuVelha retornou velha 
-                    // alterando o resultado para empate e adicionando a partida nos históricos
                     if (vencedor == "Velha")
-                    {
                         Console.WriteLine("\nDeu velha. Empate.");
-                        
-                        _partidaJogador1.Resultado = Resultado.Empate;
-                        _partidaJogador2.Resultado = Resultado.Empate;
-                    }
+
                     // retornou algo que não é null e nem velha, logo teve um vencedor (x ou o)
                     else
                     {
+                        resultado = Resultado.Decisivo;
                         Console.WriteLine($"\nVencedor: {jogador.NomeDeUsuario} ({vencedor}).");
 
-                        // alterando os resultados da partida para adicionar nos históricos respectivos
-                        if (jogador.Equals(_jogador1))
+                        // alterando o vencedor/perdedor
+                        if (jogador.Equals(_jogador2))
                         {
-                            _partidaJogador1.Resultado = Resultado.Vitoria;
-                            _partidaJogador2.Resultado = Resultado.Derrota;
+                            jogadorGanhou = _jogador2.NomeDeUsuario;
+                            jogadorPerdeu = _jogador1.NomeDeUsuario;
                         }
-                        else
-                        {
-                            _partidaJogador2.Resultado = Resultado.Vitoria;
-                            _partidaJogador1.Resultado = Resultado.Derrota;
-                        }   
                     }
-                //colocando o tabuleiro na partida
-                _partidaJogador1.Tabuleiro= tabuleiro;
-                _partidaJogador2.Tabuleiro= tabuleiro;
+                    // alterando o tabuleiro para registrá-lo
+                    tabuleiro.AlterarTabuleiroMatrizParaRegistro();
+                    Partida partida = new Partida(Jogo.JogoDaVelha, jogadorGanhou, jogadorPerdeu, resultado, tabuleiro);
 
-                //adicionando a partida no histórico de partidas
-                Partidas.HistoricoDePartidas.Add(_partidaJogador1);
-                Partidas.SalvarPartidas();
-                
-                //adicionando a partida nos históricos dos jogadores
-                _jogador1.HistoricoDePartidas.Add(_partidaJogador1);
-                _jogador2.HistoricoDePartidas.Add(_partidaJogador2);
-                Utilidades.Utilidades.AperteEnterParaContinuar();
-                break;
+                    //adicionando a partida no histórico de partidas
+                    Partidas.HistoricoDePartidas.Add(partida);
+                    Partidas.SalvarPartidas();
+
+                    //adicionando a partida nos históricos dos jogadores
+                    _jogador1.HistoricoDePartidas.Add(partida);
+                    _jogador2.HistoricoDePartidas.Add(partida);
+                    Utilidades.Utilidades.AperteEnterParaContinuar();
+                    break;
                 }
             }
         }
@@ -230,10 +221,9 @@ namespace HubDeJogos.JogoDaVelha.Services
             if (tabuleiro.JogadasPossiveis.Count == 0)
                 return "Velha";
 
-
             // caso ninguém ganhou e não deu velha
             return null;
         }
-        
+
     }
 }

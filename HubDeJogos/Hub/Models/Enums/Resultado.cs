@@ -2,8 +2,7 @@
 {
     public enum Resultado
     {
-        Vitoria,
-        Derrota,
+        Decisivo,
         Empate 
 
     }

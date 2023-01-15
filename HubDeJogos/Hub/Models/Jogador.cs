@@ -31,14 +31,18 @@ namespace HubDeJogos.Models
             
             foreach(Partida partida in HistoricoDePartidas) 
             {
-                if(partida.Jogo == jogo)
+                if(partida.Jogo.Equals(jogo))
                 {
-                    if (partida.Resultado == Resultado.Vitoria)
-                        pontuacao += 3;
-                    else if (partida.Resultado == Resultado.Empate)
-                        pontuacao++;
+                    if (partida.Resultado != Resultado.Empate)
+                    {
+                        // se não foi empate vejo o nome de quem ganhou para confiar o vitorioso
+                        if (partida.NomeJogadorGanhou.Equals(NomeDeUsuario))
+                            pontuacao += 3;
+                        else
+                            pontuacao--;                        
+                    }
                     else
-                        pontuacao--;
+                        pontuacao++;
                 }
             }
             return pontuacao;
@@ -55,6 +59,11 @@ namespace HubDeJogos.Models
         public override string ToString()
         {
             return $"{NomeDeUsuario} | Pontuação Jogo da Velha [{GetPontuacao(Jogo.JogoDaVelha)}] | Pontuação Xadrez [{GetPontuacao(Jogo.Xadrez)}] | Total [{GetPontuacao(Jogo.JogoDaVelha) + GetPontuacao(Jogo.Xadrez)}]";
+        }
+
+        public override int GetHashCode()
+        {
+            return NomeDeUsuario.GetHashCode() + Senha.GetHashCode();
         }
     }
 }

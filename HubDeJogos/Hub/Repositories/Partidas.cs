@@ -6,14 +6,15 @@ namespace HubDeJogos.Hub.Repositories
     public static class Partidas
     {
         private static string _path = @"..\..\..\Hub\Repositories\Data\RegistroDePartidas.Json";
-        public static List<Partida> HistoricoDePartidas { get; private set; } = new List<Partida>();    
+        public static List<Partida> HistoricoDePartidas { get; private set; } = new();
 
         public static void CarregarPartidas()
         {
             try
             {
                 string stringJson = File.ReadAllText(_path);
-                HistoricoDePartidas = JsonConvert.DeserializeObject<List<Partida>>(stringJson);
+                if(!(string.IsNullOrEmpty(stringJson)))
+                    HistoricoDePartidas = JsonConvert.DeserializeObject<List<Partida>>(stringJson);
             }
             catch (FileNotFoundException)
             {

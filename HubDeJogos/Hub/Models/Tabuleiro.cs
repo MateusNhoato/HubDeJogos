@@ -6,27 +6,29 @@ namespace HubDeJogos.Models
     
     public class Tabuleiro
     {
-        public virtual object[,] TabuleiroMatriz { get; protected set; }
+        public virtual object[,]? TabuleiroMatriz { get; protected set; }
         public virtual int Tamanho { get; protected set; }
         
-
         public Tabuleiro() { }
-
-        [JsonConstructor]
-        public Tabuleiro(object[,] tabuleiroMatriz, int tamanho)
+        public Tabuleiro(int tamanho) 
         {
-            TabuleiroMatriz = tabuleiroMatriz;
             Tamanho = tamanho;
         }
 
-        public virtual string TabuleiroParaImpressao()
+        [JsonConstructor]
+        public Tabuleiro(object[,] tabuleiroMatriz, int tamanho) : this (tamanho)
+        {
+            TabuleiroMatriz = tabuleiroMatriz;
+        }
+        
+        public string TabuleiroParaImpressao()
         {
             string tabuleiroParaImpressao = string.Empty;
             for(int i=0; i<Tamanho; i++) 
             {
                 for(int j=0; j<Tamanho; j++)
                 {
-                    tabuleiroParaImpressao += $"{TabuleiroMatriz[i, j].ToString()};";
+                    tabuleiroParaImpressao += $"{TabuleiroMatriz[i, j]};";
                 }
             }
             return tabuleiroParaImpressao;

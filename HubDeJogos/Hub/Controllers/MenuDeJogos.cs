@@ -23,7 +23,7 @@ namespace HubDeJogos.Controllers
 
         public void Menu()
         {
-            string opcao;
+            string? opcao;
             do
             {
                 _tela.ImprimirMenuDeJogos();

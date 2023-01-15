@@ -83,7 +83,7 @@ namespace HubDeJogos.Views
         {
             Console.Clear();
             Console.WriteLine(_entrar + "\n");
-            Console.WriteLine("Para começar a jogar, ambos os jogadores  precisam estar logados.\n\n");
+            Console.WriteLine("Para começar a jogar, é necessário que dois jogadores estejam logados.\n\n");
         }
         public void ImprimirRegistrar()
         {
@@ -132,7 +132,7 @@ namespace HubDeJogos.Views
             Console.Clear();
             Console.WriteLine(_historico + "\n");
             if(nomeDoJogador!= null)
-                Console.WriteLine($"Histórico de {nomeDoJogador}:\n");
+                Console.WriteLine($"Histórico de {nomeDoJogador}:\n");            
         }
         public void ImprimirHistoricoMenu(string nomeDoJogador1, string nomeDoJogador2)
         {

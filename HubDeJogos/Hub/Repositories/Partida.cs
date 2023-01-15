@@ -11,24 +11,24 @@ namespace HubDeJogos.Repositories
         public Jogo Jogo { get; private set; }
        
         public Resultado Resultado { get; set; }
-        public string Jogador { get; set; }
-        public string Oponente { get; set; }
+        public string NomeJogadorGanhou { get; set; }
+        public string NomeJogadorPerdeu { get; set; }
         public Tabuleiro Tabuleiro { get; set; }
        
-        public Partida(Jogo jogo, string jogador, string oponente)
+        public Partida(Jogo jogo, string nomeJogadorGanhou, string nomeJogadorPerdeu, Resultado resultado, Tabuleiro tabuleiro)
         {
             DateTime = DateTime.Now;
             Jogo = jogo;
-            Jogador = jogador;
-            Oponente = oponente;
+            NomeJogadorGanhou = nomeJogadorGanhou;
+            NomeJogadorPerdeu = nomeJogadorPerdeu;
+            Resultado = resultado;
+            Tabuleiro = tabuleiro;
         }
 
         [JsonConstructor]
-        public Partida(DateTime dateTime, Jogo jogo, string jogador , string oponente, Resultado resultado, Tabuleiro tabuleiro) : this(jogo, jogador, oponente)
+        public Partida(DateTime dateTime, Jogo jogo, string nomeJogadorGanhou , string nomeJogadorPerdeu, Resultado resultado, Tabuleiro tabuleiro) : this(jogo, nomeJogadorGanhou, nomeJogadorPerdeu, resultado, tabuleiro)
         {
-            DateTime = dateTime;
-            Resultado = resultado;
-            Tabuleiro = tabuleiro;
+            DateTime = dateTime;            
         }
 
 
@@ -40,9 +40,8 @@ namespace HubDeJogos.Repositories
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"{Utilidades.Utilidades.Linha}\n");
             sb.AppendLine($"Partida de {Jogo} | {dateTime}\n");
-            sb.AppendLine($"{Jogador} contra {Oponente}\n");
+            sb.AppendLine($"{NomeJogadorGanhou} VS {NomeJogadorPerdeu}\n");
             
-
             for(int i = 0; i< Tabuleiro.Tamanho; i++)
             {
                 for(int j=0; j<Tabuleiro.Tamanho; j++)
@@ -55,7 +54,7 @@ namespace HubDeJogos.Repositories
             if(Resultado == Resultado.Empate)
                 sb.AppendLine($"Resultado: {Resultado}\n");
             else
-                sb.AppendLine($"Resultado: {Resultado} de {Jogador}\n");
+                sb.AppendLine($"Vencedor: {NomeJogadorGanhou}\n");
 
 
             return sb.ToString();

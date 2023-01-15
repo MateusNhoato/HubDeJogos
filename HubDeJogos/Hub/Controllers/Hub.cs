@@ -158,10 +158,17 @@ namespace HubDeJogos.Controllers
 
         private void RankingDosJogadores()
         {
+            //Ordenando o ranking por ordem de pontuação, como critério de desempate
+            //temos quem ganhou mais vezes e depois quem perdeu menos
             var jogadores = _jogadores
-                .OrderByDescending(j => j.GetPontuacao(Jogo.JogoDaVelha) + j.GetPontuacao(Jogo.Xadrez))
-                .ThenBy(j => j.HistoricoDePartidas.Count(p => p.Resultado.Equals(Resultado.Vitoria)))
-                .ThenByDescending(j => j.HistoricoDePartidas.Count(p => p.Resultado.Equals(Resultado.Derrota)))
+                .OrderByDescending(j => j.GetPontuacao(Jogo.JogoDaVelha) +
+                j.GetPontuacao(Jogo.Xadrez))
+                .ThenBy(j => j.HistoricoDePartidas.Count(p => 
+                p.Resultado.Equals(Resultado.Decisivo) && 
+                p.NomeJogadorGanhou.Equals(j.NomeDeUsuario)))
+                .ThenByDescending(j => j.HistoricoDePartidas.Count(p =>
+                p.Resultado.Equals(Resultado.Decisivo) && 
+                p.NomeJogadorPerdeu.Equals(j.NomeDeUsuario)))
                 .ToList();
 
             _tela.ImprimirRanking();
@@ -201,7 +208,10 @@ namespace HubDeJogos.Controllers
 
                 if (!(string.IsNullOrEmpty(senha)))
                 {
-                    jogador = _jogadores.Find(j => j.NomeDeUsuario.Equals(nomeDeUsuario) && j.Senha.Equals(senha.ToUpper()));                                      
+                    jogador = _jogadores.Find(j => 
+                    j.NomeDeUsuario.ToLower()
+                    .Equals(nomeDeUsuario.ToLower()) && 
+                    j.Senha.ToUpper().Equals(senha.ToUpper()));                                      
                 }
 
             }
@@ -249,10 +259,14 @@ namespace HubDeJogos.Controllers
         private void HistoricoDePartidas()
         {
             _tela.ImprimirHistoricoMenu(null);
-            foreach(Partida partida in Partidas.HistoricoDePartidas)
-            {
-                Console.WriteLine(partida);
-            }
+            if(Partidas.HistoricoDePartidas.Count > 0)           
+                foreach (Partida partida in Partidas.HistoricoDePartidas)
+                    Console.WriteLine(partida);
+            
+            else
+                Console.WriteLine("Nenhuma partida foi registrada até o momento.");
+            
+            
             Utilidades.Utilidades.AperteEnterParaContinuar();
         }
 

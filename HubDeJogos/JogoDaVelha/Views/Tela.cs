@@ -18,7 +18,7 @@ namespace HubDeJogos.JogoDaVelha.Views
                     string stringAux = tabuleiro.TabuleiroMatriz[i, j] as string;
 
                     if (stringAux.Trim() == "X")
-                        Console.ForegroundColor = ConsoleColor.DarkBlue;
+                        Console.ForegroundColor = ConsoleColor.White;
                     else if (stringAux.Trim() == "O")
                         Console.ForegroundColor = ConsoleColor.DarkRed;
 

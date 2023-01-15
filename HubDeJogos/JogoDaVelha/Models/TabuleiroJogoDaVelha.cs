@@ -1,10 +1,10 @@
 ﻿using HubDeJogos.Models;
+using HubDeJogos.Hub.Models.Interfaces;
 
 namespace HubDeJogos.JogoDaVelha.Models
 {
-    public class TabuleiroJogoDaVelha : Tabuleiro
+    public class TabuleiroJogoDaVelha : Tabuleiro, IAlteraTabuleiro
     {
-        public override object[,] TabuleiroMatriz { get; protected set; }
         public List<string>? JogadasPossiveis { get; protected set; }
         public override int Tamanho { get; protected set; }
    
@@ -77,22 +77,18 @@ namespace HubDeJogos.JogoDaVelha.Models
             return jogadasPossiveis;
         }
 
-        public override string TabuleiroParaImpressao()
+        public void AlterarTabuleiroMatrizParaRegistro()
         {
-            string tabuleiroParaImpressao = string.Empty;
-
             for (int i = 0; i < Tamanho; i++)
             {
                 for (int j = 0; j < Tamanho; j++)
                 {
                     string stringAux = TabuleiroMatriz[i, j] as string;
                     if (int.TryParse(stringAux, out int n))
-                        tabuleiroParaImpressao += "   ;";
-                    else
-                        tabuleiroParaImpressao += $"{TabuleiroMatriz[i, j]};";
+                        TabuleiroMatriz[i, j] = "   ";
                 }
             }
-            return tabuleiroParaImpressao;
+
         }
 
 
