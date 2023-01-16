@@ -68,8 +68,15 @@ namespace HubDeJogos.Views
   |       ||   | |_____  |  |   |  |  |_|  ||    __  ||   | |      _||  |_|  |
   |   _   ||   |  _____| |  |   |  |       ||   |  | ||   | |     |_ |       |
   |__| |__||___| |_______|  |___|  |_______||___|  |_||___| |_______||_______|";
-  
-        #region Jogador
+        private readonly static string _tutorial = @"
+   _______  __   __  _______  _______  ______    ___   _______  ___     
+  |       ||  | |  ||       ||       ||    _ |  |   | |   _   ||   |    
+  |_     _||  | |  ||_     _||   _   ||   | ||  |   | |  |_|  ||   |    
+    |   |  |  |_|  |  |   |  |  | |  ||   |_||_ |   | |       ||   |    
+    |   |  |       |  |   |  |  |_|  ||    __  ||   | |       ||   |___ 
+    |   |  |       |  |   |  |       ||   |  | ||   | |   _   ||       |
+    |___|  |_______|  |___|  |_______||___|  |_||___| |__| |__||_______|";
+        #region Partida
         public void ImprimirPartida(Partida partida)
         {
             DateTime dateTime = new DateTime(partida.DateTime.Year, partida.DateTime.Month, partida.DateTime.Day, partida.DateTime.Hour,    partida.DateTime.Minute, 0, partida.DateTime.Kind);
@@ -147,7 +154,8 @@ namespace HubDeJogos.Views
             Console.Clear();
             Console.WriteLine(_jogos + "\n\n");
             Console.WriteLine("  1- Jogar");
-            Console.WriteLine("  2- Histórico Dos Jogadores");
+            Console.WriteLine("  2- Histórico dos Jogadores");
+            Console.WriteLine("  3- Tutorial dos Jogos");
             Console.WriteLine("  0- Voltar");
             Console.Write("\n  Digite a opção desejada: ");
         }
@@ -158,7 +166,6 @@ namespace HubDeJogos.Views
             Console.WriteLine(_jogos + "\n\n");
             Console.WriteLine("  1- Jogo da Velha");
             Console.WriteLine("  2- Xadrez");
-            Console.WriteLine("  3- Tutorial do Xadrez");
             Console.WriteLine("  0- Voltar");
             Console.Write("\n  Digite a opção desejada: ");
         }
@@ -177,8 +184,19 @@ namespace HubDeJogos.Views
             Console.WriteLine($"  1- Histórico De {nomeDoJogador1}");
             Console.WriteLine($"  2- Histórico De {nomeDoJogador2}");
             Console.WriteLine("  0- Voltar");
-            Console.Write("\nDigite a opção desejada: ");
+            Console.Write("\n  Digite a opção desejada: ");
         }
+        public void ImprimirTutorial()
+        {
+            Console.Clear();
+            Console.WriteLine(_tutorial + "\n\n");
+            Console.WriteLine($"  1- Tutorial de Jogo da Velha");
+            Console.WriteLine($"  2- Tutorial de Xadrez");
+            Console.WriteLine("  0- Voltar");
+            Console.Write("\n  Digite a opção desejada: ");
+        }
+    
+
         #endregion
 
         #region Jogador

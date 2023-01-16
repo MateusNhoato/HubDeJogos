@@ -13,10 +13,10 @@ namespace HubDeJogos.Xadrez.Views
             ImprimirTabuleiro(partida.Tabuleiro);
 
             ConsoleColor aux = Console.ForegroundColor;
-            ConsoleColor cor = (partida.CorAtual == Cor.Branca) ? ConsoleColor.White : ConsoleColor.Black;
+            ConsoleColor cor = (partida.CorAtual == Cor.Brancas) ? ConsoleColor.White : ConsoleColor.Black;
             ImprimirPecasCapturadas(partida);
 
-            string nomeJogador = (partida.CorAtual == Cor.Branca) ? partida.Jogador1.NomeDeUsuario : partida.Jogador2.NomeDeUsuario;
+            string nomeJogador = (partida.CorAtual == Cor.Brancas) ? partida.Jogador1.NomeDeUsuario : partida.Jogador2.NomeDeUsuario;
 
 
             Console.ForegroundColor = cor;
@@ -40,7 +40,7 @@ namespace HubDeJogos.Xadrez.Views
                 {
                     if (!partida.Render)
                         Console.WriteLine("  XEQUEMATE!");
-                    Console.WriteLine("  Vencedor: " + partida.CorAtual);
+                    Console.WriteLine($"  Vencedor: {nomeJogador}({partida.CorAtual})");
                 }
             }
             Console.ForegroundColor = aux;
@@ -52,10 +52,10 @@ namespace HubDeJogos.Xadrez.Views
             Console.WriteLine("\n  Peças capturadas:");
 
             Console.ForegroundColor = ConsoleColor.White;
-            ImprimirConjunto(partida.PecasCapturadas(Cor.Branca));
+            ImprimirConjunto(partida.PecasCapturadas(Cor.Brancas));
 
             Console.ForegroundColor = ConsoleColor.Black;
-            ImprimirConjunto(partida.PecasCapturadas(Cor.Preta));
+            ImprimirConjunto(partida.PecasCapturadas(Cor.Pretas));
 
             Console.ForegroundColor = aux;
         }
@@ -216,7 +216,7 @@ namespace HubDeJogos.Xadrez.Views
                 Console.Write("   ");
             else
             {
-                if (peca.Cor == Cor.Branca)
+                if (peca.Cor == Cor.Brancas)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.Write($" {peca} ");

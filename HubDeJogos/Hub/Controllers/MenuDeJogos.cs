@@ -39,6 +39,9 @@ namespace HubDeJogos.Controllers
                     case "2":
                         HistoricoDosJogadores();
                         break;
+                    case "3":
+                        Tutoriais();
+                        break;
                     default:
                         Console.WriteLine("  Opção não encontrada.");
                         break;
@@ -72,7 +75,33 @@ namespace HubDeJogos.Controllers
             } while (opcao != "0");
         }
 
-    private void NovoJogoDaVelha()
+    private void Tutoriais()
+        {           
+            string opcao;
+            do
+            {
+                _tela.ImprimirTutorial();
+                opcao = Console.ReadLine();
+                switch (opcao)
+                {
+                    case "0":
+                        break;
+                    case "1":
+                        break;
+                    case "2":
+                        NovoJogoDeXadrez(true);
+                        break;
+                    
+                        break;
+                    default:
+                        Console.WriteLine("  Opção não encontrada.");
+                        break;
+                }
+            } while (opcao != "0");
+
+
+        }
+        private void NovoJogoDaVelha()
         {
              new JogoDaVelha.Services.JogoDaVelha(_jogador1, _jogador2);
             _hub.PassarListaDeJogadoresParaRepositorio();

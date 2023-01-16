@@ -73,7 +73,7 @@ namespace HubDeJogos.Xadrez.Models.Tabuleiro
                 {
                     if (_pecas[i,j] != null)
                     {
-                        if (_pecas[i,j].Cor == Enums.Cor.Branca)
+                        if (_pecas[i,j].Cor == Enums.Cor.Brancas)
                                 TabuleiroMatriz[i, j] = $"x{_pecas[i, j]} ";
                         else
                             TabuleiroMatriz[i, j] = $" {_pecas[i, j]} ";

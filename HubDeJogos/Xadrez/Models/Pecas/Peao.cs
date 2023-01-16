@@ -34,7 +34,7 @@ namespace HubDeJogos.Xadrez.Models.Pecas
 
             Posicao pos = new Posicao(0, 0);
 
-            if( Cor == Cor.Branca)
+            if( Cor == Cor.Brancas)
             {
                 pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
                 if(Tab.PosicaoValida(pos) && Livre(pos))

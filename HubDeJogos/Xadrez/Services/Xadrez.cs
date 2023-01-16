@@ -9,6 +9,7 @@ using HubDeJogos.Models.Enums;
 using HubDeJogos.Hub.Repositories;
 using System.Text.RegularExpressions;
 
+
 namespace HubDeJogos.Xadrez.Services;
 
 public class Xadrez
@@ -32,7 +33,7 @@ public class Xadrez
     {
         Tabuleiro = new TabuleiroDeXadrez(8);
         Turno = 1;
-        CorAtual = Cor.Branca;
+        CorAtual = Cor.Brancas;
         Terminada = false;
         VulneravelEnPassant = null;
         _pecas = new HashSet<Peca>();
@@ -43,7 +44,11 @@ public class Xadrez
         ColocarPecas();
 
         if (tutorial)
+        {
+            Jogador1 = new Jogador("Fulano", "");
+            Jogador2 = new Jogador("Beltrano", "");
             Tutorial();
+        }
         else
             Jogar();
     }
@@ -51,20 +56,60 @@ public class Xadrez
 
     public void Tutorial()
     {
-        string[] explicacoes = new string[5]
-        {
-            "",
-            "",
-            "",
-            "",
-            ""
-        };
+        
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 4; i++)
         {
             Console.Clear();
-            _tela.ImprimirPartida(this);
-            Console.WriteLine(explicacoes[i]);
+            Console.WriteLine(Utilidades.Utilidades.explicacoesXadrez[i]);
+            Utilidades.Utilidades.AperteEnterParaContinuar();
+
+            if (i == 0)
+            {
+                _tela.ImprimirTabuleiro(new TabuleiroDeXadrez(8), new bool[8, 8]);
+            }
+            else if (i == 1)
+            {
+                _tela.ImprimirPartida(this);
+                Console.WriteLine("  Jogada: a2");
+                Utilidades.Utilidades.AperteEnterParaContinuar();
+
+                Posicao origem = _tela.LerPosicaoXadrez("a2").toPosicao();
+                ValidarPosicaoDeOrigem(origem);
+                bool[,] posicoesPossiveis = Tabuleiro.Peca(origem).MovimentosPossiveis();
+                Console.Clear();
+                _tela.ImprimirTabuleiro(Tabuleiro, posicoesPossiveis);
+                Console.WriteLine("\n  A peça selecionada foi o Peão Branco na 'a2', logo o destaque aparece\n" +
+                                  "  nas posições 'a3' e 'a4', que são os movimentos disponíveis para ele.\n" +
+                                  "  Vamos mover o peão para 'a4'.");
+                Utilidades.Utilidades.AperteEnterParaContinuar();
+
+                Posicao destino = _tela.LerPosicaoXadrez("a4").toPosicao();
+                ValidarPosicaoDeDestino(origem, destino);
+
+
+                RealizaJogada(origem, destino);
+                _tela.ImprimirPartida(this);
+            }
+            else if (i == 2)
+            {
+                _tela.ImprimirPartida(this);
+                Console.WriteLine("  Jogada: render");
+                Utilidades.Utilidades.AperteEnterParaContinuar();
+                Terminada = true;
+                Render = true;
+                MudaJogador();
+                _tela.ImprimirPartida(this);
+                Console.WriteLine("\n\n  Beltrano(Pretas) se rendeu, logo quem ganhou foi Fulano(Brancas)!");
+            }
+            else
+            {
+                Console.WriteLine("\n  Peças:");
+                Console.WriteLine(Utilidades.Utilidades.arteFinalTutorialXadrez);
+            }
+            
+            Utilidades.Utilidades.AperteEnterParaContinuar();
+
         }
 
 
@@ -97,7 +142,7 @@ public class Xadrez
                     else if (jogada == "empate")
                     {
                         string nomeDoJogador =
-                            (CorAtual == Cor.Branca) ? Jogador1.NomeDeUsuario : Jogador2.NomeDeUsuario;
+                            (CorAtual == Cor.Brancas) ? Jogador1.NomeDeUsuario : Jogador2.NomeDeUsuario;
                         Cor cor = CorAtual;
                         // mudando de jogador para ver se o outro jogador concorda com o empate
                         MudaJogador();
@@ -113,10 +158,10 @@ public class Xadrez
                             Empate = true;
                             break;
                         }
-                        else                   
+                        else
                             MudaJogador();
 
-                        
+
                     }
                 } while (!rg.IsMatch(jogada));
 
@@ -158,7 +203,7 @@ public class Xadrez
         string perdedor = Jogador2.NomeDeUsuario;
         Resultado resultado = Resultado.Decisivo;
 
-        if (CorAtual is Cor.Preta)
+        if (CorAtual is Cor.Pretas)
         {
             vencedor = Jogador2.NomeDeUsuario;
             perdedor = Jogador1.NomeDeUsuario;
@@ -177,7 +222,7 @@ public class Xadrez
         Jogador1.HistoricoDePartidas.Add(partida);
         Jogador2.HistoricoDePartidas.Add(partida);
 
-        
+
     }
 
 
@@ -220,7 +265,7 @@ public class Xadrez
             if (origem.Coluna != destino.Coluna && pecaCapturada == null)
             {
                 Posicao posPeao;
-                if (peca.Cor == Cor.Branca)
+                if (peca.Cor == Cor.Brancas)
                 {
                     posPeao = new Posicao(destino.Linha + 1, destino.Coluna);
                 }
@@ -287,7 +332,7 @@ public class Xadrez
             {
                 Peca peao = Tabuleiro.RetirarPeca(destino);
                 Posicao posP;
-                if (peca.Cor == Cor.Branca)
+                if (peca.Cor == Cor.Brancas)
                 {
                     posP = new Posicao(3, destino.Coluna);
                 }
@@ -317,7 +362,7 @@ public class Xadrez
         // #jogadaespecial promoção
         if (peca is Peao)
         {
-            if ((peca.Cor == Cor.Branca && destino.Linha == 0) || (peca.Cor == Cor.Preta && destino.Linha == 7))
+            if ((peca.Cor == Cor.Brancas && destino.Linha == 0) || (peca.Cor == Cor.Pretas && destino.Linha == 7))
             {
                 peca = Tabuleiro.RetirarPeca(destino);
                 _pecas.Remove(peca);
@@ -358,10 +403,10 @@ public class Xadrez
 
     private void MudaJogador()
     {
-        if (CorAtual == Cor.Branca)
-            CorAtual = Cor.Preta;
+        if (CorAtual == Cor.Brancas)
+            CorAtual = Cor.Pretas;
         else
-            CorAtual = Cor.Branca;
+            CorAtual = Cor.Brancas;
     }
 
     public void ValidarPosicaoDeDestino(Posicao origem, Posicao destino)
@@ -373,10 +418,10 @@ public class Xadrez
 
     private Cor _adversaria(Cor cor)
     {
-        if (cor == Cor.Branca)
-            return Cor.Preta;
+        if (cor == Cor.Brancas)
+            return Cor.Pretas;
         else
-            return Cor.Branca;
+            return Cor.Brancas;
     }
 
     private Peca _rei(Cor cor)
@@ -463,39 +508,39 @@ public class Xadrez
 
     private void ColocarPecas()
     {
-        ColocarNovaPeca('a', 2, new Peao(Tabuleiro, Cor.Branca, this));
-        ColocarNovaPeca('b', 2, new Peao(Tabuleiro, Cor.Branca, this));
-        ColocarNovaPeca('c', 2, new Peao(Tabuleiro, Cor.Branca, this));
-        ColocarNovaPeca('d', 2, new Peao(Tabuleiro, Cor.Branca, this));
-        ColocarNovaPeca('e', 2, new Peao(Tabuleiro, Cor.Branca, this));
-        ColocarNovaPeca('f', 2, new Peao(Tabuleiro, Cor.Branca, this));
-        ColocarNovaPeca('g', 2, new Peao(Tabuleiro, Cor.Branca, this));
-        ColocarNovaPeca('h', 2, new Peao(Tabuleiro, Cor.Branca, this));
-        ColocarNovaPeca('a', 1, new Torre(Tabuleiro, Cor.Branca));
-        ColocarNovaPeca('b', 1, new Cavalo(Tabuleiro, Cor.Branca));
-        ColocarNovaPeca('c', 1, new Bispo(Tabuleiro, Cor.Branca));
-        ColocarNovaPeca('d', 1, new Dama(Tabuleiro, Cor.Branca));
-        ColocarNovaPeca('e', 1, new Rei(Tabuleiro, Cor.Branca, this));
-        ColocarNovaPeca('f', 1, new Bispo(Tabuleiro, Cor.Branca));
-        ColocarNovaPeca('g', 1, new Cavalo(Tabuleiro, Cor.Branca));
-        ColocarNovaPeca('h', 1, new Torre(Tabuleiro, Cor.Branca));
+        ColocarNovaPeca('a', 2, new Peao(Tabuleiro, Cor.Brancas, this));
+        ColocarNovaPeca('b', 2, new Peao(Tabuleiro, Cor.Brancas, this));
+        ColocarNovaPeca('c', 2, new Peao(Tabuleiro, Cor.Brancas, this));
+        ColocarNovaPeca('d', 2, new Peao(Tabuleiro, Cor.Brancas, this));
+        ColocarNovaPeca('e', 2, new Peao(Tabuleiro, Cor.Brancas, this));
+        ColocarNovaPeca('f', 2, new Peao(Tabuleiro, Cor.Brancas, this));
+        ColocarNovaPeca('g', 2, new Peao(Tabuleiro, Cor.Brancas, this));
+        ColocarNovaPeca('h', 2, new Peao(Tabuleiro, Cor.Brancas, this));
+        ColocarNovaPeca('a', 1, new Torre(Tabuleiro, Cor.Brancas));
+        ColocarNovaPeca('b', 1, new Cavalo(Tabuleiro, Cor.Brancas));
+        ColocarNovaPeca('c', 1, new Bispo(Tabuleiro, Cor.Brancas));
+        ColocarNovaPeca('d', 1, new Dama(Tabuleiro, Cor.Brancas));
+        ColocarNovaPeca('e', 1, new Rei(Tabuleiro, Cor.Brancas, this));
+        ColocarNovaPeca('f', 1, new Bispo(Tabuleiro, Cor.Brancas));
+        ColocarNovaPeca('g', 1, new Cavalo(Tabuleiro, Cor.Brancas));
+        ColocarNovaPeca('h', 1, new Torre(Tabuleiro, Cor.Brancas));
 
-        ColocarNovaPeca('a', 7, new Peao(Tabuleiro, Cor.Preta, this));
-        ColocarNovaPeca('b', 7, new Peao(Tabuleiro, Cor.Preta, this));
-        ColocarNovaPeca('c', 7, new Peao(Tabuleiro, Cor.Preta, this));
-        ColocarNovaPeca('d', 7, new Peao(Tabuleiro, Cor.Preta, this));
-        ColocarNovaPeca('e', 7, new Peao(Tabuleiro, Cor.Preta, this));
-        ColocarNovaPeca('f', 7, new Peao(Tabuleiro, Cor.Preta, this));
-        ColocarNovaPeca('g', 7, new Peao(Tabuleiro, Cor.Preta, this));
-        ColocarNovaPeca('h', 7, new Peao(Tabuleiro, Cor.Preta, this));
-        ColocarNovaPeca('a', 8, new Torre(Tabuleiro, Cor.Preta));
-        ColocarNovaPeca('b', 8, new Cavalo(Tabuleiro, Cor.Preta));
-        ColocarNovaPeca('c', 8, new Bispo(Tabuleiro, Cor.Preta));
-        ColocarNovaPeca('d', 8, new Dama(Tabuleiro, Cor.Preta));
-        ColocarNovaPeca('e', 8, new Rei(Tabuleiro, Cor.Preta, this));
-        ColocarNovaPeca('f', 8, new Bispo(Tabuleiro, Cor.Preta));
-        ColocarNovaPeca('g', 8, new Cavalo(Tabuleiro, Cor.Preta));
-        ColocarNovaPeca('h', 8, new Torre(Tabuleiro, Cor.Preta));
+        ColocarNovaPeca('a', 7, new Peao(Tabuleiro, Cor.Pretas, this));
+        ColocarNovaPeca('b', 7, new Peao(Tabuleiro, Cor.Pretas, this));
+        ColocarNovaPeca('c', 7, new Peao(Tabuleiro, Cor.Pretas, this));
+        ColocarNovaPeca('d', 7, new Peao(Tabuleiro, Cor.Pretas, this));
+        ColocarNovaPeca('e', 7, new Peao(Tabuleiro, Cor.Pretas, this));
+        ColocarNovaPeca('f', 7, new Peao(Tabuleiro, Cor.Pretas, this));
+        ColocarNovaPeca('g', 7, new Peao(Tabuleiro, Cor.Pretas, this));
+        ColocarNovaPeca('h', 7, new Peao(Tabuleiro, Cor.Pretas, this));
+        ColocarNovaPeca('a', 8, new Torre(Tabuleiro, Cor.Pretas));
+        ColocarNovaPeca('b', 8, new Cavalo(Tabuleiro, Cor.Pretas));
+        ColocarNovaPeca('c', 8, new Bispo(Tabuleiro, Cor.Pretas));
+        ColocarNovaPeca('d', 8, new Dama(Tabuleiro, Cor.Pretas));
+        ColocarNovaPeca('e', 8, new Rei(Tabuleiro, Cor.Pretas, this));
+        ColocarNovaPeca('f', 8, new Bispo(Tabuleiro, Cor.Pretas));
+        ColocarNovaPeca('g', 8, new Cavalo(Tabuleiro, Cor.Pretas));
+        ColocarNovaPeca('h', 8, new Torre(Tabuleiro, Cor.Pretas));
 
 
     }
