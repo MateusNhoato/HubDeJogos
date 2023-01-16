@@ -10,7 +10,7 @@ Console.Clear();
 
 // testes dos tutoriais
 // new Xadrez();
- new JogoDaVelha();
+// new JogoDaVelha();
 
 // testes de partidas
 // new Xadrez(new Jogador("bilu",""), new Jogador("tiziu", ""));

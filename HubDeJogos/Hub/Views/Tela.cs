@@ -80,11 +80,24 @@ namespace HubDeJogos.Views
         public void ImprimirPartida(Partida partida)
         {
             DateTime dateTime = new DateTime(partida.DateTime.Year, partida.DateTime.Month, partida.DateTime.Day, partida.DateTime.Hour,    partida.DateTime.Minute, 0, partida.DateTime.Kind);
-            
-            
+
+            string nome1, nome2;
+
+            if(new Random().Next(0,2) == 0)
+            {
+                nome1 = partida.NomeJogadorGanhou;
+                nome2 = partida.NomeJogadorPerdeu;
+            }
+            else
+            {
+                nome2 = partida.NomeJogadorGanhou;
+                nome1 = partida.NomeJogadorPerdeu;
+            }
+
+
             Console.WriteLine($"{Utilidades.Utilidades.Linha}\n");
             Console.WriteLine($"  Partida de {partida.Jogo} | {dateTime}\n");
-            Console.WriteLine($"  {partida.NomeJogadorGanhou} VS {partida.NomeJogadorPerdeu}\n");
+            Console.WriteLine($"  {nome1} VS {nome2}\n");
 
             // imprimir tabuleiro
             if(partida.Jogo == Jogo.JogoDaVelha)
