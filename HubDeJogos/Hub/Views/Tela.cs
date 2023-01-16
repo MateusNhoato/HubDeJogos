@@ -132,7 +132,9 @@ namespace HubDeJogos.Views
         {
             Console.Clear();
             Console.WriteLine(_registrar + "\n");
-            Console.WriteLine("  Preencha as informações para cadastrar um novo jogador.\n\n");
+            Console.WriteLine("  Preencha as informações para cadastrar um novo jogador.");
+            Console.WriteLine("  [Nome de Usuário pode conter de 2 a 30 caracteres (letras e números)]");
+            Console.WriteLine("  [Senha pode conter de 6 a 10 caracteres (letras e números)]\n\n");
         }
 
         public void ImprimirListaDeJogadores()

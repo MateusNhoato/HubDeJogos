@@ -3,6 +3,7 @@ using HubDeJogos.Views;
 using HubDeJogos.Models.Enums;
 using HubDeJogos.Hub.Repositories;
 using HubDeJogos.Repositories;
+using System.Text.RegularExpressions;
 
 namespace HubDeJogos.Controllers
 {
@@ -85,12 +86,12 @@ namespace HubDeJogos.Controllers
             Jogador? jogador1;
             do
             {
-                jogador1 = Login();
+                jogador1 = Login(1);
             } while (jogador1 == null);
 
             do
             {
-                jogador2 = Login();
+                jogador2 = Login(2);
             } while (jogador2 == null);
 
 
@@ -108,38 +109,39 @@ namespace HubDeJogos.Controllers
 
         private void RegistrarJogador()
         {
+            string padraoNomeUsuario = @"^[a-zA-Z0-9]{2,30}$";
+            string padraoSenha = @"^[a-zA-Z0-9]{6,10}$";
+
+            Regex rgNomeUsuario = new(padraoNomeUsuario);
+            Regex rgSenha = new(padraoSenha);
+
+
             _tela.ImprimirRegistrar();
             Console.Write("  Nome do Usuário: ");
-            string? nomeDoUsuário = Console.ReadLine();
-
+            string? nomeDoUsuario = Console.ReadLine();
             Console.Write("  Senha: ");
-
             string senha = PedirSenha();
             
-            if (nomeDoUsuário.Length > 1)
+            if(rgNomeUsuario.IsMatch(nomeDoUsuario) && rgSenha.IsMatch(senha))
             {
                 foreach (Jogador jogador in _jogadores)
                 {
-                    if(nomeDoUsuário.Equals(jogador.NomeDeUsuario))
+                    if (nomeDoUsuario.Equals(jogador.NomeDeUsuario))
                     {
                         Console.WriteLine("\n  Jogador já cadastrado.");
                         Utilidades.Utilidades.AperteEnterParaContinuar();
                         return;
-                    }
+                    }                 
                 }
-                if (senha.Length > 5 && senha.Length < 11)
-                {
-                    Jogador jogador = new Jogador(nomeDoUsuário, senha);
-                    _jogadores.Add(jogador);
-                    PassarListaDeJogadoresParaRepositorio();
-                    Console.WriteLine("\n  Novo jogador cadastrado com sucesso!!");
-                }
-                else
-                    Console.WriteLine("  Senha precisa ter entre 6 a 10 caracteres (letras e números).");
-            }
-            else
-                Console.WriteLine("  Nome de usuário precisa ter pelo menos 2 caracteres.");
 
+                Jogador novoJogador = new Jogador(nomeDoUsuario, senha);
+                _jogadores.Add(novoJogador);
+                PassarListaDeJogadoresParaRepositorio();
+                Console.WriteLine("\n\n\n  Novo jogador cadastrado com sucesso!!");
+            }
+            else            
+                Console.WriteLine("\n\n\n  Nome de usuário e/ou senha inválido(s).");
+                                                                            
             Utilidades.Utilidades.AperteEnterParaContinuar();
         }
 
@@ -193,11 +195,11 @@ namespace HubDeJogos.Controllers
 
 
         // função auxiliar para achar o jogador, caso o login esteja correto
-        private Jogador? Login()
+        private Jogador? Login(int n)
         {
             _tela.ImprimirLogIn();
             Jogador? jogador = null;
-
+            Console.WriteLine($"  Jogador {n}:\n");
             Console.Write("  Nome do Usuário: ");
             string? nomeDeUsuario = Console.ReadLine();
 
@@ -216,9 +218,9 @@ namespace HubDeJogos.Controllers
 
             }
             if(jogador != null)
-                Console.WriteLine("\n  Jogador logado com sucesso!");
+                Console.WriteLine("\n\n  Jogador logado com sucesso!");
             else
-                Console.WriteLine("\n  Jogador não encontrado");
+                Console.WriteLine("\n\n  Jogador não encontrado");
             Utilidades.Utilidades.AperteEnterParaContinuar();
             return  jogador;
         }
