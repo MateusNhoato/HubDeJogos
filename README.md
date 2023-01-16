@@ -2,12 +2,12 @@
 Este é um projeito feito para o programa Sharp Coders da Ímã Learning Place. Se trata de uma plataforma de jogos para 2 jogadores.
 
 ## Tabela de Conteúdo
-- [Projeto](#hub-de-jogos-🎮-versão-licença)
-- [Descrição](#descrição-📕)
-- [Demonstração](#demonstração-⏩)
-- [Instalação](#instalação-🔽)
-- [Features](#features-✨)
-    - [Menu de Jogos](#menu-de-jogos-🎮)
+- [Projeto](#hub-de-jogos---)
+- [Descrição](#descrição-)
+- [Demonstração](#demonstração-)
+- [Instalação](#instalação-)
+- [Features](#features-)
+    - [Menu de Jogos](#menu-de-jogos-)
 - [Autor](#autor)
 
 
