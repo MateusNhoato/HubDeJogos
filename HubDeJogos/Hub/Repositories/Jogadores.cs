@@ -21,7 +21,12 @@ namespace HubDeJogos.Hub.Repositories
             {
                 File.Create(_path).Close();
                 ListaDeJogadores = new List<Jogador>();
-            }               
+            }
+            catch (DirectoryNotFoundException)
+            {
+                File.Create(@"..\..\..\Hub\Repositories\Data").Close();
+                ListaDeJogadores = new List<Jogador>();
+            }
         }
 
         public void SalvarJogadores()
@@ -35,6 +40,10 @@ namespace HubDeJogos.Hub.Repositories
             catch(FileNotFoundException)
             {
                 File.Create(_path).Close();
+            }
+            catch (DirectoryNotFoundException)
+            {
+                File.Create(@"..\..\..\Hub\Repositories\Data").Close();
             }
         }
 
