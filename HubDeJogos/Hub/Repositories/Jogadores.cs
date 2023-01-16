@@ -24,28 +24,13 @@ namespace HubDeJogos.Hub.Repositories
             }
             catch (DirectoryNotFoundException)
             {
-                File.Create(@"..\..\..\Hub\Repositories\Data").Close();
+                Directory.CreateDirectory(@"..\..\..\Hub\Repositories\Data");
+                File.Create(_path).Close();
                 ListaDeJogadores = new List<Jogador>();
             }
         }
 
-        public void SalvarJogadores()
-        {
-            
-            string json = JsonConvert.SerializeObject(ListaDeJogadores);
-            try
-            {
-                File.WriteAllText(_path, json);
-            }
-            catch(FileNotFoundException)
-            {
-                File.Create(_path).Close();
-            }
-            catch (DirectoryNotFoundException)
-            {
-                File.Create(@"..\..\..\Hub\Repositories\Data").Close();
-            }
-        }
+      
 
         public void SalvarJogadores(List<Jogador> jogadores)
         {
@@ -58,6 +43,13 @@ namespace HubDeJogos.Hub.Repositories
             catch (FileNotFoundException)
             {
                 File.Create(_path).Close();
+                File.WriteAllText(_path, json);
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Directory.CreateDirectory(@"..\..\..\Hub\Repositories\Data");
+                File.Create(_path).Close();
+                File.WriteAllText(_path, json);
             }
         }
     }

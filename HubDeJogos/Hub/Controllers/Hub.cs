@@ -84,13 +84,28 @@ namespace HubDeJogos.Controllers
             _tela.ImprimirLogIn();
             Jogador? jogador2;
             Jogador? jogador1;
-            do
-            {
-                jogador1 = Login(1);
-            } while (jogador1 == null);
+
+            //auxiliar para contar quantas vezes tentaram fazer LogIn
+            int auxCont = 0;
 
             do
             {
+                if(++auxCont > 3)
+                {
+                    TresTentativasDeLoginErrado();
+                    return;
+                }
+                jogador1 = Login(1);
+            } while (jogador1 == null);
+
+            auxCont = 0;
+            do
+            {
+                if (++auxCont > 3)
+                {
+                    TresTentativasDeLoginErrado();
+                    return;
+                }
                 jogador2 = Login(2);
             } while (jogador2 == null);
 
@@ -269,6 +284,14 @@ namespace HubDeJogos.Controllers
                 Console.WriteLine("  Nenhuma partida foi registrada até o momento.");
             
             
+            Utilidades.Utilidades.AperteEnterParaContinuar();
+        }
+
+        private void TresTentativasDeLoginErrado()
+        {
+            _tela.ImprimirLogIn();
+            Console.WriteLine("  Três tentativas de LogIn foram feitas sem sucesso.\n" +
+                              "  Para a segurança da sua conta o procedimento será encerrado.");
             Utilidades.Utilidades.AperteEnterParaContinuar();
         }
 
