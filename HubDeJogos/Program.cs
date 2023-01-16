@@ -8,8 +8,9 @@ Console.BackgroundColor = ConsoleColor.DarkCyan;
 Console.ForegroundColor= ConsoleColor.Gray;
 Console.Clear();
 
-    // teste do tutorial
-//new Xadrez(new Jogador("Fulano", ""), new Jogador("Ciclano", ""), true);
+// teste do tutorial
+//  new Xadrez();
+ new JogoDaVelha();
 // new JogoDaVelha(new Jogador("Fulano", ""), new Jogador("Ciclano", ""));
 
 Hub hub = new Hub();

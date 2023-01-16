@@ -6,6 +6,7 @@ using HubDeJogos.Repositories;
 using HubDeJogos.JogoDaVelha.Models;
 using HubDeJogos.JogoDaVelha.Views;
 using HubDeJogos.Hub.Repositories;
+using HubDeJogos.Hub.Views;
 
 namespace HubDeJogos.JogoDaVelha.Services
 {
@@ -16,6 +17,13 @@ namespace HubDeJogos.JogoDaVelha.Services
         private readonly Jogador _jogador2;
 
 
+        public JogoDaVelha() 
+        {
+            _jogador1 = new Jogador("Fulano", "");
+            _jogador2 = new Jogador("Beltrano", "");
+
+            Tutorial();
+        }
         public JogoDaVelha(Jogador jogador1, Jogador jogador2)
         {
             _jogador1 = jogador1;
@@ -40,7 +48,94 @@ namespace HubDeJogos.JogoDaVelha.Services
                 }
             }
         }
+        // função tutorial
+        private void Tutorial() 
+        {
+            TabuleiroJogoDaVelha tabuleiro = new(3);
+            ConsoleColor aux = Console.ForegroundColor;
 
+            for (int i=0; i<4; i++)
+            {
+                Console.Clear();
+                Console.WriteLine(Tutoriais.ExplicacoesJogoDaVelha[i]);
+                Utilidades.Utilidades.AperteEnterParaContinuar();
+
+                if(i==0)
+                {
+                    Console.Write("\n  Digite o tamanho do jogo (3 a 10): 3");
+                    Console.WriteLine("\n\n  Como mencionado vamos usar o tabuleiro 3x3 neste tutorial!");
+                    Utilidades.Utilidades.AperteEnterParaContinuar();
+                    
+                    Console.Clear();
+                    Console.WriteLine();
+                    _tela.ImprimirTabuleiro(tabuleiro);
+                    Console.WriteLine("\n  Ta-dãan! Um tabuleiro 3x3 novíssimo foi criado!");
+                }
+                else if(i ==1)
+                {
+                    Console.WriteLine();
+                    _tela.ImprimirTabuleiro(tabuleiro);
+                    Console.WriteLine($"\n  Vez de {_jogador1.NomeDeUsuario}\n");
+                    Console.Write("\n  Posição da jogada(");
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write("X");
+                    Console.ForegroundColor = aux;
+                    Console.WriteLine("): 1");
+
+                    Jogada("1", $" {Simbolo.X} ", tabuleiro);
+                    Utilidades.Utilidades.AperteEnterParaContinuar();
+                    
+                    Console.Clear();
+                    Console.WriteLine();
+                    _tela.ImprimirTabuleiro(tabuleiro);
+                    Console.WriteLine("\n\n  O primeiro jogador escolheu o a posição 1,\n" +
+                                          "  logo o 'X' aparece na posição.\n" +
+                                          "  Agora é vez do 'O'.");                   
+                    Utilidades.Utilidades.AperteEnterParaContinuar();
+
+                    Console.Clear();
+                    Console.WriteLine();
+                    _tela.ImprimirTabuleiro(tabuleiro);
+                    Console.WriteLine($"\n  Vez de {_jogador2.NomeDeUsuario}\n");
+                    Console.Write("\n  Posição da jogada(");
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.Write("O");
+                    Console.ForegroundColor = aux;
+                    Console.WriteLine("): 5");
+                    Jogada("5", $" {Simbolo.O} ", tabuleiro);
+                    Utilidades.Utilidades.AperteEnterParaContinuar();
+
+
+                    Console.Clear();
+                    Console.WriteLine();
+                    _tela.ImprimirTabuleiro(tabuleiro);
+                    Console.WriteLine("\n\n  O segundo jogador escolheu a posição 5,\n" +
+                                           "  a lógica é a mesma: 'O' aparece na posição.");
+
+                }
+                else if(i==2)
+                {
+                    Jogada("4", $" {Simbolo.X} ", tabuleiro);
+                    Jogada("7", $" {Simbolo.X} ", tabuleiro);
+                    Jogada("3", $" {Simbolo.O} ", tabuleiro);
+                    Console.Clear();
+                    Console.WriteLine();
+                    _tela.ImprimirTabuleiro(tabuleiro);
+                    Console.WriteLine($"\n  Vencedor: {_jogador1.NomeDeUsuario}(X)");
+                }
+                else
+                {
+                    for(int j=0; j<6; j++) 
+                    {
+                        Console.Clear();
+                        Console.WriteLine(Tutoriais.JogoDaVelhaAnimação[j]);
+                        Thread.Sleep(1700);
+                    }
+                   
+                }
+                Utilidades.Utilidades.AperteEnterParaContinuar();
+            }
+        }
 
         // função principal de jogar
         private void Jogar()

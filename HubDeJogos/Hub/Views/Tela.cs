@@ -155,7 +155,7 @@ namespace HubDeJogos.Views
             Console.WriteLine(_jogos + "\n\n");
             Console.WriteLine("  1- Jogar");
             Console.WriteLine("  2- Histórico dos Jogadores");
-            Console.WriteLine("  3- Tutorial dos Jogos");
+            Console.WriteLine("  3- Tutoriais dos Jogos");
             Console.WriteLine("  0- Voltar");
             Console.Write("\n  Digite a opção desejada: ");
         }

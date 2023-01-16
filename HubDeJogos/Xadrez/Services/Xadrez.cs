@@ -8,7 +8,7 @@ using HubDeJogos.Repositories;
 using HubDeJogos.Models.Enums;
 using HubDeJogos.Hub.Repositories;
 using System.Text.RegularExpressions;
-
+using HubDeJogos.Hub.Views;
 
 namespace HubDeJogos.Xadrez.Services;
 
@@ -28,8 +28,23 @@ public class Xadrez
     public readonly Jogador Jogador1;
     public readonly Jogador Jogador2;
 
+    public Xadrez()
+    {
+        Tabuleiro = new TabuleiroDeXadrez(8);
+        Turno = 1;
+        CorAtual = Cor.Brancas;
+        Terminada = false;
+        VulneravelEnPassant = null;
+        _pecas = new HashSet<Peca>();
+        _capturadas = new HashSet<Peca>();
+        Xeque = false;
+        ColocarPecas();
+        Jogador1 = new Jogador("Fulano", "");
+        Jogador2 = new Jogador("Beltrano", "");
+        Tutorial();
 
-    public Xadrez(Jogador jogador1, Jogador jogador2, bool tutorial)
+    }
+    public Xadrez(Jogador jogador1, Jogador jogador2)
     {
         Tabuleiro = new TabuleiroDeXadrez(8);
         Turno = 1;
@@ -41,16 +56,9 @@ public class Xadrez
         Xeque = false;
         Jogador1 = jogador1;
         Jogador2 = jogador2;
-        ColocarPecas();
 
-        if (tutorial)
-        {
-            Jogador1 = new Jogador("Fulano", "");
-            Jogador2 = new Jogador("Beltrano", "");
-            Tutorial();
-        }
-        else
-            Jogar();
+        ColocarPecas();
+        Jogar();
     }
 
 
@@ -61,7 +69,7 @@ public class Xadrez
         for (int i = 0; i < 4; i++)
         {
             Console.Clear();
-            Console.WriteLine(Utilidades.Utilidades.explicacoesXadrez[i]);
+            Console.WriteLine(Tutoriais.ExplicacoesXadrez[i]);
             Utilidades.Utilidades.AperteEnterParaContinuar();
 
             if (i == 0)
@@ -105,14 +113,10 @@ public class Xadrez
             else
             {
                 Console.WriteLine("\n  Peças:");
-                Console.WriteLine(Utilidades.Utilidades.arteFinalTutorialXadrez);
-            }
-            
+                Console.WriteLine(Tutoriais.ArteFinalTutorialXadrez);
+            }            
             Utilidades.Utilidades.AperteEnterParaContinuar();
-
         }
-
-
     }
 
 

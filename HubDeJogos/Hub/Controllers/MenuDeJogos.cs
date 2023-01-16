@@ -60,13 +60,10 @@ namespace HubDeJogos.Controllers
                     case "0":
                         break;
                     case "1":
-                        NovoJogoDaVelha();
+                        NovoJogoDaVelha(false);
                         break;
                     case "2":
                         NovoJogoDeXadrez(false);
-                        break;
-                    case "3":
-                        NovoJogoDeXadrez(true);
                         break;
                     default:
                         Console.WriteLine("  Opção não encontrada.");
@@ -87,6 +84,7 @@ namespace HubDeJogos.Controllers
                     case "0":
                         break;
                     case "1":
+                        NovoJogoDaVelha(true);
                         break;
                     case "2":
                         NovoJogoDeXadrez(true);
@@ -101,15 +99,25 @@ namespace HubDeJogos.Controllers
 
 
         }
-        private void NovoJogoDaVelha()
+        private void NovoJogoDaVelha(bool tutorial)
         {
-             new JogoDaVelha.Services.JogoDaVelha(_jogador1, _jogador2);
-            _hub.PassarListaDeJogadoresParaRepositorio();
+            if (tutorial)
+                new JogoDaVelha.Services.JogoDaVelha();
+            else
+            {
+                new JogoDaVelha.Services.JogoDaVelha(_jogador1, _jogador2);
+                _hub.PassarListaDeJogadoresParaRepositorio();
+            }          
         }
     private void NovoJogoDeXadrez(bool tutorial)
         {
-            new Xadrez.Services.Xadrez(_jogador1, _jogador2, tutorial);
-            _hub.PassarListaDeJogadoresParaRepositorio();
+            if (tutorial)
+                 new Xadrez.Services.Xadrez();
+            else
+            {
+                new Xadrez.Services.Xadrez(_jogador1, _jogador2);
+                _hub.PassarListaDeJogadoresParaRepositorio();
+            }
         }
         private void HistoricoDosJogadores()
         {
