@@ -15,10 +15,10 @@ public class PosicaoXadrez
 
     public override string ToString()
     {
-        return "" + Coluna + Linha;
+        return $"{Coluna}{Linha}";
     }
 
-    public Posicao toPosicao()
+    public Posicao ToPosicao()
     {
         return new Posicao(8 - Linha, Coluna - 'a');
     }

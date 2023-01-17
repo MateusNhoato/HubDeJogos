@@ -44,6 +44,23 @@ namespace HubDeJogos.Xadrez.Models.Pecas
             return MovimentosPossiveis()[pos.Linha, pos.Coluna];
         }
         public abstract bool[,] MovimentosPossiveis();
-        
+
+        public override bool Equals(object? obj)
+        {
+            if(obj is not Peca) 
+                return false;
+
+        Peca other = obj as Peca;
+
+            if (other.Cor == Cor && other.ToString() == this.ToString())
+                return true;
+            else
+                return false;
+        }
+
+    public override int GetHashCode()
+    {
+        return Cor.GetHashCode() + this.ToString().GetHashCode();
     }
+}
 }

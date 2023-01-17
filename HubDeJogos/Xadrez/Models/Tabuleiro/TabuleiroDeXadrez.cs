@@ -75,7 +75,7 @@ namespace HubDeJogos.Xadrez.Models.Tabuleiro
 
         private void ColocarNovaPeca(char coluna, int linha, Peca peca)
         {
-            ColocarPeca(peca, new PosicaoXadrez(coluna, linha).toPosicao());
+            ColocarPeca(peca, new PosicaoXadrez(coluna, linha).ToPosicao());
             PecasIniciais.Add(peca);
         }
         private void ColocarPecas()

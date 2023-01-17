@@ -11,7 +11,7 @@ namespace HubDeJogos.Xadrez.Repositories
         public string Round { get; private set; }
         public string JogadorBrancas { get; private set; } = null!;
         public string JogadorPretas { get; private set; } = null!;
-        public string Resultado { get; private set; }
+        public string Resultado { get; set; }
         public List<string>? Jogadas { get; private set; }
 
         public Pgn(string jogadorBrancas, string jogadorPretas)

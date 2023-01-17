@@ -193,12 +193,6 @@ namespace HubDeJogos.Xadrez.Views
         }
 
 
-
-
-
-
-
-
         public PosicaoXadrez LerPosicaoXadrez(string s)
         {
             s = s.ToLower();
