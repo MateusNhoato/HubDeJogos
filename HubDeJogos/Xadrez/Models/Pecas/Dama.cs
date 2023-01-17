@@ -10,7 +10,7 @@ namespace HubDeJogos.Xadrez.Models.Pecas
 
         public override string ToString()
         {
-            return "D";
+            return "Q";
         }
 
         private bool PodeMover(Posicao pos)

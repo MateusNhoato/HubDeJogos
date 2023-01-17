@@ -10,6 +10,7 @@
   <ItemGroup>
     <Folder Include="Hub\Repositories\Data\" />
     <Folder Include="Hub\Repositories\Data\" />
+    <Folder Include="Xadrez\Repositories\Data\" />
   </ItemGroup>
 
   <ItemGroup>

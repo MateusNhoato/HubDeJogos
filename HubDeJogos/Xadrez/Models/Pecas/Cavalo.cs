@@ -9,7 +9,7 @@ namespace HubDeJogos.Xadrez.Models.Pecas
 
         public override string ToString()
         {
-            return "C";
+            return "N";
         }
 
 

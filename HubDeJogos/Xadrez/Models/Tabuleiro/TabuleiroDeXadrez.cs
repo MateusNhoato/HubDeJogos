@@ -1,5 +1,7 @@
 ﻿using HubDeJogos.Hub.Models.Interfaces;
+using HubDeJogos.Xadrez.Models.Enums;
 using HubDeJogos.Xadrez.Models.Pecas;
+using Newtonsoft.Json;
 
 namespace HubDeJogos.Xadrez.Models.Tabuleiro
 {
@@ -8,14 +10,20 @@ namespace HubDeJogos.Xadrez.Models.Tabuleiro
         public int Linhas { get; set; }
         public int Colunas { get; set; }
         private readonly Peca[,] _pecas;
+        [JsonIgnore]
+        public HashSet<Peca> PecasIniciais { get; private set; }
+        private readonly Services.Xadrez _partida;
 
-        public TabuleiroDeXadrez(int tamanho)
+        public TabuleiroDeXadrez(int tamanho, Services.Xadrez partida)
         {
             Tamanho = tamanho;
             Linhas = tamanho;
             Colunas = tamanho;
             _pecas = new Peca[Linhas, Colunas];
             TabuleiroMatriz = new string[Tamanho, Tamanho];
+            _partida = partida;
+            PecasIniciais = new HashSet<Peca>();
+            ColocarPecas();
         }
 
         public Peca Peca(int linha, int coluna)
@@ -64,6 +72,51 @@ namespace HubDeJogos.Xadrez.Models.Tabuleiro
             if (!PosicaoValida(pos))
                 throw new TabuleiroException("Posição inválida!");
         }
+
+        private void ColocarNovaPeca(char coluna, int linha, Peca peca)
+        {
+            ColocarPeca(peca, new PosicaoXadrez(coluna, linha).toPosicao());
+            PecasIniciais.Add(peca);
+        }
+        private void ColocarPecas()
+        {
+            ColocarNovaPeca('a', 2, new Peao(this, Cor.Brancas, _partida));
+            ColocarNovaPeca('b', 2, new Peao(this, Cor.Brancas, _partida));
+            ColocarNovaPeca('c', 2, new Peao(this, Cor.Brancas, _partida));
+            ColocarNovaPeca('d', 2, new Peao(this, Cor.Brancas, _partida));
+            ColocarNovaPeca('e', 2, new Peao(this, Cor.Brancas, _partida));
+            ColocarNovaPeca('f', 2, new Peao(this, Cor.Brancas, _partida));
+            ColocarNovaPeca('g', 2, new Peao(this, Cor.Brancas, _partida));
+            ColocarNovaPeca('h', 2, new Peao(this, Cor.Brancas, _partida));
+            ColocarNovaPeca('a', 1, new Torre(this, Cor.Brancas));
+            ColocarNovaPeca('b', 1, new Cavalo(this, Cor.Brancas));
+            ColocarNovaPeca('c', 1, new Bispo(this, Cor.Brancas));
+            ColocarNovaPeca('d', 1, new Dama(this, Cor.Brancas));
+            ColocarNovaPeca('e', 1, new Rei(this, Cor.Brancas, _partida));
+            ColocarNovaPeca('f', 1, new Bispo(this, Cor.Brancas));
+            ColocarNovaPeca('g', 1, new Cavalo(this, Cor.Brancas));
+            ColocarNovaPeca('h', 1, new Torre(this, Cor.Brancas));
+
+            ColocarNovaPeca('a', 7, new Peao(this, Cor.Pretas, _partida));
+            ColocarNovaPeca('b', 7, new Peao(this, Cor.Pretas, _partida));
+            ColocarNovaPeca('c', 7, new Peao(this, Cor.Pretas, _partida));
+            ColocarNovaPeca('d', 7, new Peao(this, Cor.Pretas, _partida));
+            ColocarNovaPeca('e', 7, new Peao(this, Cor.Pretas, _partida));
+            ColocarNovaPeca('f', 7, new Peao(this, Cor.Pretas, _partida));
+            ColocarNovaPeca('g', 7, new Peao(this, Cor.Pretas, _partida));
+            ColocarNovaPeca('h', 7, new Peao(this, Cor.Pretas, _partida));
+            ColocarNovaPeca('a', 8, new Torre(this, Cor.Pretas));
+            ColocarNovaPeca('b', 8, new Cavalo(this, Cor.Pretas));
+            ColocarNovaPeca('c', 8, new Bispo(this, Cor.Pretas));
+            ColocarNovaPeca('d', 8, new Dama(this, Cor.Pretas));
+            ColocarNovaPeca('e', 8, new Rei(this, Cor.Pretas, _partida));
+            ColocarNovaPeca('f', 8, new Bispo(this, Cor.Pretas));
+            ColocarNovaPeca('g', 8, new Cavalo(this, Cor.Pretas));
+            ColocarNovaPeca('h', 8, new Torre(this, Cor.Pretas));
+        }
+
+
+
 
         public void AlterarTabuleiroMatrizParaRegistro()
         {

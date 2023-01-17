@@ -10,8 +10,8 @@
             "  começam e os turnos se alternam entre brancas e pretas.\n" +
             "  Mas, diferente do tradicional, aqui as peças são\n" +
             "  representadas por letras:\n" +
-            "  | 'P' = Peão  | 'T' = Torre | 'C' = Cavalo |\n" +
-            "  | 'B' = Bispo |'D' = rainha(Dama) | 'R'= Rei |\n\n" +
+            "  | 'P' = Peão  | 'R' = Torre | 'N' = Cavalo |\n" +
+            "  | 'B' = Bispo | 'Q'= Rainha | 'K'= Rei |\n\n" +
             "  Além disso, a distinção das cores das letras indica\n" +
             "  de quem é a peça, as letras brancas são peças brancas\n" +
             "  e as letras pretas são peças pretas.\n\n" +
