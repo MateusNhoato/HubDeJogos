@@ -76,6 +76,14 @@ namespace HubDeJogos.Views
     |   |  |       |  |   |  |  |_|  ||    __  ||   | |       ||   |___ 
     |   |  |       |  |   |  |       ||   |  | ||   | |   _   ||       |
     |___|  |_______|  |___|  |_______||___|  |_||___| |__| |__||_______|";
+        private readonly static string _conta = @"
+   _______  _______  __    _  _______  _______ 
+  |       ||       ||  |  | ||       ||   _   |
+  |       ||   _   ||   |_| ||_     _||  |_|  |
+  |       ||  | |  ||       |  |   |  |       |
+  |      _||  |_|  ||  _    |  |   |  |       |
+  |     |_ |       || | |   |  |   |  |   _   |
+  |_______||_______||_|  |__|  |___|  |__| |__|";
         #region Partida
         public void ImprimirPartida(Partida partida)
         {
@@ -132,14 +140,18 @@ namespace HubDeJogos.Views
             Console.WriteLine("  3- Listar Jogadores");
             Console.WriteLine("  4- Ranking dos Jogadores");
             Console.WriteLine("  5- Historico de Partidas");
+            Console.WriteLine("  6- Configurações de um Jogador");
             Console.WriteLine("  0- Sair");
             Console.Write("\n  Digite a opção desejada: ");
         }
-        public void ImprimirLogIn()
+        public void ImprimirLogIn(bool manipularConta)
         {
             Console.Clear();
             Console.WriteLine(_entrar + "\n");
-            Console.WriteLine("  Para começar a jogar, é necessário que dois jogadores estejam logados.\n\n");
+            if(!manipularConta)
+                Console.WriteLine("  Para começar a jogar, é necessário que dois jogadores estejam logados.\n\n");
+            else
+                Console.WriteLine("  Para manipular sua conta é necessário logar nela primeiro.\n");
         }
         public void ImprimirRegistrar()
         {
@@ -161,6 +173,21 @@ namespace HubDeJogos.Views
             Console.Clear();
             Console.WriteLine(_ranking + "\n");
             Console.WriteLine("  Os melhores jogadores, em ordem de pontuação!!\n\n");
+        }
+        public void ImprimirConta()
+        {
+            Console.Clear();
+            Console.WriteLine(_conta + "\n");
+        }
+        public void ImprimirOpcoesDaConta()
+        {
+            ImprimirConta();
+            Console.WriteLine("  Escolha uma opção para alterar sua conta.");
+            Console.WriteLine("  1- Alterar Nome de Usuário");
+            Console.WriteLine("  2- Alterar Senha");
+            Console.WriteLine("  3- Deletar Conta");
+            Console.WriteLine("  0- Voltar");
+            Console.Write("\n  Digite a opção desejada: ");
         }
         #endregion
         #region MenuDeJogos

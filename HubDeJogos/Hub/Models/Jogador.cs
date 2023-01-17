@@ -49,6 +49,11 @@ namespace HubDeJogos.Models
             return pontuacao;
         }
 
+        public void AlterarNomeDeUsuario(string nomeDeUsuario) => NomeDeUsuario = nomeDeUsuario;
+        public void AlterarSenha(string senha) => Senha = senha;
+        
+
+
         public override bool Equals(object? obj)
         {
             if (obj is not Jogador)

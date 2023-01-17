@@ -89,8 +89,6 @@ namespace HubDeJogos.Controllers
                     case "2":
                         NovoJogoDeXadrez(true);
                         break;
-                    
-                        break;
                     default:
                         Console.WriteLine("  Opção não encontrada.");
                         break;
