@@ -10,12 +10,36 @@ namespace HubDeJogos.Xadrez.Repositories
     {
         private static string _pathParcial = @"..\..\..\Xadrez\Repositories\Data\";
 
+        public static void CriarDiretorioSeAusente()
+        {
+            try
+            {
+                File.Create(_pathParcial + "teste.txt").Close();
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Directory.CreateDirectory(_pathParcial);
+            }
 
+            if (File.Exists(_pathParcial + "teste.txt"))
+            {
+                File.Delete(_pathParcial + "teste.txt");
+            }
+        }
         public static void CriarArquivoPgn(Pgn pgn)
         {
             string pathCompleto = _pathParcial + $"{pgn.Id}.pgn";
-            File.Create(pathCompleto).Close();
-            
+            try
+            {
+                File.Create(pathCompleto).Close();
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Directory.CreateDirectory(_pathParcial);
+                File.Create(pathCompleto).Close();
+            }
+
+
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"[Event \"{pgn.Evento}\"]\n");
             sb.AppendLine($"[Site \"{pgn.Local}\"]\n");

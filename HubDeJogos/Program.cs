@@ -11,8 +11,9 @@ Console.ForegroundColor= ConsoleColor.Gray;
 Console.Clear();
 
 
-
-
+Pgns.CriarDiretorioSeAusente();
+Hub hub = new Hub();
+hub.Menu();
 
 // testes dos tutoriais
 // new Xadrez();
@@ -25,8 +26,7 @@ Console.Clear();
 //Pgns.CriarArquivoPgn(pgn);
 
 // testes de partidas
-new Xadrez(new Jogador("bilu",""), new Jogador("tiziu", ""));
+//new Xadrez(new Jogador("bilu",""), new Jogador("tiziu", ""));
 // new JogoDaVelha(new Jogador("bilu",""), new Jogador("tiziu", ""));
 
-//Hub hub = new Hub();
-//hub.Menu();
+
