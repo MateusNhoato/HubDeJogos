@@ -11,6 +11,7 @@ Console.ForegroundColor= ConsoleColor.Gray;
 Console.Clear();
 
 
+
 Pgns.CriarDiretorioSeAusente();
 Hub hub = new Hub();
 hub.Menu();
@@ -26,7 +27,7 @@ hub.Menu();
 //Pgns.CriarArquivoPgn(pgn);
 
 // testes de partidas
-//new Xadrez(new Jogador("bilu",""), new Jogador("tiziu", ""));
+// new Xadrez(new Jogador("bilu",""), new Jogador("tiziu", ""));
 // new JogoDaVelha(new Jogador("bilu",""), new Jogador("tiziu", ""));
 
 
