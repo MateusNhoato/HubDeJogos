@@ -39,7 +39,9 @@
             "  com o empate, o jogo continua de onde parou: na vez do jogador\n" +
             "  que propôs o empate. Vamos ver um exemplo de 'render' a seguir.",
 
-            "\n  E essas são todas as informações que precisa saber!\n" +
+            "\n  Ah, e todas as partidas são registradas no formato pgn!" +
+            "  Elas ficam na pasta Xadrez>Repositories>Data\n\n" +
+            "  E essas são todas as informações que precisa saber!\n" +
             "  Agora, mesmo que não conheça os movimentos das peças,\n" +
             "  é possível jogar xadrez facilmente!\n" +
             "  Espero aproveite e se divirta! :)"

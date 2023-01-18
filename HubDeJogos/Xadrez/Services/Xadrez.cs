@@ -27,6 +27,7 @@ public class Xadrez
     public bool Render { get; private set; } = false;
     private bool _roquePequeno = false;
     private bool _roqueGrande = false;
+    private bool _tutorial = false;
 
     private readonly Tela _tela = new();
     public readonly Jogador Jogador1;
@@ -43,16 +44,17 @@ public class Xadrez
         VulneravelEnPassant = null;
         _pecas = Tabuleiro.PecasIniciais;
         _capturadas = new HashSet<Peca>();
+        _tutorial = true;
         Xeque = false;
         Jogador1 = new Jogador("Fulano", "");
         Jogador2 = new Jogador("Beltrano", "");
- 
+
         Tutorial();
 
     }
     public Xadrez(Jogador jogador1, Jogador jogador2)
     {
-        Tabuleiro = new TabuleiroDeXadrez(8,this);
+        Tabuleiro = new TabuleiroDeXadrez(8, this);
         Turno = 1;
         CorAtual = Cor.Brancas;
         Terminada = false;
@@ -68,7 +70,7 @@ public class Xadrez
 
 
     private void Tutorial()
-    {        
+    {
         for (int i = 0; i < 4; i++)
         {
             Console.Clear();
@@ -117,7 +119,7 @@ public class Xadrez
             {
                 Console.WriteLine("\n  Peças:");
                 Console.WriteLine(Tutoriais.ArteFinalTutorialXadrez);
-            }            
+            }
             Utilidades.Utilidades.AperteEnterParaContinuar();
         }
     }
@@ -235,7 +237,7 @@ public class Xadrez
         Jogador2.HistoricoDePartidas.Add(partida);
 
         //adicionando resultado ao pgn e criando o arquivo da pgn da partida
-        _pgn.Resultado =resultadoPgn;
+        _pgn.Resultado = resultadoPgn;
         Pgns.CriarArquivoPgn(_pgn);
 
     }
@@ -371,58 +373,63 @@ public class Xadrez
         // string para registrar jogadas no pgn
         string jogada = string.Empty;
 
-        if(CorAtual == Cor.Brancas)
-        {
-            jogada = $"{Turno}. ";
-        }
+        if (CorAtual == Cor.Brancas)       
+            jogada = $"{Turno}.";
+        
         // pegando qual peça se moveu para pgn, se foi peão fica vazio
         Peca pecaOrigem = Tabuleiro.Peca(origem);
-        if(pecaOrigem is not Peao)
+        if (pecaOrigem is not Peao)
             jogada += pecaOrigem.ToString();
 
-
-        //checkando ambiguidades no registro pgn    
-        if(PecasEmJogo(pecaOrigem.Cor, pecaOrigem).Count(p=> p.Equals(pecaOrigem)) > 0)
-        {
-            foreach (Peca pecaChecagem in PecasEmJogo(pecaOrigem.Cor, pecaOrigem))
-            {
-                if (pecaChecagem.Equals(pecaOrigem))
-                {
-                    if (pecaChecagem.MovimentosPossiveis()[destino.Linha, destino.Coluna] == true)
-                    {
-                        // comparando as posições para ver as diferenças
-                        char posicaoDiferente = ' ';
-
-                        if(pecaChecagem.Posicao.Linha == pecaOrigem.Posicao.Linha)
-                        {
-                            PosicaoXadrez pos = pecaOrigem.Posicao.ToPosicaoXadrez();
-                            posicaoDiferente = pos.Coluna;
-                        }
-                        else if (pecaChecagem.Posicao.Coluna == pecaOrigem.Posicao.Coluna)
-                            posicaoDiferente = (char)(8 - pecaOrigem.Posicao.Linha);
-                        
-                        jogada += posicaoDiferente;
-                    }                                                         
-                }
-            }
-        }
        
 
+        //checkando ambiguidades para o registro pgn    
 
+        foreach (Peca pecaChecagem in PecasEmJogo(pecaOrigem.Cor))
+        {
+             if (!pecaChecagem.MesmoTipoDePeca(pecaOrigem))
+                   continue;           
+
+             if (pecaChecagem.MovimentosPossiveis()[destino.Linha, destino.Coluna] == true)
+             {
+                // comparando as posições para ver as diferenças
+                if (pecaChecagem.Posicao.Equals(pecaOrigem.Posicao))
+                    continue;
+                else 
+                {
+                   
+                    PosicaoXadrez pos = pecaOrigem.Posicao.ToPosicaoXadrez();
+                    string posicaoDiferente = pos.Coluna.ToString();
+
+                    if (pecaChecagem.Posicao.Coluna == pecaOrigem.Posicao.Coluna)
+                        posicaoDiferente = (8 - pecaOrigem.Posicao.Linha).ToString();
+
+                    jogada += posicaoDiferente;
+                }               
+             }            
+        }
         Peca pecaCapturada = ExecutaMovimento(origem, destino);
-
         // se houve alguma captura adicionamos 'x' no pgn
         if (pecaCapturada != null)
-            jogada += "x";
-        
-        
+        {
+            if(pecaOrigem is not Peao)
+                jogada += "x";
+            else
+            {
+                PosicaoXadrez pos = origem.ToPosicaoXadrez();
+                string posicaoDiferente = pos.Coluna.ToString();
+                jogada += $"{posicaoDiferente}x";
+            }
+        }
+
+
         if (EstaEmXeque(CorAtual))
         {
             DesfazMovimento(origem, destino, pecaCapturada);
             throw new TabuleiroException("  Você não pode se colocar em xeque!");
         }
 
-        Peca peca= Tabuleiro.Peca(destino);
+        Peca peca = Tabuleiro.Peca(destino);
         // adicionando o destino no pgn
         jogada += $"{destino.ToPosicaoXadrez()}";
 
@@ -442,10 +449,31 @@ public class Xadrez
             }
         }
 
+        // pgn: caso dos Roques
+        if (_roquePequeno)
+        {
+            if (CorAtual == Cor.Brancas)
+                jogada = $"{Turno}.O-O";
+            else
+                jogada = "O-O";
+
+            _roquePequeno = false;
+        }
+        else if (_roqueGrande)
+        {
+            if (CorAtual == Cor.Brancas)
+                jogada = $"{Turno}.O-O-O";
+            else
+                jogada = "O-O-O";
+
+            _roqueGrande = false;
+        }
+
+        // checkando xeque em xequemate
         if (EstaEmXeque(_adversaria(CorAtual)))
         {
             Xeque = true;
-            jogada+= "+";
+            jogada += "+";
         }
         else
         {
@@ -454,14 +482,14 @@ public class Xadrez
 
         if (TesteXequemate(_adversaria(CorAtual)))
         {
-            Terminada = true;           
-            jogada = jogada.Replace('+', '#');           
+            Terminada = true;
+            jogada = jogada.Replace('+', '#');
         }
         else
         {
             if (CorAtual == Cor.Pretas)
                 Turno++;
-            MudaJogador();            
+            MudaJogador();
         }
 
 
@@ -472,19 +500,9 @@ public class Xadrez
             VulneravelEnPassant = null;
 
 
-        // pgn: caso dos Roques
-        if (_roquePequeno)
-        {
-            jogada = "O-O";
-            _roquePequeno= false;
-        }
-        else if(_roqueGrande)
-        {
-            jogada = "O-O-O";
-            _roqueGrande= false;
-        }
 
-        _pgn.Jogadas.Add(jogada);       
+        if (!_tutorial)
+            _pgn.Jogadas.Add(jogada);
     }
 
     private void MudaJogador()
@@ -562,7 +580,7 @@ public class Xadrez
 
     }
 
-   
+
 
     public HashSet<Peca> PecasCapturadas(Cor cor)
     {
@@ -584,19 +602,6 @@ public class Xadrez
                 aux.Add(p);
         }
         aux.ExceptWith(PecasCapturadas(cor));
-        return aux;
-    }
-
-    private HashSet<Peca> PecasEmJogo(Cor cor, Peca peca)
-    {
-        HashSet<Peca> aux = new HashSet<Peca>();
-        foreach (Peca p in _pecas)
-        {
-            if (p.Cor == cor)
-                aux.Add(p);
-        }
-        aux.ExceptWith(PecasCapturadas(cor));
-        aux.Remove(peca);
         return aux;
     }
 
