@@ -1,9 +1,5 @@
 ﻿using HubDeJogos.Models;
-using HubDeJogos.Models.Enums;
-using HubDeJogos.Repositories;
 using HubDeJogos.Views;
-using HubDeJogos.JogoDaVelha.Services;
-using HubDeJogos.Hub.Repositories;
 
 namespace HubDeJogos.Controllers
 {
@@ -48,7 +44,7 @@ namespace HubDeJogos.Controllers
                 }
             } while (opcao != "0");
         }
-    private void Jogar()
+        private void Jogar()
         {
             string opcao;
             do
@@ -72,8 +68,8 @@ namespace HubDeJogos.Controllers
             } while (opcao != "0");
         }
 
-    private void Tutoriais()
-        {           
+        private void Tutoriais()
+        {
             string opcao;
             do
             {
@@ -105,12 +101,12 @@ namespace HubDeJogos.Controllers
             {
                 new JogoDaVelha.Services.JogoDaVelha(_jogador1, _jogador2);
                 _hub.PassarListaDeJogadoresParaRepositorio();
-            }          
+            }
         }
-    private void NovoJogoDeXadrez(bool tutorial)
+        private void NovoJogoDeXadrez(bool tutorial)
         {
             if (tutorial)
-                 new Xadrez.Services.Xadrez();
+                new Xadrez.Services.Xadrez();
             else
             {
                 new Xadrez.Services.Xadrez(_jogador1, _jogador2);
@@ -142,8 +138,8 @@ namespace HubDeJogos.Controllers
                 }
             } while (opcao != "0");
         }
-    
-    
+
+
 
     }
 }

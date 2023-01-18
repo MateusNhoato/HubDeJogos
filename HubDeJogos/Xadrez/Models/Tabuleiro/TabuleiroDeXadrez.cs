@@ -120,23 +120,23 @@ namespace HubDeJogos.Xadrez.Models.Tabuleiro
 
         public void AlterarTabuleiroMatrizParaRegistro()
         {
-            for(int i=0; i<_pecas.GetLength(1); i++) 
+            for (int i = 0; i < _pecas.GetLength(1); i++)
             {
-                for(int j=0; j<_pecas.GetLength(0); j++)
+                for (int j = 0; j < _pecas.GetLength(0); j++)
                 {
-                    if (_pecas[i,j] != null)
+                    if (_pecas[i, j] != null)
                     {
-                        if (_pecas[i,j].Cor == Enums.Cor.Brancas)
-                                TabuleiroMatriz[i, j] = $"x{_pecas[i, j]} ";
+                        if (_pecas[i, j].Cor == Enums.Cor.Brancas)
+                            TabuleiroMatriz[i, j] = $"x{_pecas[i, j]} ";
                         else
                             TabuleiroMatriz[i, j] = $" {_pecas[i, j]} ";
-                    }                       
+                    }
                     else
                         TabuleiroMatriz[i, j] = "   ";
                 }
                 Console.WriteLine();
             }
-           
+
         }
     }
 

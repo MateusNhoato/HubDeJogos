@@ -39,8 +39,8 @@
             "  com o empate, o jogo continua de onde parou: na vez do jogador\n" +
             "  que propôs o empate. Vamos ver um exemplo de 'render' a seguir.",
 
-            "\n  Ah, e todas as partidas são registradas no formato pgn!" +
-            "  Elas ficam na pasta Xadrez>Repositories>Data\n\n" +
+            "\n  Ah, e todas as partidas são registradas no formato pgn!\n" +
+            "  Elas ficam na pasta: 'Xadrez>Repositories>Data'\n\n" +
             "  E essas são todas as informações que precisa saber!\n" +
             "  Agora, mesmo que não conheça os movimentos das peças,\n" +
             "  é possível jogar xadrez facilmente!\n" +
@@ -133,7 +133,7 @@
        |   |   |  |  |_|  | |       |   |
        |___|   |  |_______| |       |___|
                |            |             ";
-       private readonly static string _jogoDaVelhaSegundaJogada = @"
+        private readonly static string _jogoDaVelhaSegundaJogada = @"
                |  _______   |    _______
     __   __    | |       |  |   |       |
    |  |_|  |   | |____   |  |   |___    |
@@ -221,7 +221,7 @@
     |     |    |  |   _   | |   |___    |
    |   _   |   |  |  |_|  | |       |   |
    |__| |__|   |  |_______| |       |___|";
-       
+
         private readonly static string _vencedor = @"
    __   __  _______  __    _  _______  _______  ______   _______  ______      ___     __   __ 
   |  | |  ||       ||  |  | ||       ||       ||      | |       ||    _ |    |   |   |  |_|  |
@@ -231,7 +231,7 @@
    |     | |   |___ | | |   ||     |_ |   |___ |       ||       ||   |  | |  |___|   |   _   |
     |___|  |_______||_|  |__||_______||_______||______| |_______||___|  |_|          |__| |__|";
         public readonly static string[] JogoDaVelhaAnimação = new string[7]
-        { _jogodaVelhaComNumeros, 
+        { _jogodaVelhaComNumeros,
           _jogoDaVelhaPrimeiraJogada,
           _jogoDaVelhaSegundaJogada,
           _jogoDaVelhaTerceiraJogada,

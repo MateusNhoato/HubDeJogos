@@ -1,11 +1,10 @@
-﻿using HubDeJogos.Xadrez.Models.Enums;
-namespace HubDeJogos.Xadrez.Models;
+﻿namespace HubDeJogos.Xadrez.Models;
 
 public class PosicaoXadrez
 {
     public char Coluna { get; set; }
-    public int Linha { get; set;}
-    
+    public int Linha { get; set; }
+
 
     public PosicaoXadrez(char coluna, int linha)
     {

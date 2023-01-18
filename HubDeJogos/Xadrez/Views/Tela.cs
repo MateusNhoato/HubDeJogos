@@ -1,8 +1,8 @@
-﻿using HubDeJogos.Xadrez.Models;
-using HubDeJogos.Xadrez.Models.Tabuleiro;
-using HubDeJogos.Xadrez.Models.Pecas;
+﻿using HubDeJogos.Models;
+using HubDeJogos.Xadrez.Models;
 using HubDeJogos.Xadrez.Models.Enums;
-using HubDeJogos.Models;
+using HubDeJogos.Xadrez.Models.Pecas;
+using HubDeJogos.Xadrez.Models.Tabuleiro;
 
 namespace HubDeJogos.Xadrez.Views
 {
@@ -23,7 +23,7 @@ namespace HubDeJogos.Xadrez.Views
             Console.WriteLine("\n  Turno: " + partida.Turno);
 
             if (!partida.Terminada)
-            {               
+            {
                 Console.WriteLine($"  Aguardando jogada: {nomeJogador}({partida.CorAtual})");
                 if (partida.Xeque)
                 {
@@ -67,7 +67,7 @@ namespace HubDeJogos.Xadrez.Views
             foreach (Peca p in conjunto)
             {
                 aux++;
-                if(aux % 8 == 0)
+                if (aux % 8 == 0)
                     Console.Write("\n   ");
 
                 Console.Write(p + " ");

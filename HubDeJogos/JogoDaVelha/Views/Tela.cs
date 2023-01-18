@@ -1,5 +1,4 @@
-﻿using HubDeJogos.JogoDaVelha.Models;
-using HubDeJogos.Models;
+﻿using HubDeJogos.Models;
 
 namespace HubDeJogos.JogoDaVelha.Views
 {

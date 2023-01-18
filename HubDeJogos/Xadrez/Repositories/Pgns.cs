@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace HubDeJogos.Xadrez.Repositories
 {
@@ -52,12 +48,12 @@ namespace HubDeJogos.Xadrez.Repositories
             sb.AppendLine($"[Black \"{pgn.JogadorPretas}\"]\n");
             sb.AppendLine($"[Result \"{pgn.Resultado}\"]\n");
 
-            foreach(string jogada in pgn.Jogadas)
+            foreach (string jogada in pgn.Jogadas)
             {
-                sb.Append(jogada+ " ");
+                sb.Append(jogada + " ");
             }
             sb.Append($"{pgn.Resultado}");
-            
+
             File.WriteAllText(pathCompleto, sb.ToString());
         }
 

@@ -1,6 +1,4 @@
-﻿using HubDeJogos.Xadrez.Models.Enums;
-
-namespace HubDeJogos.Xadrez.Repositories
+﻿namespace HubDeJogos.Xadrez.Repositories
 {
     public class Pgn
     {

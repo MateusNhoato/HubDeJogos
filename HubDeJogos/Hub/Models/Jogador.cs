@@ -7,10 +7,10 @@ namespace HubDeJogos.Models
 {
     [JsonObject]
     public class Jogador
-    {      
+    {
         public string NomeDeUsuario { get; private set; }
         public string Senha { get; private set; }
-        
+
         public List<Partida>? HistoricoDePartidas { get; private set; } = new List<Partida>();
 
         public Jogador(string nomeDeUsuario, string senha)
@@ -29,18 +29,18 @@ namespace HubDeJogos.Models
         public int GetPontuacao(Jogo jogo)
         {
             int pontuacao = 0;
-            
-            foreach(Partida partida in HistoricoDePartidas) 
+
+            foreach (Partida partida in HistoricoDePartidas)
             {
-                if(partida.Jogo.Equals(jogo))
+                if (partida.Jogo.Equals(jogo))
                 {
                     if (partida.Resultado != Resultado.Empate)
                     {
                         // se não foi empate vejo o nome de quem ganhou para confiar o vitorioso
-                        if (partida.NomeJogadorGanhou.Equals(NomeDeUsuario))
+                        if (partida.JogadorGanhou.Equals(NomeDeUsuario))
                             pontuacao += 3;
                         else
-                            pontuacao--;                        
+                            pontuacao--;
                     }
                     else
                         pontuacao++;
@@ -51,14 +51,14 @@ namespace HubDeJogos.Models
 
         public void AlterarNomeDeUsuario(string nomeDeUsuario) => NomeDeUsuario = nomeDeUsuario;
         public void AlterarSenha(string senha) => Senha = senha;
-        
+
 
 
         public override bool Equals(object? obj)
         {
             if (obj is not Jogador)
                 return false;
-            Jogador other = obj as Jogador; 
+            Jogador other = obj as Jogador;
             return NomeDeUsuario.Equals(other.NomeDeUsuario);
         }
 

@@ -3,7 +3,7 @@
     public enum Resultado
     {
         Decisivo,
-        Empate 
+        Empate
 
     }
 }

@@ -1,14 +1,12 @@
 ﻿using HubDeJogos.Xadrez.Models.Enums;
 using HubDeJogos.Xadrez.Models.Tabuleiro;
-using HubDeJogos.Xadrez.Services;
-using System.Runtime.ConstrainedExecution;
 
 namespace HubDeJogos.Xadrez.Models.Pecas
 {
     public class Peao : Peca
     {
         private Services.Xadrez partida;
-        public Peao(TabuleiroDeXadrez tab, Cor cor, Services.Xadrez partida) : base(cor, tab) 
+        public Peao(TabuleiroDeXadrez tab, Cor cor, Services.Xadrez partida) : base(cor, tab)
         {
             this.partida = partida;
         }
@@ -36,7 +34,7 @@ namespace HubDeJogos.Xadrez.Models.Pecas
             Posicao pos = new Posicao(0, 0);
 
             if (Cor == Cor.Brancas)
-            {              
+            {
                 pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
                 if (Tab.PosicaoValida(pos) && Livre(pos))
                 {
@@ -44,7 +42,7 @@ namespace HubDeJogos.Xadrez.Models.Pecas
                 }
                 pos.DefinirValores(Posicao.Linha - 2, Posicao.Coluna);
                 Posicao p2 = new Posicao(Posicao.Linha - 1, Posicao.Coluna);
-                if (Tab.PosicaoValida(p2) && Livre(p2) && Tab.PosicaoValida(pos) 
+                if (Tab.PosicaoValida(p2) && Livre(p2) && Tab.PosicaoValida(pos)
                     && Livre(pos) && QteMovimentos == 0)
                 {
                     mat[pos.Linha, pos.Coluna] = true;

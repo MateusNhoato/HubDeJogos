@@ -9,12 +9,12 @@ namespace HubDeJogos.Hub.Repositories
         public List<Jogador> ListaDeJogadores { get; private set; }
 
         public Jogadores() { }
-        
+
         public void CarregarListaDeJogadores()
-        {          
+        {
             try
-            {               
-                string stringJson = File.ReadAllText(_path);               
+            {
+                string stringJson = File.ReadAllText(_path);
                 ListaDeJogadores = JsonConvert.DeserializeObject<List<Jogador>>(stringJson);
             }
             catch (FileNotFoundException)
@@ -30,11 +30,11 @@ namespace HubDeJogos.Hub.Repositories
             }
         }
 
-      
+
 
         public void SalvarJogadores(List<Jogador> jogadores)
         {
-            
+
             string json = JsonConvert.SerializeObject(jogadores);
             try
             {

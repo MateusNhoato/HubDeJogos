@@ -8,6 +8,7 @@ Este é um projeito feito para o programa Sharp Coders da Ímã Learning Place. 
 - [Instalação](#instalação-)
 - [Features](#features-)
     - [Menu de Jogos](#menu-de-jogos-)
+    - [Registro PGN](#registro-de-partida-de-xadrez-pgn-)
 - [Autor](#autor)
 
 
@@ -50,6 +51,11 @@ Dentro deste menu temos as opções:
     - Acessa o menu de histórico dos jogadores que estão logados. Neste menu você pode escolher ver o histórico do jogador 1 ou do jogador 2.
 - Tutoriais dos Jogos
     - Acessa o menu de tutoriais. Os tutoriais são apresentações específicas de cada jogo que mostram como o próprio funciona.
+
+### Registro de Partida de Xadrez PGN ✅
+Toda partida de xadrez jogada no Hub de Jogos é registrada no formato PGN. O arquivo é gerado na pasta: 
+`Xadrez>Repositories>Data`
+
 
 ## Autor
 Mateus Nhoato

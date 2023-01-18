@@ -5,7 +5,7 @@ namespace HubDeJogos.Xadrez.Models.Pecas;
 
 public class Bispo : Peca
 {
-    public Bispo(TabuleiroDeXadrez tab, Cor cor) : base(cor,tab)
+    public Bispo(TabuleiroDeXadrez tab, Cor cor) : base(cor, tab)
     { }
 
     public override string ToString()
@@ -32,7 +32,7 @@ public class Bispo : Peca
 
             if (Tab.Peca(pos) != null && Tab.Peca(pos).Cor != Cor)
                 break;
-            pos.DefinirValores(pos.Linha -1, pos.Coluna- 1);
+            pos.DefinirValores(pos.Linha - 1, pos.Coluna - 1);
         }
 
         // NE

@@ -1,7 +1,5 @@
 ﻿using HubDeJogos.Models.Enums;
-using HubDeJogos.Models;
 using HubDeJogos.Repositories;
-using System.Text;
 
 namespace HubDeJogos.Views
 {
@@ -15,8 +13,8 @@ namespace HubDeJogos.Views
   |       ||       ||  _   |   | |_|   ||    ___|   ___|   ||  |_|  ||   ||  ||  |_|  ||_____  |
   |   _   ||       || |_|   |  |       ||   |___   |       ||       ||   |_| ||       | _____| |
   |__| |__||_______||_______|  |______| |_______|  |_______||_______||_______||_______||_______|";
-  
-          private readonly static string _jogos = @"
+
+        private readonly static string _jogos = @"
        ___  _______  _______  _______  _______ 
       |   ||       ||       ||       ||       |
       |   ||   _   ||    ___||   _   ||  _____|
@@ -24,8 +22,8 @@ namespace HubDeJogos.Views
    ___|   ||  |_|  ||   ||  ||  |_|  ||_____  |
   |       ||       ||   |_| ||       | _____| |
   |_______||_______||_______||_______||_______|";
-  
-          private readonly static string _registrar = @"
+
+        private readonly static string _registrar = @"
    ______    _______  _______  ___   _______  _______  ______    _______  ______   
   |    _ |  |       ||       ||   | |       ||       ||    _ |  |   _   ||    _ |  
   |   | ||  |    ___||    ___||   | |  _____||_     _||   | ||  |  |_|  ||   | ||  
@@ -33,8 +31,8 @@ namespace HubDeJogos.Views
   |    __  ||    ___||   ||  ||   | |_____  |  |   |  |    __  ||       ||    __  |
   |   |  | ||   |___ |   |_| ||   |  _____| |  |   |  |   |  | ||   _   ||   |  | |
   |___|  |_||_______||_______||___| |_______|  |___|  |___|  |_||__| |__||___|  |_|";
-  
-          private readonly static string _entrar = @"
+
+        private readonly static string _entrar = @"
    _______  __    _  _______  ______    _______  ______   
   |       ||  |  | ||       ||    _ |  |   _   ||    _ |  
   |    ___||   |_| ||_     _||   | ||  |  |_|  ||   | ||  
@@ -42,8 +40,8 @@ namespace HubDeJogos.Views
   |    ___||  _    |  |   |  |    __  ||       ||    __  |
   |   |___ | | |   |  |   |  |   |  | ||   _   ||   |  | |
   |_______||_|  |__|  |___|  |___|  |_||__| |__||___|  |_|";
-  
-          private readonly static string _jogadores = @"
+
+        private readonly static string _jogadores = @"
        ___  _______  _______  _______  ______   _______  ______    _______  _______ 
       |   ||       ||       ||   _   ||      | |       ||    _ |  |       ||       |
       |   ||   _   ||    ___||  |_|  ||  _    ||   _   ||   | ||  |    ___||  _____|
@@ -51,7 +49,7 @@ namespace HubDeJogos.Views
    ___|   ||  |_|  ||   ||  ||       || |_|   ||  |_|  ||    __  ||    ___||_____  |
   |       ||       ||   |_| ||   _   ||       ||       ||   |  | ||   |___  _____| |
   |_______||_______||_______||__| |__||______| |_______||___|  |_||_______||_______|";
-          private readonly static string _ranking = @"
+        private readonly static string _ranking = @"
    ______    _______  __    _  ___   _  ___   __    _  _______ 
   |    _ |  |   _   ||  |  | ||   | | ||   | |  |  | ||       |
   |   | ||  |  |_|  ||   |_| ||   |_| ||   | |   |_| ||    ___|
@@ -59,8 +57,8 @@ namespace HubDeJogos.Views
   |    __  ||       ||  _    ||     |_ |   | |  _    ||   ||  |
   |   |  | ||   _   || | |   ||    _  ||   | | | |   ||   |_| |
   |___|  |_||__| |__||_|  |__||___| |_||___| |_|  |__||_______|";
-  
-          private readonly static string _historico = @"
+
+        private readonly static string _historico = @"
    __   __  ___   _______  _______  _______  ______    ___   _______  _______ 
   |  | |  ||   | |       ||       ||       ||    _ |  |   | |       ||       |
   |  |_|  ||   | |  _____||_     _||   _   ||   | ||  |   | |       ||   _   |
@@ -87,28 +85,27 @@ namespace HubDeJogos.Views
         #region Partida
         public void ImprimirPartida(Partida partida)
         {
-            DateTime dateTime = new DateTime(partida.DateTime.Year, partida.DateTime.Month, partida.DateTime.Day, partida.DateTime.Hour,    partida.DateTime.Minute, 0, partida.DateTime.Kind);
+            DateTime dateTime = new DateTime(partida.DateTime.Year, partida.DateTime.Month, partida.DateTime.Day, partida.DateTime.Hour, partida.DateTime.Minute, 0, partida.DateTime.Kind);
+            string auxJogo1 = string.Empty;
+            string auxJogo2 = string.Empty;
 
-            string nome1, nome2;
-
-            if(new Random().Next(0,2) == 0)
+            if (partida.Jogo == Jogo.JogoDaVelha)
             {
-                nome1 = partida.NomeJogadorGanhou;
-                nome2 = partida.NomeJogadorPerdeu;
+                auxJogo1 = "X";
+                auxJogo2 = "O";
             }
             else
             {
-                nome2 = partida.NomeJogadorGanhou;
-                nome1 = partida.NomeJogadorPerdeu;
+                auxJogo1 = "Brancas";
+                auxJogo2 = "Pretas";
             }
-
 
             Console.WriteLine($"{Utilidades.Utilidades.Linha}\n");
             Console.WriteLine($"  Partida de {partida.Jogo} | {dateTime}\n");
-            Console.WriteLine($"  {nome1} VS {nome2}\n");
+            Console.WriteLine($"  {partida.Jogador1}({auxJogo1}) VS {partida.Jogador2}({auxJogo2})\n");
 
             // imprimir tabuleiro
-            if(partida.Jogo == Jogo.JogoDaVelha)
+            if (partida.Jogo == Jogo.JogoDaVelha)
             {
                 JogoDaVelha.Views.Tela tela = new();
                 tela.ImprimirTabuleiro(partida.Tabuleiro);
@@ -123,7 +120,7 @@ namespace HubDeJogos.Views
             if (partida.Resultado == Resultado.Empate)
                 Console.WriteLine($"\n  Resultado: {partida.Resultado}");
             else
-                Console.WriteLine($"\n  Vencedor: {partida.NomeJogadorGanhou}");
+                Console.WriteLine($"\n  Vencedor: {partida.JogadorGanhou}");
 
         }
 
@@ -148,7 +145,7 @@ namespace HubDeJogos.Views
         {
             Console.Clear();
             Console.WriteLine(_entrar + "\n");
-            if(!manipularConta)
+            if (!manipularConta)
                 Console.WriteLine("  Para começar a jogar, é necessário que dois jogadores estejam logados.\n\n");
             else
                 Console.WriteLine("  Para manipular sua conta é necessário logar nela primeiro.\n");
@@ -172,7 +169,8 @@ namespace HubDeJogos.Views
         {
             Console.Clear();
             Console.WriteLine(_ranking + "\n");
-            Console.WriteLine("  Os melhores jogadores, em ordem de pontuação!!\n\n");
+            Console.WriteLine("  Os melhores jogadores, em ordem de pontuação!!");
+            Console.WriteLine("  [Vitórias = 3pts | Empates = 1pt | Derrotas = -1 pt ]\n\n");
         }
         public void ImprimirConta()
         {
@@ -216,8 +214,8 @@ namespace HubDeJogos.Views
         {
             Console.Clear();
             Console.WriteLine(_historico + "\n");
-            if(nomeDoJogador!= null)
-                Console.WriteLine($"  Histórico de {nomeDoJogador}:\n");            
+            if (nomeDoJogador != null)
+                Console.WriteLine($"  Histórico de {nomeDoJogador}:\n");
         }
         public void ImprimirHistoricoMenu(string nomeDoJogador1, string nomeDoJogador2)
         {
@@ -237,7 +235,7 @@ namespace HubDeJogos.Views
             Console.WriteLine("  0- Voltar");
             Console.Write("\n  Digite a opção desejada: ");
         }
-    
+
 
         #endregion
 
@@ -245,7 +243,7 @@ namespace HubDeJogos.Views
         public void ImprimirHistoricoDoJogador(List<Partida> partidas)
         {
             Tela tela = new();
-            foreach(Partida partida in partidas) 
+            foreach (Partida partida in partidas)
             {
                 tela.ImprimirPartida(partida);
             }

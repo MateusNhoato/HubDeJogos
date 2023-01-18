@@ -13,7 +13,7 @@ namespace HubDeJogos.Hub.Repositories
             try
             {
                 string stringJson = File.ReadAllText(_path);
-                if(!(string.IsNullOrEmpty(stringJson)))
+                if (!(string.IsNullOrEmpty(stringJson)))
                     HistoricoDePartidas = JsonConvert.DeserializeObject<List<Partida>>(stringJson);
             }
             catch (FileNotFoundException)
@@ -36,6 +36,6 @@ namespace HubDeJogos.Hub.Repositories
             }
         }
 
-      
+
     }
 }

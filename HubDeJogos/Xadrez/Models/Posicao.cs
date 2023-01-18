@@ -47,9 +47,9 @@ public class Posicao
             case 7:
                 coluna = 'h';
                 break;
-            
+
         }
-        return new PosicaoXadrez(coluna,8 - Linha);
+        return new PosicaoXadrez(coluna, 8 - Linha);
     }
 
 }

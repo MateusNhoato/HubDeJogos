@@ -5,7 +5,7 @@
         public readonly static string Linha = @"                                                
    ____   ____   ____   ____   ____   ____   ____  
   |____| |____| |____| |____| |____| |____| |____| ";
-       
+
 
         // função utilitária para comunicação com usuário        
         public static void AperteEnterParaContinuar()

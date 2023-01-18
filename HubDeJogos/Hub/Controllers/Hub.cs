@@ -1,10 +1,9 @@
-﻿using HubDeJogos.Models;
-using HubDeJogos.Views;
+﻿using HubDeJogos.Hub.Repositories;
+using HubDeJogos.Models;
 using HubDeJogos.Models.Enums;
-using HubDeJogos.Hub.Repositories;
 using HubDeJogos.Repositories;
+using HubDeJogos.Views;
 using System.Text.RegularExpressions;
-using System.Runtime.CompilerServices;
 
 namespace HubDeJogos.Controllers
 {
@@ -182,10 +181,10 @@ namespace HubDeJogos.Controllers
                 j.GetPontuacao(Jogo.Xadrez))
                 .ThenBy(j => j.HistoricoDePartidas.Count(p =>
                 p.Resultado.Equals(Resultado.Decisivo) &&
-                p.NomeJogadorGanhou.Equals(j.NomeDeUsuario)))
+                p.JogadorGanhou.Equals(j.NomeDeUsuario)))
                 .ThenByDescending(j => j.HistoricoDePartidas.Count(p =>
                 p.Resultado.Equals(Resultado.Decisivo) &&
-                p.NomeJogadorPerdeu.Equals(j.NomeDeUsuario)))
+                p.JogadorGanhou != j.NomeDeUsuario))
                 .ToList();
 
             _tela.ImprimirRanking();
@@ -212,7 +211,7 @@ namespace HubDeJogos.Controllers
         // função auxiliar para achar o jogador, caso o login esteja correto
         private Jogador? Login(int? n)
         {
-            
+
             Jogador? jogador = null;
             if (n != null)
             {
@@ -323,7 +322,7 @@ namespace HubDeJogos.Controllers
                             AlterarSenhaDoUsuario(jogador);
                             break;
                         case "3":
-                           if(DeletarConta(jogador))
+                            if (DeletarConta(jogador))
                                 opcao = "0";
                             break;
                         default:
@@ -390,7 +389,7 @@ namespace HubDeJogos.Controllers
             Console.Write("  Digite a opção desejada: ");
 
             string opcao;
-            
+
             opcao = Console.ReadLine();
             switch (opcao)
             {

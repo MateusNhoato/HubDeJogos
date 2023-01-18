@@ -1,6 +1,5 @@
 ﻿using HubDeJogos.Xadrez.Models.Enums;
 using HubDeJogos.Xadrez.Models.Tabuleiro;
-using HubDeJogos.Xadrez.Services;
 
 
 
@@ -9,7 +8,7 @@ namespace HubDeJogos.Xadrez.Models.Pecas
     public class Rei : Peca
     {
         private Services.Xadrez partida;
-        public Rei(TabuleiroDeXadrez tab, Cor cor, Services.Xadrez partida ) : base(cor, tab)
+        public Rei(TabuleiroDeXadrez tab, Cor cor, Services.Xadrez partida) : base(cor, tab)
         {
             this.partida = partida;
         }
@@ -38,16 +37,16 @@ namespace HubDeJogos.Xadrez.Models.Pecas
             // acima
             pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
 
-            if(Tab.PosicaoValida(pos) && PodeMover(pos))
+            if (Tab.PosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
             // ne
-            pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna +1);
+            pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 1);
             if (Tab.PosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
             // direita
-            pos.DefinirValores(Posicao.Linha, Posicao.Coluna + 1 );
+            pos.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
             if (Tab.PosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
@@ -72,21 +71,21 @@ namespace HubDeJogos.Xadrez.Models.Pecas
                 matriz[pos.Linha, pos.Coluna] = true;
 
             // no
-            pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna -1);
+            pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 1);
             if (Tab.PosicaoValida(pos) && PodeMover(pos))
                 matriz[pos.Linha, pos.Coluna] = true;
 
             // #jogadaespecial roque
-            if(QteMovimentos == 0 && !partida.Xeque)
+            if (QteMovimentos == 0 && !partida.Xeque)
             {
                 // #jogadaespecial roque pequeno
                 Posicao posT1 = new Posicao(Posicao.Linha, Posicao.Coluna + 3);
-                if(TesteTorreParaRoque(posT1))
+                if (TesteTorreParaRoque(posT1))
                 {
                     Posicao p1 = new Posicao(Posicao.Linha, Posicao.Coluna + 1);
                     Posicao p2 = new Posicao(Posicao.Linha, Posicao.Coluna + 2);
                     if (Tab.Peca(p1) == null && Tab.Peca(p2) == null)
-                        matriz[Posicao.Linha, Posicao.Coluna +2] = true;
+                        matriz[Posicao.Linha, Posicao.Coluna + 2] = true;
                 }
 
                 // #jogadaespecial roque grande

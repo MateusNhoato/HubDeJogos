@@ -29,7 +29,7 @@ namespace HubDeJogos.Xadrez.Models.Pecas
 
             // acima
             pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
-            while(Tab.PosicaoValida(pos) && PodeMover(pos)) 
+            while (Tab.PosicaoValida(pos) && PodeMover(pos))
             {
                 matriz[pos.Linha, pos.Coluna] = true;
                 if (Tab.Peca(pos) != null && Tab.Peca(pos).Cor != Cor)
@@ -48,13 +48,13 @@ namespace HubDeJogos.Xadrez.Models.Pecas
             }
 
             // direita
-            pos.DefinirValores(Posicao.Linha, Posicao.Coluna +1);
+            pos.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
             while (Tab.PosicaoValida(pos) && PodeMover(pos))
             {
                 matriz[pos.Linha, pos.Coluna] = true;
                 if (Tab.Peca(pos) != null && Tab.Peca(pos).Cor != Cor)
                     break;
-                pos.Coluna= pos.Coluna + 1;
+                pos.Coluna = pos.Coluna + 1;
             }
 
             // esquerda

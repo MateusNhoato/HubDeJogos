@@ -2,6 +2,6 @@
 {
     internal interface IAlteraTabuleiro
     {
-        public void AlterarTabuleiroMatrizParaRegistro();       
+        public void AlterarTabuleiroMatrizParaRegistro();
     }
 }

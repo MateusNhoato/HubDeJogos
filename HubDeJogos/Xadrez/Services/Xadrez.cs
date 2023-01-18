@@ -1,15 +1,15 @@
-﻿using HubDeJogos.Xadrez.Models;
-using HubDeJogos.Xadrez.Models.Enums;
-using HubDeJogos.Xadrez.Models.Tabuleiro;
-using HubDeJogos.Xadrez.Models.Pecas;
-using HubDeJogos.Xadrez.Views;
-using HubDeJogos.Models;
-using HubDeJogos.Repositories;
-using HubDeJogos.Models.Enums;
-using HubDeJogos.Hub.Repositories;
-using System.Text.RegularExpressions;
+﻿using HubDeJogos.Hub.Repositories;
 using HubDeJogos.Hub.Views;
+using HubDeJogos.Models;
+using HubDeJogos.Models.Enums;
+using HubDeJogos.Repositories;
+using HubDeJogos.Xadrez.Models;
+using HubDeJogos.Xadrez.Models.Enums;
+using HubDeJogos.Xadrez.Models.Pecas;
+using HubDeJogos.Xadrez.Models.Tabuleiro;
 using HubDeJogos.Xadrez.Repositories;
+using HubDeJogos.Xadrez.Views;
+using System.Text.RegularExpressions;
 
 namespace HubDeJogos.Xadrez.Services;
 
@@ -208,27 +208,29 @@ public class Xadrez
 
         // informações da partida para registro
         string vencedor = Jogador1.NomeDeUsuario;
-        string perdedor = Jogador2.NomeDeUsuario;
+        string jogador1 = Jogador1.NomeDeUsuario;
+        string jogador2 = Jogador2.NomeDeUsuario;
         Resultado resultado = Resultado.Decisivo;
+
         string resultadoPgn = "1-0";
 
 
         if (CorAtual is Cor.Pretas)
         {
             vencedor = Jogador2.NomeDeUsuario;
-            perdedor = Jogador1.NomeDeUsuario;
             resultadoPgn = "0-1";
         }
 
         if (Empate)
         {
             resultado = Resultado.Empate;
+            vencedor = null;
             resultadoPgn = "1/2-1/2";
         }
 
         // alterando tabuleiro para registrá-lo
         Tabuleiro.AlterarTabuleiroMatrizParaRegistro();
-        Partida partida = new Partida(Jogo.Xadrez, vencedor, perdedor, resultado, Tabuleiro);
+        Partida partida = new Partida(Jogo.Xadrez, jogador1, jogador2, vencedor, resultado, Tabuleiro);
 
         //adicionando a partida aos historicos
         Partidas.HistoricoDePartidas.Add(partida);
@@ -373,31 +375,31 @@ public class Xadrez
         // string para registrar jogadas no pgn
         string jogada = string.Empty;
 
-        if (CorAtual == Cor.Brancas)       
+        if (CorAtual == Cor.Brancas)
             jogada = $"{Turno}.";
-        
+
         // pegando qual peça se moveu para pgn, se foi peão fica vazio
         Peca pecaOrigem = Tabuleiro.Peca(origem);
         if (pecaOrigem is not Peao)
             jogada += pecaOrigem.ToString();
 
-       
+
 
         //checkando ambiguidades para o registro pgn    
 
         foreach (Peca pecaChecagem in PecasEmJogo(pecaOrigem.Cor))
         {
-             if (!pecaChecagem.MesmoTipoDePeca(pecaOrigem))
-                   continue;           
+            if (!pecaChecagem.MesmoTipoDePeca(pecaOrigem))
+                continue;
 
-             if (pecaChecagem.MovimentosPossiveis()[destino.Linha, destino.Coluna] == true)
-             {
+            if (pecaChecagem.MovimentosPossiveis()[destino.Linha, destino.Coluna] == true)
+            {
                 // comparando as posições para ver as diferenças
                 if (pecaChecagem.Posicao.Equals(pecaOrigem.Posicao))
                     continue;
-                else 
+                else
                 {
-                   
+
                     PosicaoXadrez pos = pecaOrigem.Posicao.ToPosicaoXadrez();
                     string posicaoDiferente = pos.Coluna.ToString();
 
@@ -405,14 +407,14 @@ public class Xadrez
                         posicaoDiferente = (8 - pecaOrigem.Posicao.Linha).ToString();
 
                     jogada += posicaoDiferente;
-                }               
-             }            
+                }
+            }
         }
         Peca pecaCapturada = ExecutaMovimento(origem, destino);
         // se houve alguma captura adicionamos 'x' no pgn
         if (pecaCapturada != null)
         {
-            if(pecaOrigem is not Peao)
+            if (pecaOrigem is not Peao)
                 jogada += "x";
             else
             {

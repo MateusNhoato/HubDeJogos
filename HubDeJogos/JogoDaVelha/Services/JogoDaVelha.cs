@@ -1,12 +1,12 @@
 ﻿
-using HubDeJogos.JogoDaVelha.Models.Enums;
-using HubDeJogos.Models.Enums;
-using HubDeJogos.Models;
-using HubDeJogos.Repositories;
-using HubDeJogos.JogoDaVelha.Models;
-using HubDeJogos.JogoDaVelha.Views;
 using HubDeJogos.Hub.Repositories;
 using HubDeJogos.Hub.Views;
+using HubDeJogos.JogoDaVelha.Models;
+using HubDeJogos.JogoDaVelha.Models.Enums;
+using HubDeJogos.JogoDaVelha.Views;
+using HubDeJogos.Models;
+using HubDeJogos.Models.Enums;
+using HubDeJogos.Repositories;
 
 namespace HubDeJogos.JogoDaVelha.Services
 {
@@ -17,7 +17,7 @@ namespace HubDeJogos.JogoDaVelha.Services
         private readonly Jogador _jogador2;
 
 
-        public JogoDaVelha() 
+        public JogoDaVelha()
         {
             _jogador1 = new Jogador("Fulano", "");
             _jogador2 = new Jogador("Beltrano", "");
@@ -40,7 +40,7 @@ namespace HubDeJogos.JogoDaVelha.Services
             {
                 for (int j = 0; j < tabuleiro.Tamanho; j++)
                 {
-                     
+
                     if (tabuleiro.TabuleiroMatriz[i, j].Trim().Equals(posicaoDaJogada))
                     {
                         tabuleiro.TabuleiroMatriz[i, j] = simbolo;
@@ -49,33 +49,33 @@ namespace HubDeJogos.JogoDaVelha.Services
             }
         }
         // função tutorial
-        private void Tutorial() 
+        private void Tutorial()
         {
             TabuleiroJogoDaVelha tabuleiro = new(3);
             ConsoleColor aux = Console.ForegroundColor;
 
-            for (int i=0; i<4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 Console.Clear();
                 Console.WriteLine(Tutoriais.ExplicacoesJogoDaVelha[i]);
                 Utilidades.Utilidades.AperteEnterParaContinuar();
 
-                if(i==0)
+                if (i == 0)
                 {
                     Console.Write("\n  Digite o tamanho do jogo (3 a 10): 3");
                     Console.WriteLine("\n\n  Como mencionado vamos usar o tabuleiro 3x3 neste tutorial!");
                     Utilidades.Utilidades.AperteEnterParaContinuar();
-                    
+
                     Console.Clear();
                     Console.WriteLine();
                     _tela.ImprimirTabuleiro(tabuleiro);
                     Console.WriteLine("\n  Ta-dãan! Um tabuleiro 3x3 novíssimo foi criado!");
                 }
-                else if(i ==1)
+                else if (i == 1)
                 {
                     Console.WriteLine();
                     _tela.ImprimirTabuleiro(tabuleiro);
-                    Console.Write($"\n  Vez de {_jogador1.NomeDeUsuario}(");                   
+                    Console.Write($"\n  Vez de {_jogador1.NomeDeUsuario}(");
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write("X");
                     Console.ForegroundColor = aux;
@@ -84,20 +84,20 @@ namespace HubDeJogos.JogoDaVelha.Services
 
                     Jogada("1", $" {Simbolo.X} ", tabuleiro);
                     Utilidades.Utilidades.AperteEnterParaContinuar();
-                    
+
                     Console.Clear();
                     Console.WriteLine();
                     _tela.ImprimirTabuleiro(tabuleiro);
                     Console.WriteLine("\n\n  O primeiro jogador escolheu a posição 1,\n" +
                                           "  logo o 'X' aparece na posição.\n" +
-                                          "  Agora é vez do segundo jogador.");                   
+                                          "  Agora é vez do segundo jogador.");
                     Utilidades.Utilidades.AperteEnterParaContinuar();
 
                     Console.Clear();
                     Console.WriteLine();
                     _tela.ImprimirTabuleiro(tabuleiro);
                     Console.Write($"\n  Vez de {_jogador2.NomeDeUsuario}(");
-                   
+
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.Write("O");
                     Console.ForegroundColor = aux;
@@ -114,7 +114,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                                            "  a lógica é a mesma: 'O' aparece na posição.");
 
                 }
-                else if(i==2)
+                else if (i == 2)
                 {
                     Jogada("4", $" {Simbolo.X} ", tabuleiro);
                     Console.Clear();
@@ -124,7 +124,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                     Jogada("3", $" {Simbolo.O} ", tabuleiro);
                     Console.Clear();
                     Console.WriteLine();
-                    _tela.ImprimirTabuleiro(tabuleiro);                  
+                    _tela.ImprimirTabuleiro(tabuleiro);
                     Jogada("7", $" {Simbolo.X} ", tabuleiro);
                     Thread.Sleep(2000);
                     Console.Clear();
@@ -134,12 +134,12 @@ namespace HubDeJogos.JogoDaVelha.Services
                 }
                 else
                 {
-                    for(int j=0; j<7; j++) 
+                    for (int j = 0; j < 7; j++)
                     {
                         Console.Clear();
                         Console.WriteLine(Tutoriais.JogoDaVelhaAnimação[j]);
                         Thread.Sleep(1700);
-                    }                   
+                    }
                 }
                 Utilidades.Utilidades.AperteEnterParaContinuar();
             }
@@ -182,7 +182,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                     _tela.ImprimirTabuleiro(tabuleiro);
 
                     ConsoleColor aux = Console.ForegroundColor;
-                    
+
 
                     Console.Write($"\n  Vez de {jogador.NomeDeUsuario}(");
                     Console.ForegroundColor = (jogador.Equals(_jogador1)) ? ConsoleColor.Black : ConsoleColor.DarkRed;
@@ -203,7 +203,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                 // como o tamanho do tabuleiro é na verdade seu tamanho x2 -1, esse mesmo número é o número de
                 // jogadas mínimas antes de ter um vencedor (em um tabuleiro 3x3 precisamos de pelo menos 5
                 // jogadas para ter um vencedor 
-                if(turno >= tabuleiro.Tamanho)
+                if (turno >= tabuleiro.Tamanho)
                     vencedor = CheckarVitoriaOuVelha(tabuleiro);
 
                 // se vencedor == null (ninguém ganhou), a vez passa para o próximo jogador
@@ -229,9 +229,10 @@ namespace HubDeJogos.JogoDaVelha.Services
 
                     //settando parâmetros da partida
                     Resultado resultado = Resultado.Empate;
+                    string jogador1 = _jogador1.NomeDeUsuario;
+                    string jogador2 = _jogador2.NomeDeUsuario;
                     string jogadorGanhou = _jogador1.NomeDeUsuario;
-                    string jogadorPerdeu = _jogador2.NomeDeUsuario;
-                    
+
 
 
                     // CheckarVitoriaOuVelha retornou velha 
@@ -246,14 +247,12 @@ namespace HubDeJogos.JogoDaVelha.Services
 
                         // alterando o vencedor/perdedor
                         if (jogador.Equals(_jogador2))
-                        {
                             jogadorGanhou = _jogador2.NomeDeUsuario;
-                            jogadorPerdeu = _jogador1.NomeDeUsuario;
-                        }
+
                     }
                     // alterando o tabuleiro para registrá-lo
                     tabuleiro.AlterarTabuleiroMatrizParaRegistro();
-                    Partida partida = new Partida(Jogo.JogoDaVelha, jogadorGanhou, jogadorPerdeu, resultado, tabuleiro);
+                    Partida partida = new Partida(Jogo.JogoDaVelha, jogador1, jogador2, jogadorGanhou, resultado, tabuleiro);
 
                     //adicionando a partida no histórico de partidas
                     Partidas.HistoricoDePartidas.Add(partida);
@@ -298,7 +297,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                 for (int j = 0; j < tabuleiro.Tamanho; j += 2)
                 {
                     // utilizando o .Trim() pois usei espaços no X e na O para ficar com espaçamento correto
-                    
+
                     string valor = tabuleiro.TabuleiroMatriz[i, j].Trim();
 
                     int posicaoAuxiliarParaVetoresJ = (int)Math.Floor(j / 2.0);

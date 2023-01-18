@@ -1,12 +1,12 @@
-﻿using HubDeJogos.Models;
-using HubDeJogos.Hub.Models.Interfaces;
+﻿using HubDeJogos.Hub.Models.Interfaces;
+using HubDeJogos.Models;
 
 namespace HubDeJogos.JogoDaVelha.Models
 {
     public class TabuleiroJogoDaVelha : Tabuleiro, IAlteraTabuleiro
     {
         public List<string>? JogadasPossiveis { get; protected set; }
-   
+
         // construtor para tabuleiro novo
         public TabuleiroJogoDaVelha(int tamanho)
         {
@@ -23,7 +23,7 @@ namespace HubDeJogos.JogoDaVelha.Models
             Tamanho = (tamanho + 1) / 2;
         }
 
-        
+
 
         // função para gerar o tabuleiro de 3 até 10 
         private string[,] GerarTabuleiro()
@@ -60,7 +60,7 @@ namespace HubDeJogos.JogoDaVelha.Models
 
                 }
             }
-           return matrizTabuleiro;
+            return matrizTabuleiro;
         }
 
         // função para criar lista de jogadas possíveis
