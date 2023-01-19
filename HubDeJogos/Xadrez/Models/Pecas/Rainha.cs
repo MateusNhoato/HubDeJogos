@@ -3,9 +3,9 @@ using HubDeJogos.Xadrez.Models.Tabuleiro;
 
 namespace HubDeJogos.Xadrez.Models.Pecas
 {
-    public class Dama : Peca
+    public class Rainha : Peca
     {
-        public Dama(TabuleiroDeXadrez tab, Cor cor) : base(cor, tab) { }
+        public Rainha(TabuleiroDeXadrez tab, Cor cor) : base(cor, tab) { }
 
 
         public override string ToString()

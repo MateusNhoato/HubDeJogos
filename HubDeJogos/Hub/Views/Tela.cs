@@ -118,7 +118,7 @@ namespace HubDeJogos.Views
 
 
             if (partida.Resultado == Resultado.Empate)
-                Console.WriteLine($"\n  Resultado: {partida.Resultado}");
+                Console.WriteLine("\n  Empate");
             else
                 Console.WriteLine($"\n  Vencedor: {partida.JogadorGanhou}");
 

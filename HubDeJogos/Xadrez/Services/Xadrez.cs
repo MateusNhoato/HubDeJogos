@@ -419,8 +419,8 @@ public class Xadrez
             else
             {
                 PosicaoXadrez pos = origem.ToPosicaoXadrez();
-                string posicaoDiferente = pos.Coluna.ToString();
-                jogada += $"{posicaoDiferente}x";
+                string colunaPeao = pos.Coluna.ToString();
+                jogada += $"{colunaPeao}x";
             }
         }
 
@@ -442,12 +442,48 @@ public class Xadrez
             {
                 peca = Tabuleiro.RetirarPeca(destino);
                 _pecas.Remove(peca);
-                Peca dama = new Dama(Tabuleiro, peca.Cor);
-                Tabuleiro.ColocarPeca(dama, destino);
-                _pecas.Add(dama);
+
+                string EscolhaPeca()
+                {
+                    string escolha = string.Empty;
+                    string[] escolhasDePeca = new string[4] { "Q", "R", "B", "N" };
+                    do
+                    {
+                        Console.Write("  Peça escolhida: ");
+                        escolha = Console.ReadLine().ToUpper();
+                    } while (!escolhasDePeca.Contains(escolha));
+
+                    return escolha;
+                }
+             
+                Console.WriteLine("  O peão foi promovido!");
+                Console.WriteLine("  Escolha uma das seguintes peças para o Peão se transformar: ");
+                Console.WriteLine("  Q = Rainha | R = Torre | B = Bispo | N = Cavalo\n");
+                           
+                string escolha = EscolhaPeca();
+                Peca novaPeca = null;
+
+                switch (escolha)
+                {
+                    case "Q":
+                        novaPeca = new Rainha(Tabuleiro, peca.Cor);
+                        break;
+                    case "R":
+                        novaPeca = new Torre(Tabuleiro, peca.Cor);
+                        break;
+                    case "B":
+                        novaPeca = new Bispo(Tabuleiro, peca.Cor);
+                        break;
+                    case "N":
+                        novaPeca = new Cavalo(Tabuleiro, peca.Cor);
+                        break;
+                }
+
+                Tabuleiro.ColocarPeca(novaPeca, destino);
+                _pecas.Add(novaPeca);
 
                 //adicionando a promoção no pgn
-                jogada += "=Q";
+                jogada += $"={novaPeca}";
             }
         }
 

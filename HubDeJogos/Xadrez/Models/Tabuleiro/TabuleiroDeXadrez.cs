@@ -91,7 +91,7 @@ namespace HubDeJogos.Xadrez.Models.Tabuleiro
             ColocarNovaPeca('a', 1, new Torre(this, Cor.Brancas));
             ColocarNovaPeca('b', 1, new Cavalo(this, Cor.Brancas));
             ColocarNovaPeca('c', 1, new Bispo(this, Cor.Brancas));
-            ColocarNovaPeca('d', 1, new Dama(this, Cor.Brancas));
+            ColocarNovaPeca('d', 1, new Rainha(this, Cor.Brancas));
             ColocarNovaPeca('e', 1, new Rei(this, Cor.Brancas, _partida));
             ColocarNovaPeca('f', 1, new Bispo(this, Cor.Brancas));
             ColocarNovaPeca('g', 1, new Cavalo(this, Cor.Brancas));
@@ -108,7 +108,7 @@ namespace HubDeJogos.Xadrez.Models.Tabuleiro
             ColocarNovaPeca('a', 8, new Torre(this, Cor.Pretas));
             ColocarNovaPeca('b', 8, new Cavalo(this, Cor.Pretas));
             ColocarNovaPeca('c', 8, new Bispo(this, Cor.Pretas));
-            ColocarNovaPeca('d', 8, new Dama(this, Cor.Pretas));
+            ColocarNovaPeca('d', 8, new Rainha(this, Cor.Pretas));
             ColocarNovaPeca('e', 8, new Rei(this, Cor.Pretas, _partida));
             ColocarNovaPeca('f', 8, new Bispo(this, Cor.Pretas));
             ColocarNovaPeca('g', 8, new Cavalo(this, Cor.Pretas));

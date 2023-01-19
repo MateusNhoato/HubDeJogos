@@ -17,13 +17,27 @@ namespace HubDeJogos.Controllers
             _hub = hub;
         }
 
-        public void Menu()
+        public void Menu(bool tutorial)
         {
             string? opcao;
             do
             {
-                _tela.ImprimirMenuDeJogos();
-                opcao = Console.ReadLine();
+                if (!tutorial)
+                {
+                    _tela.ImprimirMenuDeJogos();
+                    opcao = Console.ReadLine();
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine($"\n  Olá, {_jogador1.NomeDeUsuario} e {_jogador2.NomeDeUsuario}!\n\n" +
+                                        "  Parece que pelo menos um de vocês está acessando o Hub de Jogos pela primeira vez.\n" +
+                                        "  Vamos redirecioná-los para nossa seção de Tutoriais.\n" +
+                                        "  Caso não quiserem ver os tutoriais, basta voltar para o menu principal de jogos.");
+                    Utilidades.Utilidades.AperteEnterParaContinuar();
+                    opcao = "3";
+                    tutorial = false;
+                }
 
                 switch (opcao)
                 {

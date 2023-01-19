@@ -117,8 +117,13 @@ namespace HubDeJogos.Controllers
 
             if (jogador1 != jogador2)
             {
-                MenuDeJogos menudeJogos = new(jogador1, jogador2, this);
-                menudeJogos.Menu();
+                MenuDeJogos menuDeJogos = new(jogador1, jogador2, this);
+
+
+                if (jogador1.HistoricoDePartidas.Count < 1 || jogador2.HistoricoDePartidas.Count < 1)
+                    menuDeJogos.Menu(true);
+                else
+                    menuDeJogos.Menu(false);
             }
             else
             {
