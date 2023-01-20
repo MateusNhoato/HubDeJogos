@@ -58,7 +58,7 @@ Toda partida de xadrez jogada no Hub de Jogos é registrada no formato PGN. O ar
 `Xadrez>Repositories>Data`
 
 ## Musicas 🎵
-Esta aplicação contém várias músicas do canal 'HeatleBros' no youtube. 
+Esta aplicação contém várias músicas do canal 'HeatleyBros' no youtube. 
 
 Segue os seus merecidíssimos créditos:
 
