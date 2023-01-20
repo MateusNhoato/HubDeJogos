@@ -4,6 +4,7 @@ using HubDeJogos.Xadrez.Models.Enums;
 using HubDeJogos.Xadrez.Models.Pecas;
 using HubDeJogos.Xadrez.Models.Tabuleiro;
 using HubDeJogos.Xadrez.Repositories;
+using Utilidades;
 
 namespace HubDeJogos.Xadrez.Views
 {
@@ -23,7 +24,7 @@ namespace HubDeJogos.Xadrez.Views
             Console.ForegroundColor = cor;
             Console.WriteLine("\n  Turno: " + partida.Turno);
             //efeito sonoro
-            Utilidades.Som.XequeOuXequemate(partida.Xeque, partida.Terminada, partida.Empate);
+            Som.XequeOuXequemate(partida.Xeque, partida.Terminada, partida.Empate);
 
             if (!partida.Terminada)
             {

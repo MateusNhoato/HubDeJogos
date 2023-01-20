@@ -95,7 +95,7 @@ namespace Utilidades
                     if (xeque)
                         sound.SoundLocation = @"..\..\..\Utilidades\Sons\xadrez\xeque.wav";
                 }
-                if (xeque || empate)
+                if (xeque | xequemate)
                     sound.Play();
             }
         }
