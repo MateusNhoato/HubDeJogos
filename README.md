@@ -55,7 +55,7 @@ Dentro deste menu temos as opções:
 
 ### Registro de Partida de Xadrez PGN ✅
 Toda partida de xadrez jogada no Hub de Jogos é registrada no formato PGN. O arquivo é gerado na pasta: 
-`Xadrez>Repositories>Data`
+`Xadrez>Repositories>Arquivos_pgn`
 
 ## Musicas 🎵
 Esta aplicação contém várias músicas do canal 'HeatleyBros' no youtube. 
