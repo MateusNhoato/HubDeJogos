@@ -1,12 +1,9 @@
 ﻿using HubDeJogos.Controllers;
-using HubDeJogos.Xadrez.Repositories;
-using HubDeJogos.Xadrez.Services;
 
+Console.Title = "Hub de Jogos";
 Console.BackgroundColor = ConsoleColor.DarkCyan;
 Console.ForegroundColor = ConsoleColor.Gray;
 Console.Clear();
-
-Pgns.CriarDiretorioSeAusente();
 
 
 Hub hub = new Hub();

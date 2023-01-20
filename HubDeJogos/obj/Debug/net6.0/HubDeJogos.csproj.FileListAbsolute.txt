@@ -34,3 +34,9 @@ C:\Users\manho\Downloads\teste\HubDeJogos\HubDeJogos\obj\Debug\net6.0\refint\Hub
 C:\Users\manho\Downloads\teste\HubDeJogos\HubDeJogos\obj\Debug\net6.0\HubDeJogos.pdb
 C:\Users\manho\Downloads\teste\HubDeJogos\HubDeJogos\obj\Debug\net6.0\HubDeJogos.genruntimeconfig.cache
 C:\Users\manho\Downloads\teste\HubDeJogos\HubDeJogos\obj\Debug\net6.0\ref\HubDeJogos.dll
+D:\projetos_C#\HubDeJogos\HubDeJogos\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\projetos_C#\HubDeJogos\HubDeJogos\bin\Debug\net6.0\System.Drawing.Common.dll
+D:\projetos_C#\HubDeJogos\HubDeJogos\bin\Debug\net6.0\System.Windows.Extensions.dll
+D:\projetos_C#\HubDeJogos\HubDeJogos\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\projetos_C#\HubDeJogos\HubDeJogos\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\projetos_C#\HubDeJogos\HubDeJogos\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll

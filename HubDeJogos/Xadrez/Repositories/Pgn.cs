@@ -17,7 +17,7 @@
             Id = Guid.NewGuid();
             Data = DateOnly.FromDateTime(DateTime.Now);
             Evento = "Casual Game";
-            Local = "?";
+            Local = "Hub de Jogos";
             Round = "-";
             Resultado = "*";
             JogadorBrancas = jogadorBrancas;

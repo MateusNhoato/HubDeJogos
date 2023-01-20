@@ -5,7 +5,7 @@ namespace HubDeJogos.Hub.Repositories
 {
     public static class Partidas
     {
-        private static string _path = @"..\..\..\Hub\Repositories\Data\RegistroDePartidas.Json";
+        private static string _path = @"..\..\..\Hub\Repositories\Dados\RegistroDePartidas.Json";
         public static List<Partida> HistoricoDePartidas { get; private set; } = new();
 
         public static void CarregarPartidas()
@@ -33,6 +33,7 @@ namespace HubDeJogos.Hub.Repositories
             catch (FileNotFoundException)
             {
                 File.Create(_path).Close();
+                File.WriteAllText(_path, json);
             }
         }
 

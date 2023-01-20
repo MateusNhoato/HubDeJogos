@@ -7,6 +7,7 @@ using HubDeJogos.JogoDaVelha.Views;
 using HubDeJogos.Models;
 using HubDeJogos.Models.Enums;
 using HubDeJogos.Repositories;
+using Utilidades;
 
 namespace HubDeJogos.JogoDaVelha.Services
 {
@@ -138,7 +139,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                     {
                         Console.Clear();
                         Console.WriteLine(Tutoriais.JogoDaVelhaAnimação[j]);
-                        Thread.Sleep(1700);
+                        Thread.Sleep(1400);
                     }
                 }
                 Utilidades.Utilidades.AperteEnterParaContinuar();
@@ -199,10 +200,14 @@ namespace HubDeJogos.JogoDaVelha.Services
                 tabuleiro.JogadasPossiveis.Remove(posicao);
                 Jogada(posicao, jogada, tabuleiro);
 
+                // efeito sonoro
+                Som.JogoDaVelha(jogada);
+
+
                 // chamando a função de checkar vitória após cada jogada válida a partir do tamanho do tabuleiro
                 // como o tamanho do tabuleiro é na verdade seu tamanho x2 -1, esse mesmo número é o número de
                 // jogadas mínimas antes de ter um vencedor (em um tabuleiro 3x3 precisamos de pelo menos 5
-                // jogadas para ter um vencedor 
+                // jogadas para ter um vencedor)
                 if (turno >= tabuleiro.Tamanho)
                     vencedor = CheckarVitoriaOuVelha(tabuleiro);
 
@@ -233,7 +238,8 @@ namespace HubDeJogos.JogoDaVelha.Services
                     string jogador2 = _jogador2.NomeDeUsuario;
                     string jogadorGanhou = _jogador1.NomeDeUsuario;
 
-
+                    //efeito sono
+                    Som.JogoDaVelhaResultado(vencedor);
 
                     // CheckarVitoriaOuVelha retornou velha 
                     if (vencedor == "Velha")

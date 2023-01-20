@@ -54,6 +54,13 @@ namespace HubDeJogos.Models
 
 
 
+        public void DeclararInformacoesDoJogador()
+        {
+            Console.WriteLine($"  Nome do usuario: {NomeDeUsuario}");
+            Console.WriteLine($"  Senha do usuario: {Senha}");
+        }
+
+
         public override bool Equals(object? obj)
         {
             if (obj is not Jogador)

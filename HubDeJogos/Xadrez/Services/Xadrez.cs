@@ -10,6 +10,7 @@ using HubDeJogos.Xadrez.Models.Tabuleiro;
 using HubDeJogos.Xadrez.Repositories;
 using HubDeJogos.Xadrez.Views;
 using System.Text.RegularExpressions;
+using Utilidades;
 
 namespace HubDeJogos.Xadrez.Services;
 
@@ -28,11 +29,12 @@ public class Xadrez
     private bool _roquePequeno = false;
     private bool _roqueGrande = false;
     private bool _tutorial = false;
-
     private readonly Tela _tela = new();
     public readonly Jogador Jogador1;
     public readonly Jogador Jogador2;
     private readonly Pgn? _pgn;
+    private bool _brancasPediuEmpate = false;
+    private bool _pretasPediuEmpate = false;
 
 
     public Xadrez()
@@ -150,27 +152,33 @@ public class Xadrez
                     // no caso de um dos jogadores sugerir empate
                     else if (jogada == "empate")
                     {
-                        string nomeDoJogador =
-                            (CorAtual == Cor.Brancas) ? Jogador1.NomeDeUsuario : Jogador2.NomeDeUsuario;
-                        Cor cor = CorAtual;
-                        // mudando de jogador para ver se o outro jogador concorda com o empate
-                        MudaJogador();
-                        Console.Clear();
-                        _tela.ImprimirPartida(this);
-                        Console.WriteLine($"  {nomeDoJogador}({cor}) sugeriu um empate. Caso queria aceitar basta digitar 'empate'");
-                        Console.Write("\n  Jogada: ");
-                        jogada = Console.ReadLine().ToLower();
-
-                        if (jogada == "empate")
+                        if (PodePedirEmpate())
                         {
-                            Terminada = true;
-                            Empate = true;
-                            break;
+                            string nomeDoJogador =
+                           (CorAtual == Cor.Brancas) ? Jogador1.NomeDeUsuario : Jogador2.NomeDeUsuario;
+                            Cor cor = CorAtual;
+                            // mudando de jogador para ver se o outro jogador concorda com o empate
+                            MudaJogador();
+                            Console.Clear();
+                            _tela.ImprimirPartida(this);
+                            Console.WriteLine($"  {nomeDoJogador}({cor}) sugeriu um empate. Caso queria aceitar basta digitar 'empate'");
+                            Console.Write("\n  Jogada: ");
+                            jogada = Console.ReadLine().ToLower();
+
+                            if (jogada == "empate")
+                            {
+                                Terminada = true;
+                                Empate = true;
+                                break;
+                            }
+                            else
+                                MudaJogador();
                         }
                         else
-                            MudaJogador();
-
-
+                        {
+                            Console.WriteLine("  Cada jogador só pode pedir empate uma vez!");
+                            Utilidades.Utilidades.AperteEnterParaContinuar();
+                        }
                     }
                 } while (!rg.IsMatch(jogada));
 
@@ -202,9 +210,7 @@ public class Xadrez
                 Console.ReadLine();
             }
         }
-        Console.Clear();
-        _tela.ImprimirPartida(this);
-        Utilidades.Utilidades.AperteEnterParaContinuar();
+
 
         // informações da partida para registro
         string vencedor = Jogador1.NomeDeUsuario;
@@ -213,7 +219,6 @@ public class Xadrez
         Resultado resultado = Resultado.Decisivo;
 
         string resultadoPgn = "1-0";
-
 
         if (CorAtual is Cor.Pretas)
         {
@@ -241,6 +246,14 @@ public class Xadrez
         //adicionando resultado ao pgn e criando o arquivo da pgn da partida
         _pgn.Resultado = resultadoPgn;
         Pgns.CriarArquivoPgn(_pgn);
+
+
+
+        Console.Clear();
+        _tela.ImprimirPartida(this);
+        Utilidades.Utilidades.AperteEnterParaContinuar();
+        _tela.ImprimirPgn(_pgn);
+        Utilidades.Utilidades.AperteEnterParaContinuar();
 
     }
 
@@ -372,6 +385,7 @@ public class Xadrez
 
     private void RealizaJogada(Posicao origem, Posicao destino)
     {
+
         // string para registrar jogadas no pgn
         string jogada = string.Empty;
 
@@ -440,28 +454,22 @@ public class Xadrez
         {
             if ((peca.Cor == Cor.Brancas && destino.Linha == 0) || (peca.Cor == Cor.Pretas && destino.Linha == 7))
             {
-                peca = Tabuleiro.RetirarPeca(destino);
-                _pecas.Remove(peca);
-
-                string EscolhaPeca()
-                {
-                    string escolha = string.Empty;
-                    string[] escolhasDePeca = new string[4] { "Q", "R", "B", "N" };
-                    do
-                    {
-                        Console.Write("  Peça escolhida: ");
-                        escolha = Console.ReadLine().ToUpper();
-                    } while (!escolhasDePeca.Contains(escolha));
-
-                    return escolha;
-                }
-             
-                Console.WriteLine("  O peão foi promovido!");
-                Console.WriteLine("  Escolha uma das seguintes peças para o Peão se transformar: ");
-                Console.WriteLine("  Q = Rainha | R = Torre | B = Bispo | N = Cavalo\n");
-                           
-                string escolha = EscolhaPeca();
+                string escolha = string.Empty;
+                string[] escolhasDePeca = { "Q", "R", "B", "N" };
                 Peca novaPeca = null;
+
+                do
+                {
+                    Console.Clear();
+                    _tela.ImprimirTabuleiro(Tabuleiro);
+                    Console.WriteLine($"  Destino: {destino.ToPosicaoXadrez()}\n");
+                    Console.WriteLine($"  O peão foi promovido na casa {destino.ToPosicaoXadrez()}!");
+                    Console.WriteLine("  Escolha uma das seguintes peças para o Peão se transformar: ");
+                    Console.WriteLine("  Q = Rainha | R = Torre | B = Bispo | N = Cavalo\n");
+                    Console.Write("  Peça escolhida: ");
+                    escolha = Console.ReadLine().ToUpper();
+                } while (!escolhasDePeca.Contains(escolha));
+
 
                 switch (escolha)
                 {
@@ -479,11 +487,15 @@ public class Xadrez
                         break;
                 }
 
+                // após a escolha, a troca de peças ocorre
+                peca = Tabuleiro.RetirarPeca(destino);
+                _pecas.Remove(peca);
                 Tabuleiro.ColocarPeca(novaPeca, destino);
                 _pecas.Add(novaPeca);
 
                 //adicionando a promoção no pgn
                 jogada += $"={novaPeca}";
+
             }
         }
 
@@ -537,10 +549,12 @@ public class Xadrez
         else
             VulneravelEnPassant = null;
 
-
-
         if (!_tutorial)
+        {
             _pgn.Jogadas.Add(jogada);
+            //reproduzindo o som
+            Som.MovimentoPecaXadrez(jogada);
+        }
     }
 
     private void MudaJogador()
@@ -643,6 +657,25 @@ public class Xadrez
         return aux;
     }
 
+    private bool PodePedirEmpate()
+    {
+        if (CorAtual == Cor.Brancas)
+        {
+            if (!_brancasPediuEmpate)
+            {
+                _brancasPediuEmpate = true;
+                return true;
+            }
+            return false;
+        }
+
+        if (!_pretasPediuEmpate)
+        {
+            _pretasPediuEmpate = true;
+            return true;
+        }
+        return false;
+    }
 
 
 }

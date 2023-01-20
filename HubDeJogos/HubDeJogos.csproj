@@ -8,12 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Hub\Repositories\Data\" />
-    <Folder Include="Xadrez\Repositories\Data\" />
+    <Folder Include="Hub\Repositories\Dados\" />
+    <Folder Include="Xadrez\Repositories\Arquivos_pgn\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
+    <PackageReference Include="System.Windows.Extensions" Version="7.0.0" />
   </ItemGroup>
 
 </Project>

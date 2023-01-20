@@ -37,12 +37,13 @@
             "  'empate' na jogada. O oponente pode concordar ao também digitar\n" +
             "  'empate' e então o jogo se encerra. Caso o oponente não concorde\n" +
             "  com o empate, o jogo continua de onde parou: na vez do jogador\n" +
-            "  que propôs o empate. Vamos ver um exemplo de 'render' a seguir.",
+            "  que propôs o empate. Cada jogador só pode propor empate 1 vez.\n" +
+            "  Vamos ver um exemplo de 'render' a seguir.",
 
             "\n  O xadrez do Hub de Jogos implementa todas as jogadas\n" +
             "  especiais do xadrez: En Passant, Roque e Promoção do Peão.\n\n" +
             "  Ah, e todas as partidas são registradas no formato pgn!\n" +
-            "  Elas ficam na pasta: 'Xadrez>Repositories>Data'\n\n" +
+            "  Elas ficam na pasta: 'Xadrez>Repositories>Arquivos_pgn'\n\n" +
             "  E essas são todas as informações que precisa saber!\n" +
             "  Agora, mesmo que não conheça os movimentos das peças,\n" +
             "  é possível jogar xadrez facilmente!\n" +

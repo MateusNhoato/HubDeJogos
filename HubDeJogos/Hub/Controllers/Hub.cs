@@ -4,6 +4,8 @@ using HubDeJogos.Models.Enums;
 using HubDeJogos.Repositories;
 using HubDeJogos.Views;
 using System.Text.RegularExpressions;
+using Utilidades;
+
 
 namespace HubDeJogos.Controllers
 {
@@ -13,34 +15,36 @@ namespace HubDeJogos.Controllers
         private readonly List<Jogador> _jogadores;
         private readonly Regex _padraoNomeDoUsuario = new(@"^[a-zA-Z0-9]{2,30}$");
         private readonly Regex _padraoSenhaDoUsuario = new(@"^[a-zA-Z0-9]{6,10}$");
+        private readonly Jogadores _repositorioJogadores = new Jogadores();
 
 
         public Hub()
         {
-            Jogadores jogadores = new Jogadores();
-            jogadores.CarregarListaDeJogadores();
-
+            _repositorioJogadores.CarregarListaDeJogadores();
             Partidas.CarregarPartidas();
 
-
-            if (jogadores.ListaDeJogadores != null)
-                _jogadores = jogadores.ListaDeJogadores;
+            if (_repositorioJogadores.ListaDeJogadores != null)
+                _jogadores = _repositorioJogadores.ListaDeJogadores;
             else
                 _jogadores = new List<Jogador>();
         }
 
         public void Menu()
         {
-
             string? opcao;
             do
             {
+                Thread.Sleep(300);
+                Som.Musica(Musica.hub);
+
                 _tela.ImprimirMenuDoHub();
                 opcao = Console.ReadLine();
 
                 switch (opcao)
                 {
                     case "0":
+                        Som.ReproduzirEfeito(Efeito.obrigado);
+                        Thread.Sleep(2200);
                         break;
                     case "1":
                         AcessarMenuDeJogos();
@@ -61,7 +65,7 @@ namespace HubDeJogos.Controllers
                         ManipularContaJogador();
                         break;
                     default:
-                        Console.WriteLine("  Opção não encontrada.");
+                        Som.ReproduzirEfeito(Efeito.falha);
                         break;
                 }
             } while (opcao != "0");
@@ -75,17 +79,15 @@ namespace HubDeJogos.Controllers
                 Console.WriteLine("  Parece que ainda não temos dois jogadores para escolher essa opção!\n" +
                     "  Redirecionando para Registar Novo Jogador.");
 
-                for (int i = 0; i < 3; i++)
-                {
-                    Thread.Sleep(500);
-                    Console.Write("  . ");
-                }
+
+                Utilidades.Utilidades.Carregando();
                 Utilidades.Utilidades.AperteEnterParaContinuar();
                 RegistrarJogador();
                 AcessarMenuDeJogos();
                 return;
             }
 
+            Som.ReproduzirEfeito(Efeito.novatela);
             _tela.ImprimirLogIn(false);
             Jogador? jogador2;
             Jogador? jogador1;
@@ -112,29 +114,29 @@ namespace HubDeJogos.Controllers
                     return;
                 }
                 jogador2 = Login(2);
+
+                if (jogador1 == jogador2)
+                {
+                    Console.WriteLine("\n\n  Não é possível jogar contra si mesmo.");
+                    Som.ReproduzirEfeito(Efeito.falha);
+                    Utilidades.Utilidades.AperteEnterParaContinuar();
+                    return;
+                }
             } while (jogador2 == null);
 
 
-            if (jogador1 != jogador2)
-            {
-                MenuDeJogos menuDeJogos = new(jogador1, jogador2, this);
+            MenuDeJogos menuDeJogos = new(jogador1, jogador2, this);
+            Som.ReproduzirEfeito(Efeito.novatela);
 
-
-                if (jogador1.HistoricoDePartidas.Count < 1 || jogador2.HistoricoDePartidas.Count < 1)
-                    menuDeJogos.Menu(true);
-                else
-                    menuDeJogos.Menu(false);
-            }
+            if (jogador1.HistoricoDePartidas.Count < 1 || jogador2.HistoricoDePartidas.Count < 1)
+                menuDeJogos.Menu(true);
             else
-            {
-                Console.WriteLine("  Não é possível jogar contra si mesmo.");
-                Utilidades.Utilidades.AperteEnterParaContinuar();
-            }
+                menuDeJogos.Menu(false);
+
         }
 
         private void RegistrarJogador()
         {
-
             _tela.ImprimirRegistrar();
             Console.Write("  Nome do Usuário: ");
             string? nomeDoUsuario = Console.ReadLine();
@@ -148,6 +150,7 @@ namespace HubDeJogos.Controllers
                     if (nomeDoUsuario.Equals(jogador.NomeDeUsuario))
                     {
                         Console.WriteLine("\n  Jogador já cadastrado.");
+                        Som.ReproduzirEfeito(Efeito.falha);
                         Utilidades.Utilidades.AperteEnterParaContinuar();
                         return;
                     }
@@ -156,29 +159,38 @@ namespace HubDeJogos.Controllers
                 Jogador novoJogador = new Jogador(nomeDoUsuario, senha);
                 _jogadores.Add(novoJogador);
                 PassarListaDeJogadoresParaRepositorio();
+                Som.ReproduzirEfeito(Efeito.confirma);
                 Console.WriteLine("\n\n\n  Novo jogador cadastrado com sucesso!!");
             }
             else
+            {
+                Som.ReproduzirEfeito(Efeito.falha);
                 Console.WriteLine("\n\n\n  Nome de usuário e/ou senha inválido(s).");
+            }
+
 
             Utilidades.Utilidades.AperteEnterParaContinuar();
         }
 
         private void ListarJogadores()
         {
+
             _tela.ImprimirListaDeJogadores();
             if (_jogadores.Count < 1)
+
                 Console.WriteLine("\n  Nenhum jogador cadastrado.");
 
             else
                 foreach (Jogador jogador in _jogadores)
                     Console.WriteLine($"  {jogador}\n");
 
+
             Utilidades.Utilidades.AperteEnterParaContinuar();
         }
 
         private void RankingDosJogadores()
         {
+
             //Ordenando o ranking por ordem de pontuação, como critério de desempate
             //temos quem ganhou mais vezes e depois quem perdeu menos
             var jogadores = _jogadores
@@ -198,6 +210,9 @@ namespace HubDeJogos.Controllers
                 Console.WriteLine("\n  Nenhum jogador cadastrado.");
             else
             {
+                Utilidades.Utilidades.Carregando();
+                Som.Musica(Musica.ranking);
+                _tela.ImprimirRanking();
                 for (int i = 0; i < jogadores.Count; i++)
                 {
                     if (i > 10)
@@ -243,9 +258,17 @@ namespace HubDeJogos.Controllers
 
             }
             if (jogador != null)
+            {
                 Console.WriteLine("\n\n  Jogador logado com sucesso!");
+                Som.ReproduzirEfeito(Efeito.confirma);
+            }
+
             else
+            {
+                Som.ReproduzirEfeito(Efeito.falha);
                 Console.WriteLine("\n\n  Jogador não encontrado");
+            }
+
             Utilidades.Utilidades.AperteEnterParaContinuar();
             return jogador;
         }
@@ -285,6 +308,10 @@ namespace HubDeJogos.Controllers
 
         private void HistoricoDePartidas()
         {
+            Console.Clear();
+            Console.WriteLine("\n");
+            Utilidades.Utilidades.Carregando();
+            Som.Musica(Musica.historico);
             _tela.ImprimirHistoricoMenu(null);
             if (Partidas.HistoricoDePartidas.Count > 0)
                 foreach (Partida partida in Partidas.HistoricoDePartidas)
@@ -302,11 +329,13 @@ namespace HubDeJogos.Controllers
             _tela.ImprimirLogIn(false);
             Console.WriteLine("  Três tentativas de LogIn foram feitas sem sucesso.\n" +
                               "  Para a segurança da sua conta o procedimento será encerrado.");
+            Som.ReproduzirEfeito(Efeito.falha2);
             Utilidades.Utilidades.AperteEnterParaContinuar();
         }
 
         private void ManipularContaJogador()
         {
+            Som.ReproduzirEfeito(Efeito.novatela);
             _tela.ImprimirLogIn(true);
             Jogador jogador = Login(null);
             if (jogador != null)
@@ -314,11 +343,13 @@ namespace HubDeJogos.Controllers
                 string opcao;
                 do
                 {
+                    Som.Musica(Musica.conta);
                     _tela.ImprimirOpcoesDaConta();
                     opcao = Console.ReadLine();
                     switch (opcao)
                     {
                         case "0":
+                            Som.ReproduzirEfeito(Efeito.voltar);
                             break;
                         case "1":
                             AlterarNomeDoUsuario(jogador);
@@ -331,7 +362,7 @@ namespace HubDeJogos.Controllers
                                 opcao = "0";
                             break;
                         default:
-                            Console.WriteLine("  Opção não encontrada.");
+                            Som.ReproduzirEfeito(Efeito.falha);
                             break;
                     }
                 } while (opcao != "0");
@@ -351,17 +382,23 @@ namespace HubDeJogos.Controllers
                     if (jog.NomeDeUsuario.ToLower().Equals(novoNome.ToLower()))
                     {
                         Console.WriteLine("  Nome já cadastrado.");
+                        Som.ReproduzirEfeito(Efeito.falha);
                         Utilidades.Utilidades.AperteEnterParaContinuar();
                         return;
                     }
                 }
                 jogador.AlterarNomeDeUsuario(novoNome);
                 Console.WriteLine($"  Deu certo, {novoNome}!");
-                Console.WriteLine("  Nome de Usuário alterado com sucesso!");
+                Console.WriteLine("\n  Nome de Usuário alterado com sucesso!");
+                Som.ReproduzirEfeito(Efeito.confirma);
                 PassarListaDeJogadoresParaRepositorio();
             }
             else
+            {
+                Som.ReproduzirEfeito(Efeito.falha);
                 Console.WriteLine("  Nome inválido.");
+            }
+
             Utilidades.Utilidades.AperteEnterParaContinuar();
         }
 
@@ -375,10 +412,14 @@ namespace HubDeJogos.Controllers
                 jogador.AlterarSenha(novaSenha);
                 _tela.ImprimirConta();
                 Console.WriteLine("  Senha alterada com sucesso!");
+                Som.ReproduzirEfeito(Efeito.confirma);
                 PassarListaDeJogadoresParaRepositorio();
             }
             else
+            {
                 Console.WriteLine("  Senha inválida.");
+                Som.ReproduzirEfeito(Efeito.falha);
+            }
             Utilidades.Utilidades.AperteEnterParaContinuar();
         }
 
@@ -401,6 +442,8 @@ namespace HubDeJogos.Controllers
                 case "1":
                     _jogadores.Remove(jogador);
                     Console.WriteLine("\n  Conta excluída com sucesso.");
+                    Som.ReproduzirEfeito(Efeito.confirma);
+                    Utilidades.Utilidades.AperteEnterParaContinuar();
                     PassarListaDeJogadoresParaRepositorio();
                     return true;
                 case "2":
@@ -414,8 +457,7 @@ namespace HubDeJogos.Controllers
 
         public void PassarListaDeJogadoresParaRepositorio()
         {
-            Jogadores jogadores = new Jogadores();
-            jogadores.SalvarJogadores(_jogadores);
+            _repositorioJogadores.SalvarJogadores(_jogadores);
         }
     }
 }

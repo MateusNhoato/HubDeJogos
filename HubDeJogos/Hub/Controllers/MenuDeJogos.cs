@@ -1,5 +1,6 @@
 ﻿using HubDeJogos.Models;
 using HubDeJogos.Views;
+using Utilidades;
 
 namespace HubDeJogos.Controllers
 {
@@ -19,9 +20,11 @@ namespace HubDeJogos.Controllers
 
         public void Menu(bool tutorial)
         {
+
             string? opcao;
             do
             {
+                Som.Musica(Musica.menujogos);
                 if (!tutorial)
                 {
                     _tela.ImprimirMenuDeJogos();
@@ -42,6 +45,7 @@ namespace HubDeJogos.Controllers
                 switch (opcao)
                 {
                     case "0":
+                        Som.ReproduzirEfeito(Efeito.voltar);
                         break;
                     case "1":
                         Jogar();
@@ -50,6 +54,9 @@ namespace HubDeJogos.Controllers
                         HistoricoDosJogadores();
                         break;
                     case "3":
+                        Som.ReproduzirEfeito(Efeito.novatela);
+                        Thread.Sleep(300);
+                        Som.Musica(Musica.tutorial);
                         Tutoriais();
                         break;
                     default:
@@ -63,17 +70,25 @@ namespace HubDeJogos.Controllers
             string opcao;
             do
             {
+
                 _tela.ImprimirMenuDeEscolhaDeJogos();
                 opcao = Console.ReadLine();
+
+                if (opcao != "0")
+                    Som.ReproduzirEfeito(Efeito.gamestart);
+
                 switch (opcao)
                 {
                     case "0":
+                        Som.ReproduzirEfeito(Efeito.voltar);
                         break;
                     case "1":
                         NovoJogoDaVelha(false);
+                        opcao = "0";
                         break;
                     case "2":
                         NovoJogoDeXadrez(false);
+                        opcao = "0";
                         break;
                     default:
                         Console.WriteLine("  Opção não encontrada.");
@@ -92,6 +107,7 @@ namespace HubDeJogos.Controllers
                 switch (opcao)
                 {
                     case "0":
+                        Som.ReproduzirEfeito(Efeito.voltar);
                         break;
                     case "1":
                         NovoJogoDaVelha(true);
@@ -137,14 +153,21 @@ namespace HubDeJogos.Controllers
                 switch (opcao)
                 {
                     case "0":
+                        Som.ReproduzirEfeito(Efeito.voltar);
                         break;
                     case "1":
                         _tela.ImprimirHistoricoMenu(_jogador1.NomeDeUsuario);
+                        Utilidades.Utilidades.Carregando();
+                        Som.Musica(Musica.historico);
                         _tela.ImprimirHistoricoDoJogador(_jogador1.HistoricoDePartidas);
+                        opcao = "0";
                         break;
                     case "2":
                         _tela.ImprimirHistoricoMenu(_jogador2.NomeDeUsuario);
+                        Utilidades.Utilidades.Carregando();
+                        Som.Musica(Musica.historico);
                         _tela.ImprimirHistoricoDoJogador(_jogador2.HistoricoDePartidas);
+                        opcao = "0";
                         break;
                     default:
                         Console.WriteLine("  Opção não encontrada.");

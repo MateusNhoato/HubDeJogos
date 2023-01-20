@@ -9,6 +9,7 @@ Este é um projeito feito para o programa Sharp Coders da Ímã Learning Place. 
 - [Features](#features-)
     - [Menu de Jogos](#menu-de-jogos-)
     - [Registro PGN](#registro-de-partida-de-xadrez-pgn-)
+- [Musicas](#musicas-)
 - [Autor](#autor)
 
 
@@ -55,6 +56,17 @@ Dentro deste menu temos as opções:
 ### Registro de Partida de Xadrez PGN ✅
 Toda partida de xadrez jogada no Hub de Jogos é registrada no formato PGN. O arquivo é gerado na pasta: 
 `Xadrez>Repositories>Data`
+
+## Musicas 🎵
+Esta aplicação contém várias músicas do canal 'HeatleBros' no youtube. 
+
+Segue os seus merecidíssimos créditos:
+
+Official Channel Credit:
+
+Free Music For Your Youtube Videos
+
+[![HeatleyBros](https://img.shields.io/badge/-Youtube-red)](https://www.youtube.com/user/HeatleyBros)
 
 
 ## Autor

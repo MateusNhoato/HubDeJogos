@@ -5,7 +5,7 @@ namespace HubDeJogos.Hub.Repositories
 {
     public class Jogadores
     {
-        private static string _path = @"..\..\..\Hub\Repositories\Data\DadosDosJogadores.Json";
+        private static string _path = @"..\..\..\Hub\Repositories\Dados\DadosDosJogadores.Json";
         public List<Jogador> ListaDeJogadores { get; private set; }
 
         public Jogadores() { }
@@ -22,12 +22,7 @@ namespace HubDeJogos.Hub.Repositories
                 File.Create(_path).Close();
                 ListaDeJogadores = new List<Jogador>();
             }
-            catch (DirectoryNotFoundException)
-            {
-                Directory.CreateDirectory(@"..\..\..\Hub\Repositories\Data");
-                File.Create(_path).Close();
-                ListaDeJogadores = new List<Jogador>();
-            }
+
         }
 
 
@@ -42,12 +37,6 @@ namespace HubDeJogos.Hub.Repositories
             }
             catch (FileNotFoundException)
             {
-                File.Create(_path).Close();
-                File.WriteAllText(_path, json);
-            }
-            catch (DirectoryNotFoundException)
-            {
-                Directory.CreateDirectory(@"..\..\..\Hub\Repositories\Data");
                 File.Create(_path).Close();
                 File.WriteAllText(_path, json);
             }

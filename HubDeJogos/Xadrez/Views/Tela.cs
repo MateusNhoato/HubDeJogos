@@ -3,6 +3,7 @@ using HubDeJogos.Xadrez.Models;
 using HubDeJogos.Xadrez.Models.Enums;
 using HubDeJogos.Xadrez.Models.Pecas;
 using HubDeJogos.Xadrez.Models.Tabuleiro;
+using HubDeJogos.Xadrez.Repositories;
 
 namespace HubDeJogos.Xadrez.Views
 {
@@ -21,6 +22,8 @@ namespace HubDeJogos.Xadrez.Views
 
             Console.ForegroundColor = cor;
             Console.WriteLine("\n  Turno: " + partida.Turno);
+            //efeito sonoro
+            Utilidades.Som.XequeOuXequemate(partida.Xeque, partida.Terminada, partida.Empate);
 
             if (!partida.Terminada)
             {
@@ -192,6 +195,16 @@ namespace HubDeJogos.Xadrez.Views
             }
         }
 
+        public void ImprimirPgn(Pgn pgn)
+        {
+            Console.Clear();
+            Console.WriteLine("\n  Este é o registro 'pgn' da partida!\n" +
+                                "  Ele fica salvo na pasta 'Xadrez>Repositories>Arquivos_pgn'.\n" +
+                               $"  Nome do arquivo desta partida: {pgn.Id}.pgn\n\n");
+
+            Console.WriteLine(Pgns.PgnParaString(pgn, false));
+
+        }
 
         public PosicaoXadrez LerPosicaoXadrez(string s)
         {
