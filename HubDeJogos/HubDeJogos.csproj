@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Hub\Repositories\Dados\" />
     <Folder Include="Xadrez\Repositories\Arquivos_pgn\" />
   </ItemGroup>
 

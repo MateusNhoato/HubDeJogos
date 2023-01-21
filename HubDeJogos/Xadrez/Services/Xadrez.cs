@@ -210,8 +210,6 @@ public class Xadrez
                 Console.ReadLine();
             }
         }
-
-
         // informações da partida para registro
         string vencedor = Jogador1.NomeDeUsuario;
         string jogador1 = Jogador1.NomeDeUsuario;
@@ -252,9 +250,9 @@ public class Xadrez
         Console.Clear();
         _tela.ImprimirPartida(this);
         Utilidades.Utilidades.AperteEnterParaContinuar();
+        Utilidades.Som.Musica(Musica.pgn);
         _tela.ImprimirPgn(_pgn);
         Utilidades.Utilidades.AperteEnterParaContinuar();
-
     }
 
 
@@ -551,7 +549,8 @@ public class Xadrez
 
         if (!_tutorial)
         {
-            _pgn.Jogadas.Add(jogada);
+            if(!EstaEmXeque(peca.Cor))
+                _pgn.Jogadas.Add(jogada);
             //reproduzindo o som
             Som.MovimentoPecaXadrez(jogada);
         }

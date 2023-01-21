@@ -7,5 +7,6 @@ public enum Musica
     ranking,
     historico,
     tutorial,
-    conta
+    conta,
+    pgn
 }
