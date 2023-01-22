@@ -155,13 +155,12 @@ public class Xadrez
                         if (PodePedirEmpate())
                         {
                             string nomeDoJogador =
-                           (CorAtual == Cor.Brancas) ? Jogador1.NomeDeUsuario : Jogador2.NomeDeUsuario;
-                            Cor cor = CorAtual;
+                            (CorAtual == Cor.Brancas) ? Jogador1.NomeDeUsuario : Jogador2.NomeDeUsuario;
                             // mudando de jogador para ver se o outro jogador concorda com o empate
                             MudaJogador();
                             Console.Clear();
                             _tela.ImprimirPartida(this);
-                            Console.WriteLine($"  {nomeDoJogador}({cor}) sugeriu um empate. Caso queria aceitar basta digitar 'empate'");
+                            Console.WriteLine($"  {nomeDoJogador}({CorAtual}) sugeriu um empate. Caso queria aceitar basta digitar 'empate'");
                             Console.Write("\n  Jogada: ");
                             jogada = Console.ReadLine().ToLower();
 
@@ -522,6 +521,7 @@ public class Xadrez
         {
             Xeque = true;
             jogada += "+";
+
         }
         else
         {
@@ -549,7 +549,7 @@ public class Xadrez
 
         if (!_tutorial)
         {
-            if(!EstaEmXeque(peca.Cor))
+            if (!EstaEmXeque(peca.Cor))
                 _pgn.Jogadas.Add(jogada);
             //reproduzindo o som
             Som.MovimentoPecaXadrez(jogada);

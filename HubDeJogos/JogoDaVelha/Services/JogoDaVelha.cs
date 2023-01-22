@@ -185,7 +185,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                     ConsoleColor aux = Console.ForegroundColor;
 
 
-                    Console.Write($"\n  Vez de {jogador.NomeDeUsuario}(");
+                    Console.Write($"\n  Vez de {jogador.NomeDeUsuario} (");
                     Console.ForegroundColor = (jogador.Equals(_jogador1)) ? ConsoleColor.Black : ConsoleColor.DarkRed;
                     Console.Write($"{jogada.Trim()}");
                     Console.ForegroundColor = aux;

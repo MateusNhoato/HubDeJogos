@@ -10,10 +10,12 @@
         // função utilitária para comunicação com usuário        
         public static void AperteEnterParaContinuar()
         {
+            Console.CursorVisible = false;
             Console.WriteLine(Linha);
             Console.Write("  Aperte enter para continuar ");
             Console.ReadLine();
             Console.Clear();
+            Console.CursorVisible = true;
         }
 
 

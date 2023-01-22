@@ -86,11 +86,24 @@ namespace HubDeJogos.Xadrez.Views
         {
 
             ConsoleColor aux = Console.BackgroundColor;
+            ConsoleColor fgAux = Console.ForegroundColor;
 
-            Console.WriteLine("\n    a  b  c  d  e  f  g  h");
+
+            Console.WriteLine("\n      a  b  c  d  e  f  g  h");
+            Console.Write("    ");
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("┌────────────────────────┐");
             for (int i = 0; i < tabuleiro.Linhas; i++)
             {
-                Console.Write($"  {(8 - i)}");
+                Console.ForegroundColor = fgAux;
+                Console.BackgroundColor = aux;
+
+                Console.Write($"  {(8 - i)} ");
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.Write("│");
+                Console.ForegroundColor = fgAux;
+
+
                 for (int j = 0; j < tabuleiro.Colunas; j++)
                 {
                     if (i % 2 == 0)
@@ -111,20 +124,40 @@ namespace HubDeJogos.Xadrez.Views
                     }
                     ImprimirPeca(tabuleiro.Peca(i, j));
                 }
-                Console.WriteLine();
                 Console.BackgroundColor = aux;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.Write("│");
+                Console.ForegroundColor = fgAux;
+                if (i < tabuleiro.Linhas - 1)
+                    Console.WriteLine();
             }
+            Console.Write("\n    ");
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("└────────────────────────┘");
+            Console.ForegroundColor = fgAux;
+
         }
 
-        public void ImprimirTabuleiro(TabuleiroDeXadrez tab, bool[,] posicoesPossiveis)
+        public void ImprimirTabuleiro(TabuleiroDeXadrez tabuleiro, bool[,] posicoesPossiveis)
         {
-            Console.WriteLine("\n    a  b  c  d  e  f  g  h");
             ConsoleColor fundoOriginal = Console.BackgroundColor;
             ConsoleColor fundoAlterado = ConsoleColor.Gray;
-            for (int i = 0; i < tab.Linhas; i++)
+            ConsoleColor fgAux = Console.ForegroundColor;
+
+            Console.WriteLine("\n      a  b  c  d  e  f  g  h");
+            Console.Write("    ");
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("┌────────────────────────┐");
+            Console.ForegroundColor = fgAux;
+
+            for (int i = 0; i < tabuleiro.Linhas; i++)
             {
-                Console.Write($"  {(8 - i)}");
-                for (int j = 0; j < tab.Colunas; j++)
+                Console.Write($"  {(8 - i)} ");
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.Write("│");
+                Console.ForegroundColor = fgAux;
+
+                for (int j = 0; j < tabuleiro.Colunas; j++)
                 {
                     if (i % 2 == 0)
                     {
@@ -147,23 +180,34 @@ namespace HubDeJogos.Xadrez.Views
                         Console.BackgroundColor = fundoAlterado;
 
 
-                    ImprimirPeca(tab.Peca(i, j));
+                    ImprimirPeca(tabuleiro.Peca(i, j));
                     Console.BackgroundColor = fundoOriginal;
                 }
-                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.Write("│");
+                Console.ForegroundColor = fgAux;
+                if (i < tabuleiro.Linhas - 1)
+                    Console.WriteLine();
             }
             Console.BackgroundColor = fundoOriginal;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("\n    └────────────────────────┘");
+            Console.ForegroundColor = fgAux;
         }
 
         public void ImprimirTabuleiro(Tabuleiro tabuleiro)
         {
-
             ConsoleColor bgAux = Console.BackgroundColor;
             ConsoleColor fgAux = Console.ForegroundColor;
 
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine(" ┌────────────────────────┐");
+            Console.ForegroundColor = fgAux;
             for (int i = 0; i < tabuleiro.Tamanho; i++)
             {
-                Console.Write("  ");
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.Write(" │");
+                Console.ForegroundColor = fgAux;
                 for (int j = 0; j < tabuleiro.Tamanho; j++)
                 {
                     if (i % 2 == 0)
@@ -191,9 +235,16 @@ namespace HubDeJogos.Xadrez.Views
                     Console.ForegroundColor = fgAux;
                     Console.BackgroundColor = bgAux;
                 }
-                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.Write("│");
+                Console.ForegroundColor = fgAux;
+                if (i < tabuleiro.Tamanho - 1)
+                    Console.WriteLine();
 
             }
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("\n └────────────────────────┘");
+            Console.ForegroundColor = fgAux;
         }
 
         public void ImprimirPgn(Pgn pgn)

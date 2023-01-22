@@ -25,8 +25,5 @@ namespace HubDeJogos.JogoDaVelha.Views
                 Console.WriteLine();
             }
         }
-
-
-
     }
 }

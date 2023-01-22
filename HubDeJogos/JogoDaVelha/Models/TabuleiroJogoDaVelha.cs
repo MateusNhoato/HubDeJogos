@@ -48,14 +48,14 @@ namespace HubDeJogos.JogoDaVelha.Models
                             cont++;
                         }
                         else
-                            matrizTabuleiro[i, j] = "|";
+                            matrizTabuleiro[i, j] = "║";
                     }
                     else
                     {
                         if (j % 2 != 0)
-                            matrizTabuleiro[i, j] = "+";
+                            matrizTabuleiro[i, j] = "╬";
                         else
-                            matrizTabuleiro[i, j] = "---";
+                            matrizTabuleiro[i, j] = "═══";
                     }
 
                 }

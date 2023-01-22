@@ -1,9 +1,8 @@
 ﻿using HubDeJogos.Controllers;
-using HubDeJogos.Xadrez.Services;
 
 Console.Title = "Hub de Jogos";
-Console.BackgroundColor = ConsoleColor.DarkCyan;
-Console.ForegroundColor = ConsoleColor.Gray;
+Console.BackgroundColor = ConsoleColor.DarkBlue;
+Console.ForegroundColor = ConsoleColor.White;
 Console.Clear();
 
 

@@ -11,13 +11,13 @@ namespace Utilidades
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 SoundPlayer sound = new SoundPlayer($@"..\..\..\Utilidades\Sons\musicas\{musica}.wav");
-
                 sound.PlayLooping();
             }
         }
 
         public static void ReproduzirEfeito(Efeito efeitoDeSom)
         {
+
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 SoundPlayer sound = new SoundPlayer($@"..\..\..\Utilidades\Sons\{efeitoDeSom}.wav");
