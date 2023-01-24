@@ -26,6 +26,27 @@ namespace HubDeJogos.Models
             HistoricoDePartidas = historicoDePartidas;
         }
 
+        public int GetPontuacao()
+        {
+            int pontuacao = 0;
+
+            foreach (Partida partida in HistoricoDePartidas)
+            {
+                if (partida.Resultado != Resultado.Empate)
+                {
+                    // se não foi empate vejo o nome de quem ganhou para confiar o vitorioso
+                    if (partida.JogadorGanhou.Equals(NomeDeUsuario))
+                        pontuacao += 3;
+                    else
+                        pontuacao--;
+                }
+                else
+                    pontuacao++;
+            }
+            return pontuacao;
+        }
+
+
         public int GetPontuacao(Jogo jogo)
         {
             int pontuacao = 0;
@@ -53,14 +74,6 @@ namespace HubDeJogos.Models
         public void AlterarSenha(string senha) => Senha = senha;
 
 
-
-        public void DeclararInformacoesDoJogador()
-        {
-            Console.WriteLine($"  Nome do usuario: {NomeDeUsuario}");
-            Console.WriteLine($"  Senha do usuario: {Senha}");
-        }
-
-
         public override bool Equals(object? obj)
         {
             if (obj is not Jogador)
@@ -71,7 +84,9 @@ namespace HubDeJogos.Models
 
         public override string ToString()
         {
-            return $"{NomeDeUsuario} | Pontuação Jogo da Velha [{GetPontuacao(Jogo.JogoDaVelha)}] | Pontuação Xadrez [{GetPontuacao(Jogo.Xadrez)}] | Total [{GetPontuacao(Jogo.JogoDaVelha) + GetPontuacao(Jogo.Xadrez)}]";
+            return $"{NomeDeUsuario} | Jogo da Velha [{GetPontuacao(Jogo.JogoDaVelha)}]\n" +
+                $"  | Xadrez [{GetPontuacao(Jogo.Xadrez)}] | Batalha Naval [{GetPontuacao(Jogo.BatalhaNaval)}] \n" +
+                $"  | Total [{GetPontuacao()}]";
         }
 
         public override int GetHashCode()

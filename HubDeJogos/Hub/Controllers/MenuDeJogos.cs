@@ -90,6 +90,9 @@ namespace HubDeJogos.Controllers
                         NovoJogoDeXadrez(false);
                         opcao = "0";
                         break;
+                    case "3":
+                        NovoJogoDeBatalhaNaval(false);
+                        break;
                     default:
                         Console.WriteLine("  Opção não encontrada.");
                         break;
@@ -114,6 +117,9 @@ namespace HubDeJogos.Controllers
                         break;
                     case "2":
                         NovoJogoDeXadrez(true);
+                        break;
+                    case "3":
+                        NovoJogoDeBatalhaNaval(true);
                         break;
                     default:
                         Console.WriteLine("  Opção não encontrada.");
@@ -140,6 +146,17 @@ namespace HubDeJogos.Controllers
             else
             {
                 new Xadrez.Services.Xadrez(_jogador1, _jogador2);
+                _hub.PassarListaDeJogadoresParaRepositorio();
+            }
+        }
+
+        private void NovoJogoDeBatalhaNaval(bool tutorial)
+        {
+            if (tutorial)
+                new BatalhaNaval.Services.BatalhaNaval();
+            else
+            {
+                new BatalhaNaval.Services.BatalhaNaval(_jogador1, _jogador2);
                 _hub.PassarListaDeJogadoresParaRepositorio();
             }
         }

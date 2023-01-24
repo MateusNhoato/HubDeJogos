@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="Hub\Repositories\Dados\" />
+    <Folder Include="Utilidades\Sons\batalhanaval\" />
     <Folder Include="Xadrez\Repositories\Arquivos_pgn\" />
   </ItemGroup>
 

@@ -3,6 +3,7 @@
     public enum Jogo
     {
         JogoDaVelha,
-        Xadrez
+        Xadrez,
+        BatalhaNaval
     }
 }

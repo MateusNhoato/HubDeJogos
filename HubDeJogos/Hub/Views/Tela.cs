@@ -91,29 +91,38 @@ namespace HubDeJogos.Views
 
             if (partida.Jogo == Jogo.JogoDaVelha)
             {
-                auxJogo1 = "X";
-                auxJogo2 = "O";
+                auxJogo1 = "(X)";
+                auxJogo2 = "(O)";
             }
-            else
+            else if(partida.Jogo == Jogo.Xadrez)
             {
-                auxJogo1 = "Brancas";
-                auxJogo2 = "Pretas";
+                auxJogo1 = "(Brancas)";
+                auxJogo2 = "(Pretas)";
             }
-
+            
             Console.WriteLine($"{Utilidades.Utilidades.Linha}\n");
             Console.WriteLine($"  Partida de {partida.Jogo} | {dateTime}\n");
-            Console.WriteLine($"  {partida.Jogador1}({auxJogo1}) VS {partida.Jogador2}({auxJogo2})\n");
-
+            if (partida.Jogo != Jogo.BatalhaNaval)
+                Console.WriteLine($"  {partida.Jogador1} {auxJogo1} VS {partida.Jogador2} {auxJogo2} \n");
+     
             // imprimir tabuleiro
             if (partida.Jogo == Jogo.JogoDaVelha)
             {
                 JogoDaVelha.Views.Tela tela = new();
                 tela.ImprimirTabuleiro(partida.Tabuleiro);
             }
-            else
+            else if(partida.Jogo == Jogo.Xadrez)
             {
                 Xadrez.Views.Tela tela = new();
                 tela.ImprimirTabuleiro(partida.Tabuleiro);
+            }
+            else
+            {
+                BatalhaNaval.Views.Tela tela = new();
+                Console.WriteLine($"  Tabuleiro de {partida.Jogador1}");
+                tela.ImprimirTabuleiro(partida.Tabuleiro);
+                Console.WriteLine($"  Tabuleiro de {partida.Jogador2}");
+                tela.ImprimirTabuleiro(partida.Tabuleiro2);
             }
 
 
@@ -206,6 +215,7 @@ namespace HubDeJogos.Views
             Console.WriteLine(_jogos + "\n\n");
             Console.WriteLine("  1- Jogo da Velha");
             Console.WriteLine("  2- Xadrez");
+            Console.WriteLine("  3- Batalha Naval");
             Console.WriteLine("  0- Voltar");
             Console.Write("\n  Digite a opção desejada: ");
         }
@@ -232,6 +242,7 @@ namespace HubDeJogos.Views
             Console.WriteLine(_tutorial + "\n\n");
             Console.WriteLine($"  1- Tutorial de Jogo da Velha");
             Console.WriteLine($"  2- Tutorial de Xadrez");
+            Console.WriteLine($"  3- Tutorial de Batalha Naval");
             Console.WriteLine("  0- Voltar");
             Console.Write("\n  Digite a opção desejada: ");
         }

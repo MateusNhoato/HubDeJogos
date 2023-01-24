@@ -232,7 +232,7 @@ public class Xadrez
 
         // alterando tabuleiro para registrá-lo
         Tabuleiro.AlterarTabuleiroMatrizParaRegistro();
-        Partida partida = new Partida(Jogo.Xadrez, jogador1, jogador2, vencedor, resultado, Tabuleiro);
+        Partida partida = new Partida(Jogo.Xadrez, jogador1, jogador2, vencedor, resultado, Tabuleiro, null);
 
         //adicionando a partida aos historicos
         Partidas.HistoricoDePartidas.Add(partida);

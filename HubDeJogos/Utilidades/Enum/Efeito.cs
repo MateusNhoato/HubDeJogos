@@ -9,6 +9,8 @@
         gamestart,
         novatela,
         voltar,
-        obrigado
+        obrigado,
+        vitoria,
+        vitoria2
     }
 }

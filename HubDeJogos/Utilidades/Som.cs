@@ -99,5 +99,28 @@ namespace Utilidades
                     sound.Play();
             }
         }
+
+        public static void BatalhaNaval(bool acerto)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                SoundPlayer sound = new SoundPlayer($@"..\..\..\Utilidades\Sons\batalhanaval\agua{new Random().Next(1,5)}.wav");
+
+                if (acerto)
+                    sound.SoundLocation = $@"..\..\..\Utilidades\Sons\batalhanaval\explosao{new Random().Next(1, 5)}.wav";
+
+                sound.Play();
+            }
+        }
+
+        public static void NavioAfundado()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                SoundPlayer sound = new SoundPlayer($@"..\..\..\Utilidades\Sons\batalhanaval\navioafundado{new Random().Next(1, 4)}.wav");
+
+                sound.Play();
+            }
+        }
     }
 }

@@ -258,7 +258,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                     }
                     // alterando o tabuleiro para registrá-lo
                     tabuleiro.AlterarTabuleiroMatrizParaRegistro();
-                    Partida partida = new Partida(Jogo.JogoDaVelha, jogador1, jogador2, jogadorGanhou, resultado, tabuleiro);
+                    Partida partida = new Partida(Jogo.JogoDaVelha, jogador1, jogador2, jogadorGanhou, resultado, tabuleiro, null);
 
                     //adicionando a partida no histórico de partidas
                     Partidas.HistoricoDePartidas.Add(partida);
