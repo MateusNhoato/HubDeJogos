@@ -62,7 +62,7 @@ namespace HubDeJogos.BatalhaNaval.Services
             {
                 Console.Clear();
                 Console.WriteLine(Hub.Views.Tutoriais.ExplicacoesBatalhaNaval[i]);
-                Utilidades.Visual.AperteEnterParaContinuar();
+                Visual.AperteEnterParaContinuar();
                 if (i == 0)
                 {
                     _tela.ImprimirTabuleiro(_tabuleiroAtual, TirosPossiveis(_jogador1));
@@ -112,7 +112,7 @@ namespace HubDeJogos.BatalhaNaval.Services
                 }
 
 
-                Utilidades.Visual.AperteEnterParaContinuar();
+                Visual.AperteEnterParaContinuar();
             }
             Console.CursorVisible = true;
         }
@@ -199,7 +199,7 @@ namespace HubDeJogos.BatalhaNaval.Services
             //adicionando a partida nos históricos dos jogadores
             _jogador1.HistoricoDePartidas.Add(partida);
             _jogador2.HistoricoDePartidas.Add(partida);
-            Utilidades.Visual.AperteEnterParaContinuar();
+            Visual.AperteEnterParaContinuar();
         }
 
 

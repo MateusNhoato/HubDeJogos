@@ -59,13 +59,13 @@ namespace HubDeJogos.JogoDaVelha.Services
             {
                 Console.Clear();
                 Console.WriteLine(Tutoriais.ExplicacoesJogoDaVelha[i]);
-                Utilidades.Visual.AperteEnterParaContinuar();
+                Visual.AperteEnterParaContinuar();
 
                 if (i == 0)
                 {
                     Console.Write("\n  Digite o tamanho do jogo (3 a 10): 3");
                     Console.WriteLine("\n\n  Como mencionado vamos usar o tabuleiro 3x3 neste tutorial!");
-                    Utilidades.Visual.AperteEnterParaContinuar();
+                    Visual.AperteEnterParaContinuar();
 
                     Console.Clear();
                     Console.WriteLine();
@@ -84,7 +84,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                     Console.WriteLine("\n  Posição da jogada: 1");
 
                     Jogada("1", $" {Simbolo.X} ", tabuleiro);
-                    Utilidades.Visual.AperteEnterParaContinuar();
+                    Visual.AperteEnterParaContinuar();
 
                     Console.Clear();
                     Console.WriteLine();
@@ -92,7 +92,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                     Console.WriteLine("\n\n  O primeiro jogador escolheu a posição 1,\n" +
                                           "  logo o 'X' aparece na posição.\n" +
                                           "  Agora é vez do segundo jogador.");
-                    Utilidades.Visual.AperteEnterParaContinuar();
+                    Visual.AperteEnterParaContinuar();
 
                     Console.Clear();
                     Console.WriteLine();
@@ -105,7 +105,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                     Console.WriteLine(")");
                     Console.WriteLine("\n  Posição da jogada: 5");
                     Jogada("5", $" {Simbolo.O} ", tabuleiro);
-                    Utilidades.Visual.AperteEnterParaContinuar();
+                    Visual.AperteEnterParaContinuar();
 
 
                     Console.Clear();
@@ -142,7 +142,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                         Thread.Sleep(1400);
                     }
                 }
-                Utilidades.Visual.AperteEnterParaContinuar();
+                Visual.AperteEnterParaContinuar();
             }
             Console.CursorVisible = true;
         }
@@ -268,7 +268,7 @@ namespace HubDeJogos.JogoDaVelha.Services
                     //adicionando a partida nos históricos dos jogadores
                     _jogador1.HistoricoDePartidas.Add(partida);
                     _jogador2.HistoricoDePartidas.Add(partida);
-                    Utilidades.Visual.AperteEnterParaContinuar();
+                    Visual.AperteEnterParaContinuar();
                     break;
                 }
             }

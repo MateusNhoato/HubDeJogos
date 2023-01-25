@@ -391,7 +391,7 @@ namespace HubDeJogos.Controllers
                     {
                         Console.WriteLine("  Nome já cadastrado.");
                         Som.ReproduzirEfeito(Efeito.falha);
-                        Utilidades.Visual.AperteEnterParaContinuar();
+                        Visual.AperteEnterParaContinuar();
                         return;
                     }
                 }

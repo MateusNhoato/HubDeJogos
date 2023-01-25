@@ -8,7 +8,7 @@ Este é um projeito feito para o programa Sharp Coders da Ímã Learning Place. 
 - [Instalação](#instalação-)
 - [Features](#features-)
     - [Menu de Jogos](#menu-de-jogos-)
-    - [Jogos](#jogos-)
+    - [Jogos](#jogos-%EF%B8%8F)
     - [Registro PGN](#registro-de-partida-de-xadrez-pgn-)
 - [Musicas](#musicas-)
 - [Autor](#autor)

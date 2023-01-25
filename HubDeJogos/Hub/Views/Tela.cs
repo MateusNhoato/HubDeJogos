@@ -1,6 +1,6 @@
 ﻿using HubDeJogos.Models.Enums;
 using HubDeJogos.Repositories;
-
+using Utilidades;
 namespace HubDeJogos.Views
 {
     public class Tela
@@ -260,7 +260,7 @@ namespace HubDeJogos.Views
             {
                 tela.ImprimirPartida(partida);
             }
-            Utilidades.Visual.AperteEnterParaContinuar();
+            Visual.AperteEnterParaContinuar();
         }
         #endregion
     }
