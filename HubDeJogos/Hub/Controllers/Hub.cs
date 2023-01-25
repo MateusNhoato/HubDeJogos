@@ -174,15 +174,24 @@ namespace HubDeJogos.Controllers
 
         private void ListarJogadores()
         {
-
+            ConsoleColor aux = Console.ForegroundColor;
             _tela.ImprimirListaDeJogadores();
             if (_jogadores.Count < 1)
-
                 Console.WriteLine("\n  Nenhum jogador cadastrado.");
 
             else
+            {
                 foreach (Jogador jogador in _jogadores)
-                    Console.WriteLine($"  {jogador}\n");
+                {
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.WriteLine($"\n  # {jogador}");
+                    Console.ForegroundColor = aux;
+                    Console.WriteLine($"{jogador.Pontuacoes()}");
+                    Console.WriteLine(Utilidades.Utilidades.MeiaLinha);
+                }
+                   
+            }
+                
 
 
             Utilidades.Utilidades.AperteEnterParaContinuar();
@@ -217,10 +226,9 @@ namespace HubDeJogos.Controllers
                 {
                     if (i > 10)
                         break;
-                    if (jogadores[i].GetPontuacao(Jogo.JogoDaVelha)
-                        + jogadores[i].GetPontuacao(Jogo.Xadrez) <= 0)
+                    if (jogadores[i].GetPontuacao() <= 0)
                         continue;
-                    Console.WriteLine($"  Top {i + 1}: {jogadores[i]}\n");
+                    Console.WriteLine($"  Top {i + 1}: {jogadores[i]} | Pontuação Total: {jogadores[i].GetPontuacao()}\n");
                 }
             }
             Utilidades.Utilidades.AperteEnterParaContinuar();
@@ -318,7 +326,7 @@ namespace HubDeJogos.Controllers
                     _tela.ImprimirPartida(partida);
 
             else
-                Console.WriteLine("  Nenhuma partida foi registrada até o momento.");
+                Console.WriteLine("\n  Nenhuma partida foi registrada até o momento.");
 
 
             Utilidades.Utilidades.AperteEnterParaContinuar();

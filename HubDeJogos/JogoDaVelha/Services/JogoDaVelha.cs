@@ -186,7 +186,7 @@ namespace HubDeJogos.JogoDaVelha.Services
 
 
                     Console.Write($"\n  Vez de {jogador.NomeDeUsuario} (");
-                    Console.ForegroundColor = (jogador.Equals(_jogador1)) ? ConsoleColor.Black : ConsoleColor.DarkRed;
+                    Console.ForegroundColor = (jogador == _jogador1) ? ConsoleColor.Black : ConsoleColor.DarkRed;
                     Console.Write($"{jogada.Trim()}");
                     Console.ForegroundColor = aux;
                     Console.WriteLine(")\n");
@@ -283,9 +283,7 @@ namespace HubDeJogos.JogoDaVelha.Services
             string[] valoresNaDiagonalPrincipal = new string[tamanhoAuxiliar];
             string[] valoresNaDiagonalSecundaria = new string[tamanhoAuxiliar];
 
-            int diagonalSecundariaAuxiliar = tamanhoAuxiliar + 1;
-            if (tamanhoAuxiliar % 2 == 0)
-                diagonalSecundariaAuxiliar = tamanhoAuxiliar + 2;
+            int diagonalSecundariaAuxiliar = tabuleiro.Tamanho - 1;
 
             // lista das colunas
             List<string[]> colunas = new List<string[]>();

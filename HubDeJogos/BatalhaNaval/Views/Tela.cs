@@ -6,6 +6,31 @@ namespace HubDeJogos.BatalhaNaval.Views
 {
     public class Tela
     {
+        private readonly string _player = @"
+   _______  ___      _______  __   __  _______  ______     
+  |       ||   |    |   _   ||  | |  ||       ||    _ |    
+  |    _  ||   |    |  |_|  ||  |_|  ||    ___||   | ||    
+  |   |_| ||   |    |       ||       ||   |___ |   |_||_   
+  |    ___||   |___ |       ||_     _||    ___||    __  |  
+  |   |    |       ||   _   |  |   |  |   |___ |   |  | |  
+  |___|    |_______||__| |__|  |___|  |_______||___|  |_|";
+        private readonly string _1 = @"
+                           ____  
+                          |    | 
+                           |   | 
+                           |   | 
+                           |   | 
+                           |   | 
+                           |___|";
+        private readonly string _2 = @"
+                           _______ 
+                          |       |
+                          |____   |
+                           ____|  |
+                          | ______|
+                          | |_____ 
+                          |_______|";
+
         public void ImprimirTabuleiro(TabuleiroBatalhaNaval tabuleiro, bool[,] tirosPossiveis)
         {
             Console.Clear();
@@ -35,11 +60,10 @@ namespace HubDeJogos.BatalhaNaval.Views
                     {
                         if (tabuleiro.MatrizNavios[i, j].Destruida)
                         {
-                            Console.BackgroundColor = ConsoleColor.DarkGray;
+                            Console.BackgroundColor = ConsoleColor.DarkRed;
                             ondinha = 5;
                         }
-                        else
-                            Console.BackgroundColor = ConsoleColor.Magenta;
+
                     }
                     if (tirosPossiveis[i,j])
                     {
@@ -48,7 +72,10 @@ namespace HubDeJogos.BatalhaNaval.Views
                     }
                     Console.ForegroundColor = ConsoleColor.Black;
                     if (ondinha <= 2)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
                         Console.Write(" ~ ");
+                    }
                     
                     else
                         Console.Write(aux);
@@ -65,7 +92,8 @@ namespace HubDeJogos.BatalhaNaval.Views
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("   └──────────────────────────────┘");
             Console.ForegroundColor = fgAux;
-            Console.WriteLine($"\n  {tabuleiro.NumeroDeNavios} Navios Restantes");
+            if(tabuleiro.NumeroDeNavios > 0)
+                Console.WriteLine($"\n  {tabuleiro.NumeroDeNavios} Navios Restantes");
         }
         public void ImprimirTabuleiro(TabuleiroBatalhaNaval tabuleiro, Posicao pos)
         {
@@ -99,10 +127,11 @@ namespace HubDeJogos.BatalhaNaval.Views
                     {
                         if (tabuleiro.MatrizNavios[i, j].Destruida)
                         {
-                            Console.BackgroundColor = ConsoleColor.DarkGray;
+                            Console.BackgroundColor = ConsoleColor.DarkRed;
                             ondinha = 5;
                         }
                     }
+                    Console.ForegroundColor = ConsoleColor.Black;
                     if(i == linha && j == coluna)
                         Console.Write("-+-");
                    else if (i == linha)
@@ -113,7 +142,7 @@ namespace HubDeJogos.BatalhaNaval.Views
                     {
                         if ( ondinha <= 2)
                         {
-                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.DarkBlue;
                             Console.Write(" ~ ");
                             Console.ForegroundColor = fgAux;
                         }
@@ -131,12 +160,11 @@ namespace HubDeJogos.BatalhaNaval.Views
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("   └──────────────────────────────┘");
             Console.ForegroundColor = fgAux;
-            Console.WriteLine($"\n  {tabuleiro.NumeroDeNavios} Navios Restantes");
+            if(tabuleiro.NumeroDeNavios > 0)
+              Console.WriteLine($"\n  {tabuleiro.NumeroDeNavios} Navios Restantes");
 
 
         }
-
-
             public void ImprimirTabuleiro(Tabuleiro tabuleiro)
         {
             ConsoleColor bgAux = Console.BackgroundColor;
@@ -171,6 +199,18 @@ namespace HubDeJogos.BatalhaNaval.Views
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("  └────────────────────┘");
             Console.ForegroundColor = fgAux;
+        }
+
+        public void ImprimirVezDoJogador(int jogador)
+        {
+            Console.Clear();
+            Console.WriteLine(Utilidades.Utilidades.Linha);
+            Console.WriteLine(_player);
+            if(jogador == 1)
+                Console.WriteLine(_1);
+            else
+                Console.WriteLine(_2);
+            Console.WriteLine(Utilidades.Utilidades.Linha);
         }
  }
 }

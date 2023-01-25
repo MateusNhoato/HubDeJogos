@@ -3,8 +3,12 @@
     internal static class Utilidades
     {
         public readonly static string Linha = @"                                                
-   ____   ____   ____   ____   ____   ____   ____  
-  |____| |____| |____| |____| |____| |____| |____| ";
+   ____   ____   ____   ____   ____   ____   ____   ____
+  |____| |____| |____| |____| |____| |____| |____| |____| ";
+
+        public readonly static string MeiaLinha = @"                                                
+   ____   ____   ____   ____
+  |____| |____| |____| |____|";
 
 
         // função utilitária para comunicação com usuário        

@@ -74,6 +74,21 @@ namespace HubDeJogos.Models
         public void AlterarSenha(string senha) => Senha = senha;
 
 
+
+
+        public string Pontuacoes()
+        {
+            return 
+                $"       Pontuações\n" +
+                $"  | Jogo da Velha [{GetPontuacao(Jogo.JogoDaVelha)}] |\n" +
+                $"  | Xadrez        [{GetPontuacao(Jogo.Xadrez)}] |\n" +
+                $"  | Batalha Naval [{GetPontuacao(Jogo.BatalhaNaval)}] |\n" +
+                $"  |-------------------|\n" +
+                $"  | Total         [{GetPontuacao()}] |";
+        }
+
+
+
         public override bool Equals(object? obj)
         {
             if (obj is not Jogador)
@@ -84,9 +99,7 @@ namespace HubDeJogos.Models
 
         public override string ToString()
         {
-            return $"{NomeDeUsuario} | Jogo da Velha [{GetPontuacao(Jogo.JogoDaVelha)}]\n" +
-                $"  | Xadrez [{GetPontuacao(Jogo.Xadrez)}] | Batalha Naval [{GetPontuacao(Jogo.BatalhaNaval)}] \n" +
-                $"  | Total [{GetPontuacao()}]";
+            return $"{NomeDeUsuario}";
         }
 
         public override int GetHashCode()

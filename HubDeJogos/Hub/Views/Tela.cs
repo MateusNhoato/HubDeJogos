@@ -224,6 +224,8 @@ namespace HubDeJogos.Views
         {
             Console.Clear();
             Console.WriteLine(_historico + "\n");
+            Console.WriteLine("\n  Batalha Naval: Os quadrados vermelhos representam as partes dos navios que foram atingidas.\n" +
+                    "                 Os quadrados pretos são as partes dos navios que não foram atingidas.");
             if (nomeDoJogador != null)
                 Console.WriteLine($"  Histórico de {nomeDoJogador}:\n");
         }

@@ -20,7 +20,7 @@ namespace HubDeJogos.BatalhaNaval.Services
         private readonly Tela _tela = new Tela();
         public int Jogador1Score { get; private set; }
         public int Jogador2Score { get; private set; }
-        
+
 
 
         public BatalhaNaval()
@@ -31,6 +31,8 @@ namespace HubDeJogos.BatalhaNaval.Services
             _tabuleiroJogador1 = new TabuleiroBatalhaNaval();
             _tabuleiroJogador2 = new TabuleiroBatalhaNaval();
             _tabuleiroAtual = _tabuleiroJogador1;
+
+            Tutorial();
         }
 
 
@@ -49,11 +51,16 @@ namespace HubDeJogos.BatalhaNaval.Services
             Jogar();
         }
 
+        private void Tutorial()
+        {
+
+        }
 
         private void Jogar()
         {
             Jogador jogador = _jogador1;
-            
+            _tela.ImprimirVezDoJogador(1);
+            Thread.Sleep(1000);
             while (_tabuleiroAtual.NumeroDeNavios > 0)
             {
                 string padraoParaJogada = @"^[a-j]([1-9]|10)$";
@@ -79,10 +86,10 @@ namespace HubDeJogos.BatalhaNaval.Services
                     Thread.Sleep(1000);
                     continue;
                 }
-               
+
 
                 AdicionarPosicaoAtiradaLista(Posicao.DePosicaoDeTabuleiroParaPosicao(jogada), jogador);
-                bool tiro = Atirar(pos);            
+                bool tiro = Atirar(pos);
                 _tela.ImprimirTabuleiro(_tabuleiroAtual, pos);
                 Thread.Sleep(1000);
 
@@ -90,6 +97,8 @@ namespace HubDeJogos.BatalhaNaval.Services
                 {
                     jogador = MudarJogador(jogador);
                     MudarTabuleiro();
+                    _tela.ImprimirVezDoJogador((jogador.Equals(_jogador1)) ? 1 : 2);
+                    Thread.Sleep(1000);
                 }
                 else
                 {
@@ -98,14 +107,17 @@ namespace HubDeJogos.BatalhaNaval.Services
                         ConsoleColor aux = Console.ForegroundColor;
 
                         Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.CursorVisible = false;
                         Console.WriteLine("\n  Navio afundado!!!");
                         Som.NavioAfundado();
                         Thread.Sleep(1000);
                         Console.ForegroundColor = aux;
+                        Console.CursorVisible = true;
                     }
-                }                   
+                }
             }
             _tela.ImprimirTabuleiro(_tabuleiroAtual, TirosPossiveis(jogador));
+            Console.WriteLine($"\n  Vencedor: {jogador.NomeDeUsuario}");
             Som.ReproduzirEfeito(Efeito.vitoria);
 
             // alterando os tabuleiros
@@ -147,12 +159,9 @@ namespace HubDeJogos.BatalhaNaval.Services
 
         private Jogador MudarJogador(Jogador jogador)
         {
-            if (jogador.Equals(_jogador1))
-               return _jogador2;
-            else
-                return _jogador1;
+            return (jogador.Equals(_jogador1)) ? _jogador2 : _jogador1;        
         }
-       
+
 
         private void MudarTabuleiro()
         {
@@ -166,7 +175,7 @@ namespace HubDeJogos.BatalhaNaval.Services
         {
             if (jogador.Equals(_jogador1))
             {
-                foreach(Posicao posicao in _posicoesAtiradasJg1)
+                foreach (Posicao posicao in _posicoesAtiradasJg1)
                 {
                     if (posicao.Equals(pos))
                         return false;
@@ -186,10 +195,16 @@ namespace HubDeJogos.BatalhaNaval.Services
 
         private bool[,] TirosPossiveis(Jogador jogador)
         {
-            return (jogador == _jogador1) ?
-            TabuleiroBatalhaNaval.TirosPossiveis(_posicoesAtiradasJg1) :
-            TabuleiroBatalhaNaval.TirosPossiveis(_posicoesAtiradasJg2);
+            List<Posicao> posicoes = (jogador.Equals(_jogador1)) ? _posicoesAtiradasJg1 : _posicoesAtiradasJg2;
+            bool[,] tirosPossiveis = new bool[10, 10];
+
+            foreach (Posicao pos in posicoes)
+            {
+                tirosPossiveis[pos.Linha, pos.Coluna] = true;
+            }
+            return tirosPossiveis;
         }
+
         private void AdicionarPosicaoAtiradaLista(Posicao pos, Jogador jogador)
         {
             if (jogador.Equals(_jogador1))

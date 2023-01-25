@@ -112,16 +112,5 @@ namespace HubDeJogos.BatalhaNaval.Models
             }
         }
     
-        public static bool[,] TirosPossiveis(List<Posicao> posicoes)
-        {
-            bool[,] tirosPossiveis = new bool[10, 10];
-
-            foreach(Posicao pos in posicoes) 
-            {
-                tirosPossiveis[pos.Linha, pos.Coluna] = true;
-            }
-            return tirosPossiveis;
-        }
-    
     }
 }
