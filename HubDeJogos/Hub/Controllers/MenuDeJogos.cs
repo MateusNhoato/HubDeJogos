@@ -37,7 +37,7 @@ namespace HubDeJogos.Controllers
                                         "  Parece que pelo menos um de vocês está acessando o Hub de Jogos pela primeira vez.\n" +
                                         "  Vamos redirecioná-los para nossa seção de Tutoriais.\n" +
                                         "  Caso não quiserem ver os tutoriais, basta voltar para o menu principal de jogos.");
-                    Utilidades.Utilidades.AperteEnterParaContinuar();
+                    Visual.AperteEnterParaContinuar();
                     opcao = "3";
                     tutorial = false;
                 }
@@ -56,7 +56,6 @@ namespace HubDeJogos.Controllers
                     case "3":
                         Som.ReproduzirEfeito(Efeito.novatela);
                         Thread.Sleep(300);
-                        Som.Musica(Musica.tutorial);
                         Tutoriais();
                         break;
                     default:
@@ -92,6 +91,7 @@ namespace HubDeJogos.Controllers
                         break;
                     case "3":
                         NovoJogoDeBatalhaNaval(false);
+                        opcao = "0";
                         break;
                     default:
                         Console.WriteLine("  Opção não encontrada.");
@@ -105,6 +105,7 @@ namespace HubDeJogos.Controllers
             string opcao;
             do
             {
+                Som.Musica(Musica.tutorial);
                 _tela.ImprimirTutorial();
                 opcao = Console.ReadLine();
                 switch (opcao)
@@ -113,12 +114,15 @@ namespace HubDeJogos.Controllers
                         Som.ReproduzirEfeito(Efeito.voltar);
                         break;
                     case "1":
+                        Som.Musica(Musica.jogodavelha);
                         NovoJogoDaVelha(true);
                         break;
                     case "2":
+                        Som.Musica(Musica.xadrez);
                         NovoJogoDeXadrez(true);
                         break;
                     case "3":
+                        Som.Musica(Musica.batalhanaval);
                         NovoJogoDeBatalhaNaval(true);
                         break;
                     default:
@@ -174,14 +178,14 @@ namespace HubDeJogos.Controllers
                         break;
                     case "1":
                         _tela.ImprimirHistoricoMenu(_jogador1.NomeDeUsuario);
-                        Utilidades.Utilidades.Carregando();
+                        Utilidades.Visual.Carregando();
                         Som.Musica(Musica.historico);
                         _tela.ImprimirHistoricoDoJogador(_jogador1.HistoricoDePartidas);
                         opcao = "0";
                         break;
                     case "2":
                         _tela.ImprimirHistoricoMenu(_jogador2.NomeDeUsuario);
-                        Utilidades.Utilidades.Carregando();
+                        Utilidades.Visual.Carregando();
                         Som.Musica(Musica.historico);
                         _tela.ImprimirHistoricoDoJogador(_jogador2.HistoricoDePartidas);
                         opcao = "0";

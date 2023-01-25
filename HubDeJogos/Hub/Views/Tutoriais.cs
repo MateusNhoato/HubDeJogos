@@ -2,7 +2,7 @@
 {
     internal static class Tutoriais
     {
-        public readonly static string[] ExplicacoesXadrez = new string[4]
+        public readonly static string[] ExplicacoesXadrez =
         {
           "\n  Olá, seja bem-vindo ao Xadrez do Hub de Jogos!\n" +
             "  Para jogar é muito simples! Vamos aos detalhes:\n\n" +
@@ -49,9 +49,9 @@
             "  é possível jogar xadrez facilmente!\n" +
             "  Espero que aproveite e se divirta! :)"
         };
-        public readonly static string[] ExplicacoesJogoDaVelha = new string[4]
+        public readonly static string[] ExplicacoesJogoDaVelha =
         {
-          "\n  Olá, bem-vindo ao Jogo da Velha do Hub de Jogos!\n" +
+          "\n  Olá, seja bem-vindo ao Jogo da Velha do Hub de Jogos!\n" +
             "  Para jogar é muito simples! Vamos aos detalhes:\n\n" +
             "  Antes de começar a partida podemos escolher um\n" +
             "  tabuleiro de 3x3 até 10x10. Este tutorial usará\n" +
@@ -75,6 +75,51 @@
             "\n  Como pôde ver, é um jogo bem simples!\n" +
             "  Espero que aproveite e se divirta com ele! :)"
         };
+
+        public readonly static string[] ExplicacoesBatalhaNaval =
+        {
+              "\n  Olá, seja bem-vindo a Batalha Naval do Hub de Jogos!\n" +
+                "  Para jogar é muito simples! Vamos aos detalhes:\n\n" +
+                "  Para cada jogador é gerado um tabuleiro 10 x 10 em que as\n" +
+                "  linhas são marcadas por números e as colunas por letras.\n" +
+                "  Neste tabuleiro existem 7 navios escondidos. Eles ficam ou\n" +
+                "  na horizontal, ou na vertical. E são dos seguintes tamanhos:" +
+                "  3 de tamanho 2\n" +
+                "  2 de tamanho 3\n" +
+                "  2 de tamanho 4\n\n" +
+                "  As posições destes navios são aleatórias. O objetivo do jogo\n" +
+                "  é atirar em cada um destes navios escondidos e afundá-los antes\n" +
+                "  que seu oponente.\n\n" +
+                "  Agora, vamos ver como se parece um tabuleiro!",
+
+              "\n  Para atirar em uma determinada posição, primeiro referenciamos a\n" +
+                "  coluna e depois a linha da posição.\n" +
+                "  Exemplos:\n" +
+                "  'A1' | 'C5' | 'J10' | 'D7'\n\n" +
+                "  A seguir vamos ver como um turno de um jogador funciona!",
+
+              "\n  O jogo segue desta maneira, quando um jogador acerta ele pode\n" +
+                "  continuar atirando, e, quando ele erra, o turno passa para seu oponente.\n\n" +
+                "  Como pôde ver, é um jogo bem simples!\n" +
+                "  Espero que aproveite e se divirta com ele! :)"
+        };
+
+        public readonly static string ArteBatalhaNaval = @"  
+                                       |__
+                                       |\/
+                                       ---
+                                       / | [
+                                !      | |||
+                              _/|     _/|-++'
+                          +  +--|    |--|--|_ |-
+                       { /|__|  |/\__|  |--- |||__/
+                      +---------------___[}-_===_.'____                 /\
+                  ____`-' ||___-{]_| _[}-  |     |_[___\==--            \/   _
+   __..._____--==/___]_|__|_____________________________[___\==--____,------' .7
+  |                             Batalha Naval                            BN-61/
+   \_________________________________________________________________________|";
+
+
         public readonly static string ArteFinalTutorialXadrez = @"
                                                         .::.
                                              _()_       _::_
@@ -233,7 +278,7 @@
   |       ||    ___||  _    ||      _||    ___|| |_|   ||  |_|  ||    __  |  |   |    |     | 
    |     | |   |___ | | |   ||     |_ |   |___ |       ||       ||   |  | |  |___|   |   _   |
     |___|  |_______||_|  |__||_______||_______||______| |_______||___|  |_|          |__| |__|";
-        public readonly static string[] JogoDaVelhaAnimação = new string[7]
+        public readonly static string[] JogoDaVelhaAnimação =
         { _jogodaVelhaComNumeros,
           _jogoDaVelhaPrimeiraJogada,
           _jogoDaVelhaSegundaJogada,

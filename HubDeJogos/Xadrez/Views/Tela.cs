@@ -10,7 +10,7 @@ namespace HubDeJogos.Xadrez.Views
 {
     public class Tela
     {
-        public void ImprimirPartida(Services.Xadrez partida)
+        public void ImprimirPartida(Services.Xadrez partida, bool tutorial)
         {
             ImprimirTabuleiro(partida.Tabuleiro);
 
@@ -24,7 +24,8 @@ namespace HubDeJogos.Xadrez.Views
             Console.ForegroundColor = cor;
             Console.WriteLine("\n  Turno: " + partida.Turno);
             //efeito sonoro
-            Som.XequeOuXequemate(partida.Xeque, partida.Terminada, partida.Empate);
+            if (!tutorial)
+                Som.XequeOuXequemate(partida.Xeque, partida.Terminada, partida.Empate);
 
             if (!partida.Terminada)
             {

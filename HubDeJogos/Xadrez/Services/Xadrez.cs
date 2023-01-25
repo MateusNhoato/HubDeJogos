@@ -73,11 +73,12 @@ public class Xadrez
 
     private void Tutorial()
     {
+        Console.CursorVisible = false;
         for (int i = 0; i < 4; i++)
         {
             Console.Clear();
             Console.WriteLine(Tutoriais.ExplicacoesXadrez[i]);
-            Utilidades.Utilidades.AperteEnterParaContinuar();
+            Visual.AperteEnterParaContinuar();
 
             if (i == 0)
             {
@@ -85,9 +86,9 @@ public class Xadrez
             }
             else if (i == 1)
             {
-                _tela.ImprimirPartida(this);
+                _tela.ImprimirPartida(this, true);
                 Console.WriteLine("  Jogada: a2");
-                Utilidades.Utilidades.AperteEnterParaContinuar();
+                Visual.AperteEnterParaContinuar();
 
                 Posicao origem = _tela.LerPosicaoXadrez("a2").ToPosicao();
                 ValidarPosicaoDeOrigem(origem);
@@ -97,24 +98,24 @@ public class Xadrez
                 Console.WriteLine("\n  A peça selecionada foi o Peão Branco na 'a2', logo o destaque aparece\n" +
                                   "  nas posições 'a3' e 'a4', que são os movimentos disponíveis para ele.\n" +
                                   "  Vamos mover o peão para 'a4'.");
-                Utilidades.Utilidades.AperteEnterParaContinuar();
+                Visual.AperteEnterParaContinuar();
 
                 Posicao destino = _tela.LerPosicaoXadrez("a4").ToPosicao();
                 ValidarPosicaoDeDestino(origem, destino);
 
 
                 RealizaJogada(origem, destino);
-                _tela.ImprimirPartida(this);
+                _tela.ImprimirPartida(this, true);
             }
             else if (i == 2)
             {
-                _tela.ImprimirPartida(this);
+                _tela.ImprimirPartida(this, true);
                 Console.WriteLine("  Jogada: render");
-                Utilidades.Utilidades.AperteEnterParaContinuar();
+                Visual.AperteEnterParaContinuar();
                 Terminada = true;
                 Render = true;
                 MudaJogador();
-                _tela.ImprimirPartida(this);
+                _tela.ImprimirPartida(this, true);
                 Console.WriteLine("\n\n  Beltrano(Pretas) se rendeu, logo quem ganhou foi Fulano(Brancas)!");
             }
             else
@@ -122,8 +123,9 @@ public class Xadrez
                 Console.WriteLine("\n  Peças:");
                 Console.WriteLine(Tutoriais.ArteFinalTutorialXadrez);
             }
-            Utilidades.Utilidades.AperteEnterParaContinuar();
+            Visual.AperteEnterParaContinuar();
         }
+        Console.CursorVisible = true;
     }
 
 
@@ -139,7 +141,7 @@ public class Xadrez
                 do
                 {
                     Console.Clear();
-                    _tela.ImprimirPartida(this);
+                    _tela.ImprimirPartida(this, false);
                     Console.Write("\n  Jogada: ");
                     jogada = Console.ReadLine().ToLower();
                     if (jogada == "render")
@@ -159,7 +161,7 @@ public class Xadrez
                             // mudando de jogador para ver se o outro jogador concorda com o empate
                             MudaJogador();
                             Console.Clear();
-                            _tela.ImprimirPartida(this);
+                            _tela.ImprimirPartida(this, false);
                             Console.WriteLine($"  {nomeDoJogador}({CorAtual}) sugeriu um empate. Caso queria aceitar basta digitar 'empate'");
                             Console.Write("\n  Jogada: ");
                             jogada = Console.ReadLine().ToLower();
@@ -176,7 +178,7 @@ public class Xadrez
                         else
                         {
                             Console.WriteLine("  Cada jogador só pode pedir empate uma vez!");
-                            Utilidades.Utilidades.AperteEnterParaContinuar();
+                            Visual.AperteEnterParaContinuar();
                         }
                     }
                 } while (!rg.IsMatch(jogada));
@@ -247,11 +249,11 @@ public class Xadrez
 
 
         Console.Clear();
-        _tela.ImprimirPartida(this);
-        Utilidades.Utilidades.AperteEnterParaContinuar();
-        Utilidades.Som.Musica(Musica.pgn);
+        _tela.ImprimirPartida(this, false);
+        Visual.AperteEnterParaContinuar();
+        Som.Musica(Musica.pgn);
         _tela.ImprimirPgn(_pgn);
-        Utilidades.Utilidades.AperteEnterParaContinuar();
+        Visual.AperteEnterParaContinuar();
     }
 
 

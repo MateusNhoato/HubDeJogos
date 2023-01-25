@@ -1,4 +1,4 @@
-# Hub De Jogos 🎮 [![Versão](https://img.shields.io/badge/vers%C3%A3o-1.0-brightgreen.svg)](https://github.com/user/repo/releases) [![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](LICENSE)
+# Hub De Jogos 🎮 [![Versão](https://img.shields.io/badge/vers%C3%A3o-2.0-brightgreen.svg)](https://github.com/user/repo/releases) [![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](LICENSE)
 Este é um projeito feito para o programa Sharp Coders da Ímã Learning Place. Se trata de uma plataforma de jogos para 2 jogadores.
 
 ## Tabela de Conteúdo
@@ -8,6 +8,7 @@ Este é um projeito feito para o programa Sharp Coders da Ímã Learning Place. 
 - [Instalação](#instalação-)
 - [Features](#features-)
     - [Menu de Jogos](#menu-de-jogos-)
+    - [Jogos](#jogos-)
     - [Registro PGN](#registro-de-partida-de-xadrez-pgn-)
 - [Musicas](#musicas-)
 - [Autor](#autor)
@@ -52,8 +53,12 @@ Dentro deste menu temos as opções:
     - Acessa o menu de histórico dos jogadores que estão logados. Neste menu você pode escolher ver o histórico do jogador 1 ou do jogador 2.
 - Tutoriais dos Jogos
     - Acessa o menu de tutoriais. Os tutoriais são apresentações específicas de cada jogo que mostram como o próprio funciona.
-
-### Registro de Partida de Xadrez PGN ✅
+### Jogos 🕹️
+Atualmente o Hub de Jogos conta com os seguintes títulos:
+- Jogo Da Velha
+- Xadrez
+- Batalha Naval
+#### Registro de Partida de Xadrez PGN ✅
 Toda partida de xadrez jogada no Hub de Jogos é registrada no formato PGN. O arquivo é gerado na pasta: 
 `Xadrez>Repositories>Arquivos_pgn`
 

@@ -1,6 +1,5 @@
 ﻿using HubDeJogos.BatalhaNaval.Models;
 using HubDeJogos.Models;
-using System;
 
 namespace HubDeJogos.BatalhaNaval.Views
 {
@@ -42,21 +41,21 @@ namespace HubDeJogos.BatalhaNaval.Views
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("   ┌──────────────────────────────┐");
             Console.ForegroundColor = fgAux;
-            for (int i=0; i< tabuleiro.Tamanho; i++)
+            for (int i = 0; i < tabuleiro.Tamanho; i++)
             {
-                if(i <=8)
-                Console.Write($"  {i+1}");
+                if (i <= 8)
+                    Console.Write($"  {i + 1}");
                 else
-                    Console.Write($" {i+1}");
+                    Console.Write($" {i + 1}");
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.Write("│");
                 Console.ForegroundColor = fgAux;
-                for (int j=0; j<tabuleiro.Tamanho; j++)
+                for (int j = 0; j < tabuleiro.Tamanho; j++)
                 {
                     int ondinha = random.Next(1, 11);
                     string aux = "   ";
                     Console.BackgroundColor = ConsoleColor.Cyan;
-                    if (tabuleiro.MatrizNavios[i,j] != null)
+                    if (tabuleiro.MatrizNavios[i, j] != null)
                     {
                         if (tabuleiro.MatrizNavios[i, j].Destruida)
                         {
@@ -65,7 +64,7 @@ namespace HubDeJogos.BatalhaNaval.Views
                         }
 
                     }
-                    if (tirosPossiveis[i,j])
+                    if (tirosPossiveis[i, j])
                     {
                         ondinha = 5;
                         aux = " X ";
@@ -76,23 +75,23 @@ namespace HubDeJogos.BatalhaNaval.Views
                         Console.ForegroundColor = ConsoleColor.DarkBlue;
                         Console.Write(" ~ ");
                     }
-                    
+
                     else
                         Console.Write(aux);
 
                     Console.ForegroundColor = fgAux;
-                }             
+                }
                 Console.BackgroundColor = bgAux;
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.Write("│");
                 Console.ForegroundColor = fgAux;
-                
+
                 Console.WriteLine();
             }
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("   └──────────────────────────────┘");
             Console.ForegroundColor = fgAux;
-            if(tabuleiro.NumeroDeNavios > 0)
+            if (tabuleiro.NumeroDeNavios > 0)
                 Console.WriteLine($"\n  {tabuleiro.NumeroDeNavios} Navios Restantes");
         }
         public void ImprimirTabuleiro(TabuleiroBatalhaNaval tabuleiro, Posicao pos)
@@ -132,15 +131,15 @@ namespace HubDeJogos.BatalhaNaval.Views
                         }
                     }
                     Console.ForegroundColor = ConsoleColor.Black;
-                    if(i == linha && j == coluna)
+                    if (i == linha && j == coluna)
                         Console.Write("-+-");
-                   else if (i == linha)
+                    else if (i == linha)
                         Console.Write("---");
-                    else if(j == coluna)
+                    else if (j == coluna)
                         Console.Write(" | ");
                     else
                     {
-                        if ( ondinha <= 2)
+                        if (ondinha <= 2)
                         {
                             Console.ForegroundColor = ConsoleColor.DarkBlue;
                             Console.Write(" ~ ");
@@ -160,12 +159,12 @@ namespace HubDeJogos.BatalhaNaval.Views
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("   └──────────────────────────────┘");
             Console.ForegroundColor = fgAux;
-            if(tabuleiro.NumeroDeNavios > 0)
-              Console.WriteLine($"\n  {tabuleiro.NumeroDeNavios} Navios Restantes");
+            if (tabuleiro.NumeroDeNavios > 0)
+                Console.WriteLine($"\n  {tabuleiro.NumeroDeNavios} Navios Restantes");
 
 
         }
-            public void ImprimirTabuleiro(Tabuleiro tabuleiro)
+        public void ImprimirTabuleiro(Tabuleiro tabuleiro)
         {
             ConsoleColor bgAux = Console.BackgroundColor;
             ConsoleColor fgAux = Console.ForegroundColor;
@@ -174,21 +173,21 @@ namespace HubDeJogos.BatalhaNaval.Views
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("  ┌────────────────────┐");
             Console.ForegroundColor = fgAux;
-            for (int i=0; i< tabuleiro.Tamanho; i++)
+            for (int i = 0; i < tabuleiro.Tamanho; i++)
             {
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.Write("  │");
                 Console.ForegroundColor = fgAux;
-                for (int j=0; j< tabuleiro.Tamanho; j++)
+                for (int j = 0; j < tabuleiro.Tamanho; j++)
                 {
                     Console.BackgroundColor = azulMar;
 
                     string aux = tabuleiro.TabuleiroMatriz[i, j];
                     if (aux.Trim() == "x")
                         Console.BackgroundColor = ConsoleColor.DarkRed;
-                    else if(aux.Trim() == "i")
+                    else if (aux.Trim() == "i")
                         Console.BackgroundColor = ConsoleColor.Black;
-                    
+
                     Console.Write("  ");
                     Console.BackgroundColor = bgAux;
                 }
@@ -204,13 +203,14 @@ namespace HubDeJogos.BatalhaNaval.Views
         public void ImprimirVezDoJogador(int jogador)
         {
             Console.Clear();
-            Console.WriteLine(Utilidades.Utilidades.Linha);
+            Console.WriteLine(Utilidades.Visual.Linha);
             Console.WriteLine(_player);
-            if(jogador == 1)
+            if (jogador == 1)
                 Console.WriteLine(_1);
             else
                 Console.WriteLine(_2);
-            Console.WriteLine(Utilidades.Utilidades.Linha);
+            Console.WriteLine(Utilidades.Visual.Linha);
+            Thread.Sleep(1000);
         }
- }
+    }
 }

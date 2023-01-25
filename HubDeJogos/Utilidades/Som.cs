@@ -104,7 +104,7 @@ namespace Utilidades
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                SoundPlayer sound = new SoundPlayer($@"..\..\..\Utilidades\Sons\batalhanaval\agua{new Random().Next(1,5)}.wav");
+                SoundPlayer sound = new SoundPlayer($@"..\..\..\Utilidades\Sons\batalhanaval\agua{new Random().Next(1, 5)}.wav");
 
                 if (acerto)
                     sound.SoundLocation = $@"..\..\..\Utilidades\Sons\batalhanaval\explosao{new Random().Next(1, 5)}.wav";

@@ -94,24 +94,24 @@ namespace HubDeJogos.Views
                 auxJogo1 = "(X)";
                 auxJogo2 = "(O)";
             }
-            else if(partida.Jogo == Jogo.Xadrez)
+            else if (partida.Jogo == Jogo.Xadrez)
             {
                 auxJogo1 = "(Brancas)";
                 auxJogo2 = "(Pretas)";
             }
-            
-            Console.WriteLine($"{Utilidades.Utilidades.Linha}\n");
+
+            Console.WriteLine($"{Utilidades.Visual.Linha}\n");
             Console.WriteLine($"  Partida de {partida.Jogo} | {dateTime}\n");
             if (partida.Jogo != Jogo.BatalhaNaval)
                 Console.WriteLine($"  {partida.Jogador1} {auxJogo1} VS {partida.Jogador2} {auxJogo2} \n");
-     
+
             // imprimir tabuleiro
             if (partida.Jogo == Jogo.JogoDaVelha)
             {
                 JogoDaVelha.Views.Tela tela = new();
                 tela.ImprimirTabuleiro(partida.Tabuleiro);
             }
-            else if(partida.Jogo == Jogo.Xadrez)
+            else if (partida.Jogo == Jogo.Xadrez)
             {
                 Xadrez.Views.Tela tela = new();
                 tela.ImprimirTabuleiro(partida.Tabuleiro);
@@ -227,7 +227,7 @@ namespace HubDeJogos.Views
             Console.WriteLine("\n  Batalha Naval: Os quadrados vermelhos representam as partes dos navios que foram atingidas.\n" +
                     "                 Os quadrados pretos são as partes dos navios que não foram atingidas.");
             if (nomeDoJogador != null)
-                Console.WriteLine($"  Histórico de {nomeDoJogador}:\n");
+                Console.WriteLine($"\n  Histórico de {nomeDoJogador}:\n");
         }
         public void ImprimirHistoricoMenu(string nomeDoJogador1, string nomeDoJogador2)
         {
@@ -260,7 +260,7 @@ namespace HubDeJogos.Views
             {
                 tela.ImprimirPartida(partida);
             }
-            Utilidades.Utilidades.AperteEnterParaContinuar();
+            Utilidades.Visual.AperteEnterParaContinuar();
         }
         #endregion
     }

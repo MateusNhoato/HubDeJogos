@@ -80,8 +80,8 @@ namespace HubDeJogos.Controllers
                     "  Redirecionando para Registar Novo Jogador.");
 
 
-                Utilidades.Utilidades.Carregando();
-                Utilidades.Utilidades.AperteEnterParaContinuar();
+                Visual.Carregando();
+                Visual.AperteEnterParaContinuar();
                 RegistrarJogador();
                 AcessarMenuDeJogos();
                 return;
@@ -119,7 +119,7 @@ namespace HubDeJogos.Controllers
                 {
                     Console.WriteLine("\n\n  Não é possível jogar contra si mesmo.");
                     Som.ReproduzirEfeito(Efeito.falha);
-                    Utilidades.Utilidades.AperteEnterParaContinuar();
+                    Visual.AperteEnterParaContinuar();
                     return;
                 }
             } while (jogador2 == null);
@@ -151,7 +151,7 @@ namespace HubDeJogos.Controllers
                     {
                         Console.WriteLine("\n  Jogador já cadastrado.");
                         Som.ReproduzirEfeito(Efeito.falha);
-                        Utilidades.Utilidades.AperteEnterParaContinuar();
+                        Visual.AperteEnterParaContinuar();
                         return;
                     }
                 }
@@ -169,7 +169,7 @@ namespace HubDeJogos.Controllers
             }
 
 
-            Utilidades.Utilidades.AperteEnterParaContinuar();
+            Visual.AperteEnterParaContinuar();
         }
 
         private void ListarJogadores()
@@ -187,14 +187,14 @@ namespace HubDeJogos.Controllers
                     Console.WriteLine($"\n  # {jogador}");
                     Console.ForegroundColor = aux;
                     Console.WriteLine($"{jogador.Pontuacoes()}");
-                    Console.WriteLine(Utilidades.Utilidades.MeiaLinha);
+                    Console.WriteLine(Visual.MeiaLinha);
                 }
-                   
+
             }
-                
 
 
-            Utilidades.Utilidades.AperteEnterParaContinuar();
+
+            Visual.AperteEnterParaContinuar();
         }
 
         private void RankingDosJogadores()
@@ -219,7 +219,7 @@ namespace HubDeJogos.Controllers
                 Console.WriteLine("\n  Nenhum jogador cadastrado.");
             else
             {
-                Utilidades.Utilidades.Carregando();
+                Visual.Carregando();
                 Som.Musica(Musica.ranking);
                 _tela.ImprimirRanking();
                 for (int i = 0; i < jogadores.Count; i++)
@@ -231,7 +231,7 @@ namespace HubDeJogos.Controllers
                     Console.WriteLine($"  Top {i + 1}: {jogadores[i]} | Pontuação Total: {jogadores[i].GetPontuacao()}\n");
                 }
             }
-            Utilidades.Utilidades.AperteEnterParaContinuar();
+            Visual.AperteEnterParaContinuar();
         }
 
 
@@ -277,7 +277,7 @@ namespace HubDeJogos.Controllers
                 Console.WriteLine("\n\n  Jogador não encontrado");
             }
 
-            Utilidades.Utilidades.AperteEnterParaContinuar();
+            Visual.AperteEnterParaContinuar();
             return jogador;
         }
 
@@ -318,7 +318,7 @@ namespace HubDeJogos.Controllers
         {
             Console.Clear();
             Console.WriteLine("\n");
-            Utilidades.Utilidades.Carregando();
+            Visual.Carregando();
             Som.Musica(Musica.historico);
             _tela.ImprimirHistoricoMenu(null);
             if (Partidas.HistoricoDePartidas.Count > 0)
@@ -329,7 +329,7 @@ namespace HubDeJogos.Controllers
                 Console.WriteLine("\n  Nenhuma partida foi registrada até o momento.");
 
 
-            Utilidades.Utilidades.AperteEnterParaContinuar();
+            Visual.AperteEnterParaContinuar();
         }
 
         private void TresTentativasDeLoginErrado()
@@ -338,7 +338,7 @@ namespace HubDeJogos.Controllers
             Console.WriteLine("  Três tentativas de LogIn foram feitas sem sucesso.\n" +
                               "  Para a segurança da sua conta o procedimento será encerrado.");
             Som.ReproduzirEfeito(Efeito.falha2);
-            Utilidades.Utilidades.AperteEnterParaContinuar();
+            Visual.AperteEnterParaContinuar();
         }
 
         private void ManipularContaJogador()
@@ -391,7 +391,7 @@ namespace HubDeJogos.Controllers
                     {
                         Console.WriteLine("  Nome já cadastrado.");
                         Som.ReproduzirEfeito(Efeito.falha);
-                        Utilidades.Utilidades.AperteEnterParaContinuar();
+                        Utilidades.Visual.AperteEnterParaContinuar();
                         return;
                     }
                 }
@@ -407,7 +407,7 @@ namespace HubDeJogos.Controllers
                 Console.WriteLine("  Nome inválido.");
             }
 
-            Utilidades.Utilidades.AperteEnterParaContinuar();
+            Visual.AperteEnterParaContinuar();
         }
 
         private void AlterarSenhaDoUsuario(Jogador jogador)
@@ -428,7 +428,7 @@ namespace HubDeJogos.Controllers
                 Console.WriteLine("  Senha inválida.");
                 Som.ReproduzirEfeito(Efeito.falha);
             }
-            Utilidades.Utilidades.AperteEnterParaContinuar();
+            Visual.AperteEnterParaContinuar();
         }
 
         private bool DeletarConta(Jogador jogador)
@@ -451,7 +451,7 @@ namespace HubDeJogos.Controllers
                     _jogadores.Remove(jogador);
                     Console.WriteLine("\n  Conta excluída com sucesso.");
                     Som.ReproduzirEfeito(Efeito.confirma);
-                    Utilidades.Utilidades.AperteEnterParaContinuar();
+                    Visual.AperteEnterParaContinuar();
                     PassarListaDeJogadoresParaRepositorio();
                     return true;
                 case "2":

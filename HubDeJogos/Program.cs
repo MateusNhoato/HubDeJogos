@@ -1,7 +1,4 @@
-﻿using HubDeJogos.BatalhaNaval.Services;
-using HubDeJogos.BatalhaNaval.Views;
-using HubDeJogos.Controllers;
-using HubDeJogos.JogoDaVelha.Services;
+﻿using HubDeJogos.Controllers;
 
 Console.Title = "Hub de Jogos";
 Console.BackgroundColor = ConsoleColor.DarkBlue;

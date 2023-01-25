@@ -1,8 +1,4 @@
-﻿using HubDeJogos.Xadrez.Models;
-using HubDeJogos.Xadrez.Models.Pecas;
-using System.Security.AccessControl;
-
-namespace HubDeJogos.BatalhaNaval.Models
+﻿namespace HubDeJogos.BatalhaNaval.Models
 {
     public class Posicao
     {
@@ -28,7 +24,7 @@ namespace HubDeJogos.BatalhaNaval.Models
             Coluna = coluna;
         }
 
-        public Posicao ParaPosicaoDeTabuleiro()
+        public string ParaPosicaoDeTabuleiro()
         {
             char coluna = 'a';
             switch (Coluna)
@@ -61,7 +57,7 @@ namespace HubDeJogos.BatalhaNaval.Models
                     coluna = 'j';
                     break;
             }
-            return new Posicao(10 - Linha, coluna);
+            return $"{coluna}{Linha + 1}";
         }
 
         public static Posicao DePosicaoDeTabuleiroParaPosicao(string jogada)
@@ -69,15 +65,15 @@ namespace HubDeJogos.BatalhaNaval.Models
             int linha = (int)Char.GetNumericValue(jogada[1]) - 1;
             char coluna = jogada[0];
 
-            if (jogada.Length > 2)           
+            if (jogada.Length > 2)
                 linha = 9;
-            
+
             return new Posicao(linha, coluna - 'a');
         }
 
         public override bool Equals(object? obj)
         {
-            if(obj is not Posicao)
+            if (obj is not Posicao)
                 return false;
 
             Posicao other = obj as Posicao;

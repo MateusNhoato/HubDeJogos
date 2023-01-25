@@ -8,5 +8,8 @@ public enum Musica
     historico,
     tutorial,
     conta,
-    pgn
+    pgn,
+    batalhanaval,
+    xadrez,
+    jogodavelha
 }

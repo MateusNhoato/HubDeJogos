@@ -78,7 +78,7 @@ namespace HubDeJogos.Models
 
         public string Pontuacoes()
         {
-            return 
+            return
                 $"       Pontuações\n" +
                 $"  | Jogo da Velha [{GetPontuacao(Jogo.JogoDaVelha)}] |\n" +
                 $"  | Xadrez        [{GetPontuacao(Jogo.Xadrez)}] |\n" +

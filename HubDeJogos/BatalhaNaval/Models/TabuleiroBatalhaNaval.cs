@@ -1,12 +1,11 @@
 ﻿using HubDeJogos.Hub.Models.Interfaces;
 using HubDeJogos.Models;
-using System.Reflection.Metadata.Ecma335;
 
 namespace HubDeJogos.BatalhaNaval.Models
 {
     public class TabuleiroBatalhaNaval : Tabuleiro, IAlteraTabuleiro
     {
-        public  Parte?[,] MatrizNavios { get; private set; }
+        public Parte?[,] MatrizNavios { get; private set; }
         public List<Navio> Navios { get; private set; }
 
         public int NumeroDeNavios => Navios.Count;
@@ -36,10 +35,10 @@ namespace HubDeJogos.BatalhaNaval.Models
             Navio navio = new Navio(tamanho);
             Posicao pos = new Posicao();
             Posicao posAux = new Posicao(pos.Linha, pos.Coluna);
-            
-            for(int i=0; i< navio.Tamanho; i++)
+
+            for (int i = 0; i < navio.Tamanho; i++)
             {
-                if (MatrizNavios[posAux.Linha,posAux.Coluna] != null)
+                if (MatrizNavios[posAux.Linha, posAux.Coluna] != null)
                 {
                     AdicionarNavio(tamanho);
                     return;
@@ -55,10 +54,10 @@ namespace HubDeJogos.BatalhaNaval.Models
                     AdicionarNavio(tamanho);
                     return;
                 }
-                    
+
             }
 
-            for(int k=0; k< navio.Tamanho; k++)
+            for (int k = 0; k < navio.Tamanho; k++)
             {
                 navio.Partes[k].Posicao.MudarPosicao(pos.Linha, pos.Coluna);
                 MatrizNavios[pos.Linha, pos.Coluna] = navio.Partes[k];
@@ -93,13 +92,13 @@ namespace HubDeJogos.BatalhaNaval.Models
         {
             TabuleiroMatriz = new string[Tamanho, Tamanho];
 
-            for(int i=0; i<Tamanho; i++)
+            for (int i = 0; i < Tamanho; i++)
             {
-                for(int j=0; j<Tamanho; j++)
+                for (int j = 0; j < Tamanho; j++)
                 {
                     string aux = "   ";
 
-                    if (MatrizNavios[i,j] != null)
+                    if (MatrizNavios[i, j] != null)
                     {
                         if (MatrizNavios[i, j].Destruida)
                             aux = " x ";
@@ -111,6 +110,6 @@ namespace HubDeJogos.BatalhaNaval.Models
                 }
             }
         }
-    
+
     }
 }

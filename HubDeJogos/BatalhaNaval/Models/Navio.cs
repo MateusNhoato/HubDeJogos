@@ -17,7 +17,7 @@ namespace HubDeJogos.BatalhaNaval.Models
                 Direcao = Direcao.Horizontal;
             else
                 Direcao = Direcao.Vertical;
-          
+
             Tamanho = tamanho;
 
             for (int i = 0; i < Tamanho; i++)
