@@ -203,8 +203,7 @@ namespace HubDeJogos.Controllers
             //Ordenando o ranking por ordem de pontuação, como critério de desempate
             //temos quem ganhou mais vezes e depois quem perdeu menos
             var jogadores = _jogadores
-                .OrderByDescending(j => j.GetPontuacao(Jogo.JogoDaVelha) +
-                j.GetPontuacao(Jogo.Xadrez))
+                .OrderByDescending(j => j.GetPontuacao())
                 .ThenBy(j => j.HistoricoDePartidas.Count(p =>
                 p.Resultado.Equals(Resultado.Decisivo) &&
                 p.JogadorGanhou.Equals(j.NomeDeUsuario)))
