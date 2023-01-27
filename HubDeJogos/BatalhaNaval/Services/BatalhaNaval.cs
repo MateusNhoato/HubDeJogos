@@ -150,10 +150,11 @@ namespace HubDeJogos.BatalhaNaval.Services
                 bool tiro = Atirar(pos, false);
                 _tela.ImprimirTabuleiro(_tabuleiroAtual, pos);
                 Thread.Sleep(1000);
-                _tela.ImprimirTabuleiro(_tabuleiroAtual, TirosPossiveis(jogador));
-                Thread.Sleep(1000);
+               
                 if (!tiro)
                 {
+                    _tela.ImprimirTabuleiro(_tabuleiroAtual, TirosPossiveis(jogador));
+                    Thread.Sleep(1000);
                     jogador = MudarJogador(jogador);
                     MudarTabuleiro();
                     _tela.ImprimirVezDoJogador((jogador.Equals(_jogador1)) ? 1 : 2);
