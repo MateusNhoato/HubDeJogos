@@ -1,7 +1,6 @@
 # Hub De Jogos 🎮 [![Versão](https://img.shields.io/badge/vers%C3%A3o-2.0-brightgreen.svg)](https://github.com/user/repo/releases) [![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](LICENSE)
 Este é um projeito feito para o programa Sharp Coders da Ímã Learning Place. Se trata de uma plataforma de jogos para 2 jogadores.
 
-<hr/>
 
 ## Tabela de Conteúdo
 - [Projeto](#hub-de-jogos---)
@@ -14,18 +13,16 @@ Este é um projeito feito para o programa Sharp Coders da Ímã Learning Place. 
     - [Registro PGN](#registro-de-partida-de-xadrez-pgn-)
 - [Musicas](#musicas-)
 - [Autor](#autor)
-<hr/>
+
 
 ## Demonstração ⏩
 ![HubdeJogos](https://media.giphy.com/media/JX0ev4Yy0okx40WAyj/giphy.gif)
 
-<hr/>
 
 ## Tecnologias 💻  [![Tipo de aplicação](https://img.shields.io/badge/aplica%C3%A7%C3%A3o-console-blue.svg)](#) [![Paradigma](https://img.shields.io/badge/paradigma-POO-blue.svg)](#) [![Linguagem](https://img.shields.io/badge/linguagem-C%23-brightgreen.svg)](https://docs.microsoft.com/pt-br/dotnet/csharp/)
 
 O projeto foi feito em C# no Visual Studio, é uma aplicação de console feita com POO (programação orientada à objetos).
 
-<hr/>
 
 ## Instalação 🔽
 Para instalar o projeto basta clonar o repositório:
@@ -34,12 +31,8 @@ Para instalar o projeto basta clonar o repositório:
 git clone https://github.com/MateusNhoato/HubDeJogos.git
 ```
 
-<hr/>
-
 ## Descrição 📕
 O Hub de Jogos é uma aplicação para jogos de console com persistência de dados dos Jogadores e das partidas jogadas. Para jogar qualquer jogo é necessário o login de dois jogadores válidos, isto é, jogadores que se cadastraram anteriormente. Caso tenha dúvidas de como jogar é só ver os tutoriais dentro do Menu de Jogos!
-
-<hr/>
 
 ## Features ✨
 Ao abrir a aplicação temos as seguintes opções:
@@ -65,18 +58,20 @@ Dentro deste menu temos as opções:
     - Acessa o menu de tutoriais. Os tutoriais são apresentações específicas de cada jogo que mostram como o próprio funciona.
 
 ### Jogos 🕹️
+
 Atualmente o Hub de Jogos conta com os seguintes títulos:
 - Jogo Da Velha
 - Xadrez
 - Batalha Naval
 
 ### Registro de Partida de Xadrez PGN ✅
+
 Toda partida de xadrez jogada no Hub de Jogos é registrada no formato PGN. O arquivo é gerado na pasta: 
 `Xadrez>Repositories>Arquivos_pgn`
 
-<hr/>
 
 ## Musicas 🎵
+
 Esta aplicação contém várias músicas do canal 'HeatleyBros' no youtube. 
 
 Segue os seus merecidíssimos créditos:
@@ -87,10 +82,7 @@ Free Music For Your Youtube Videos
 
 [![HeatleyBros](https://img.shields.io/badge/-Youtube-red)](https://www.youtube.com/user/HeatleyBros)
 
-<hr/>
-
 ## Autor
 Mateus Nhoato
 
 [![Linkedin](https://img.shields.io/badge/-Linkedin-blue)](https://www.linkedin.com/in/mateus-nhoato/)
-
