@@ -1,7 +1,7 @@
 ﻿using HubDeJogos.Models.Enums;
 using HubDeJogos.Repositories;
 using Newtonsoft.Json;
-
+using System.Text;
 
 namespace HubDeJogos.Models
 {
@@ -12,6 +12,10 @@ namespace HubDeJogos.Models
         public string Senha { get; private set; }
 
         public List<Partida>? HistoricoDePartidas { get; private set; } = new List<Partida>();
+
+        private const int PONTOS_POR_VITORIA = 3;
+        private const int PONTOS_POR_DERROTA = -1;
+        private const int PONTOS_POR_EMPATE = 1;
 
         public Jogador(string nomeDeUsuario, string senha)
         {
@@ -34,20 +38,20 @@ namespace HubDeJogos.Models
             {
                 if (partida.Resultado != Resultado.Empate)
                 {
-                    // se não foi empate vejo o nome de quem ganhou para confiar o vitorioso
+                    // se não foi empate vejo o nome de quem ganhou para confirmar o vitorioso
                     if (partida.JogadorGanhou.Equals(NomeDeUsuario))
-                        pontuacao += 3;
+                        pontuacao += PONTOS_POR_VITORIA;
                     else
-                        pontuacao--;
+                        pontuacao += PONTOS_POR_DERROTA;
                 }
                 else
-                    pontuacao++;
+                    pontuacao += PONTOS_POR_EMPATE;
             }
             return pontuacao;
         }
 
 
-        public int GetPontuacao(Jogo jogo)
+        private int GetPontuacao(Jogo jogo)
         {
             int pontuacao = 0;
 
@@ -57,14 +61,14 @@ namespace HubDeJogos.Models
                 {
                     if (partida.Resultado != Resultado.Empate)
                     {
-                        // se não foi empate vejo o nome de quem ganhou para confiar o vitorioso
+                        // se não foi empate vejo o nome de quem ganhou para confirmar o vitorioso
                         if (partida.JogadorGanhou.Equals(NomeDeUsuario))
-                            pontuacao += 3;
+                            pontuacao += PONTOS_POR_VITORIA;
                         else
-                            pontuacao--;
+                            pontuacao += PONTOS_POR_DERROTA;
                     }
                     else
-                        pontuacao++;
+                        pontuacao += PONTOS_POR_EMPATE;
                 }
             }
             return pontuacao;
@@ -78,15 +82,20 @@ namespace HubDeJogos.Models
 
         public string Pontuacoes()
         {
-            return
-                $"       Pontuações\n" +
-                $"  | Jogo da Velha [{GetPontuacao(Jogo.JogoDaVelha)}] |\n" +
-                $"  | Xadrez        [{GetPontuacao(Jogo.Xadrez)}] |\n" +
-                $"  | Batalha Naval [{GetPontuacao(Jogo.BatalhaNaval)}] |\n" +
-                $"  |-------------------|\n" +
-                $"  | Total         [{GetPontuacao()}] |";
-        }
+            StringBuilder sb = new();
+            sb.AppendLine("     Pontuações");
 
+            var jogos = Enum.GetValues(typeof(Jogo));
+
+            foreach(Jogo jogo in jogos)
+            {
+                sb.AppendLine($"  | {jogo} [{GetPontuacao(jogo)}] |");
+            }
+
+            sb.AppendLine($"  | Total [{GetPontuacao()}] |");
+
+            return sb.ToString();
+        }
 
 
         public override bool Equals(object? obj)

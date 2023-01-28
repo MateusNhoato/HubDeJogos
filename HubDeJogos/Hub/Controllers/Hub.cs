@@ -201,9 +201,10 @@ namespace HubDeJogos.Controllers
         {
 
             //Ordenando o ranking por ordem de pontuação, como critério de desempate
-            //temos quem ganhou mais vezes e depois quem perdeu menos
+            //temos quem jogos menos, depois ganhou mais vezes e depois quem perdeu menos
             var jogadores = _jogadores
                 .OrderByDescending(j => j.GetPontuacao())
+                .ThenBy(j => j.HistoricoDePartidas.Count)
                 .ThenBy(j => j.HistoricoDePartidas.Count(p =>
                 p.Resultado.Equals(Resultado.Decisivo) &&
                 p.JogadorGanhou.Equals(j.NomeDeUsuario)))
@@ -394,6 +395,25 @@ namespace HubDeJogos.Controllers
                         return;
                     }
                 }
+                // mudando o nome do jogador no histórico antes de mudar para o novo nome
+                for(int i=0; i<jogador.HistoricoDePartidas.Count; i++)
+                {
+                    Partida partida = jogador.HistoricoDePartidas[i];
+
+                    if (partida.Jogador1 == jogador.NomeDeUsuario)
+                        partida.Jogador1 = novoNome;
+                    else
+                        partida.Jogador2 = novoNome;
+
+                    if (partida.JogadorGanhou == jogador.NomeDeUsuario)
+                    {
+                        partida.JogadorGanhou = novoNome;
+                    }
+                    
+                }
+              
+
+
                 jogador.AlterarNomeDeUsuario(novoNome);
                 Console.WriteLine($"  Deu certo, {novoNome}!");
                 Console.WriteLine("\n  Nome de Usuário alterado com sucesso!");
