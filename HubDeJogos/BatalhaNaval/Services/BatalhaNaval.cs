@@ -22,7 +22,7 @@ namespace HubDeJogos.BatalhaNaval.Services
         public int Jogador2Score { get; private set; }
 
 
-
+        // construtor do tutorial
         public BatalhaNaval()
         {
             _jogador1 = new Jogador("Beltrano", "");
@@ -39,7 +39,7 @@ namespace HubDeJogos.BatalhaNaval.Services
             Tutorial();
         }
 
-
+        // construtor do jogo em si
         public BatalhaNaval(Jogador jogador1, Jogador jogador2)
         {
             _jogador1 = jogador1;
@@ -62,7 +62,7 @@ namespace HubDeJogos.BatalhaNaval.Services
             {
                 Console.Clear();
                 Console.WriteLine(Hub.Views.Tutoriais.ExplicacoesBatalhaNaval[i]);
-                Visual.AperteEnterParaContinuar();
+                Comunicacao.AperteEnterParaContinuar();
                 if (i == 0)
                 {
                     _tela.ImprimirTabuleiro(_tabuleiroAtual, TirosPossiveis(_jogador1));
@@ -78,7 +78,7 @@ namespace HubDeJogos.BatalhaNaval.Services
                     Posicao pos = EncontrarPosicaoParaAtirarTutorial(_tabuleiroAtual, true);
 
                     Console.WriteLine($"  Digite sua jogada: {pos.ParaPosicaoDeTabuleiro()}");
-                    Visual.AperteEnterParaContinuar();
+                    Comunicacao.AperteEnterParaContinuar();
 
                     _tela.ImprimirTabuleiro(_tabuleiroAtual, pos);
                     Atirar(pos, true);
@@ -88,7 +88,7 @@ namespace HubDeJogos.BatalhaNaval.Services
                     Thread.Sleep(500);
                     Console.WriteLine("\n  Porque o tiro foi certeiro, nosso jogador pode atirar novamente!\n" +
                                       "  Vamos ver um exemplo de um erro agora.");
-                    Visual.AperteEnterParaContinuar();
+                    Comunicacao.AperteEnterParaContinuar();
 
                     _tela.ImprimirTabuleiro(_tabuleiroAtual, TirosPossiveis(_jogador1));
                     pos = EncontrarPosicaoParaAtirarTutorial(_tabuleiroAtual, false);
@@ -96,7 +96,7 @@ namespace HubDeJogos.BatalhaNaval.Services
                     Console.WriteLine("\n  Note que a posição atirada previamente está marcada com um X.\n" +
                                         "  Esta marca aparecerá independente se for um acerto ou não.\n" +
                                         "  Não é possível atirar em uma mesma posição mais de uma vez, pois a área já está revelada.");
-                    Visual.AperteEnterParaContinuar();
+                    Comunicacao.AperteEnterParaContinuar();
 
                     _tela.ImprimirTabuleiro(_tabuleiroAtual, pos);
                     Atirar(pos, true);
@@ -112,15 +112,18 @@ namespace HubDeJogos.BatalhaNaval.Services
                 }
 
 
-                Visual.AperteEnterParaContinuar();
+                Comunicacao.AperteEnterParaContinuar();
             }
             Console.CursorVisible = true;
         }
 
         private void Jogar()
         {
+            // começando o jogo pelo jogador 1
             Jogador jogador = _jogador1;
             _tela.ImprimirVezDoJogador(1);
+
+            // o jogo acaba quando o jogador afunda todos os navios do tabuleiro dele
             while (_tabuleiroAtual.NumeroDeNavios > 0)
             {
                 string padraoParaJogada = @"^[a-j]([1-9]|10)$";
@@ -140,8 +143,7 @@ namespace HubDeJogos.BatalhaNaval.Services
                 // se a posição já foi atirada previamente, ela não fica mais disponível
                 if (!CheckarPosicaoTiro(pos, jogador))
                 {
-                    Console.WriteLine("  A posição já foi atirada!");
-                    Som.ReproduzirEfeito(Efeito.falha2);
+                    Comunicacao.ComunicacaoComUsuario(Efeito.falha2, "A posição já foi atirada!");
                     Thread.Sleep(1000);
                     continue;
                 }
@@ -200,7 +202,7 @@ namespace HubDeJogos.BatalhaNaval.Services
             //adicionando a partida nos históricos dos jogadores
             _jogador1.HistoricoDePartidas.Add(partida);
             _jogador2.HistoricoDePartidas.Add(partida);
-            Visual.AperteEnterParaContinuar();
+            Comunicacao.AperteEnterParaContinuar();
         }
 
 
@@ -257,7 +259,7 @@ namespace HubDeJogos.BatalhaNaval.Services
         private bool[,] TirosPossiveis(Jogador jogador)
         {
             List<Posicao> posicoes = (jogador.Equals(_jogador1)) ? _posicoesAtiradasJg1 : _posicoesAtiradasJg2;
-            bool[,] tirosPossiveis = new bool[10, 10];
+            bool[,] tirosPossiveis = new bool[_tabuleiroAtual.Tamanho, _tabuleiroAtual.Tamanho];
 
             foreach (Posicao pos in posicoes)
             {

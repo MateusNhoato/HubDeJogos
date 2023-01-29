@@ -24,6 +24,7 @@ namespace HubDeJogos.Controllers
             string? opcao;
             do
             {
+                Thread.Sleep(300);
                 Som.Musica(Musica.menujogos);
                 if (!tutorial)
                 {
@@ -32,12 +33,7 @@ namespace HubDeJogos.Controllers
                 }
                 else
                 {
-                    Console.Clear();
-                    Console.WriteLine($"\n  Olá, {_jogador1.NomeDeUsuario} e {_jogador2.NomeDeUsuario}!\n\n" +
-                                        "  Parece que pelo menos um de vocês está acessando o Hub de Jogos pela primeira vez.\n" +
-                                        "  Vamos redirecioná-los para nossa seção de Tutoriais.\n" +
-                                        "  Caso não quiserem ver os tutoriais, basta voltar para o menu principal de jogos.");
-                    Visual.AperteEnterParaContinuar();
+                    RecepcionarJogadores();                
                     opcao = "3";
                     tutorial = false;
                 }
@@ -45,7 +41,7 @@ namespace HubDeJogos.Controllers
                 switch (opcao)
                 {
                     case "0":
-                        Som.ReproduzirEfeito(Efeito.voltar);
+                        Comunicacao.ComunicacaoComUsuario(Efeito.voltar, null);
                         break;
                     case "1":
                         Jogar();
@@ -54,12 +50,11 @@ namespace HubDeJogos.Controllers
                         HistoricoDosJogadores();
                         break;
                     case "3":
-                        Som.ReproduzirEfeito(Efeito.novatela);
-                        Thread.Sleep(300);
+                        Comunicacao.ComunicacaoComUsuario(Efeito.novatela, null);
                         Tutoriais();
                         break;
                     default:
-                        Console.WriteLine("  Opção não encontrada.");
+                        Comunicacao.ComunicacaoComUsuario(Efeito.falha, null);
                         break;
                 }
             } while (opcao != "0");
@@ -69,17 +64,14 @@ namespace HubDeJogos.Controllers
             string opcao;
             do
             {
-
+                Thread.Sleep(300);
                 _tela.ImprimirMenuDeEscolhaDeJogos();
                 opcao = Console.ReadLine();
-
-                if (opcao != "0")
-                    Som.ReproduzirEfeito(Efeito.gamestart);
-
+                    
                 switch (opcao)
                 {
                     case "0":
-                        Som.ReproduzirEfeito(Efeito.voltar);
+                        Comunicacao.ComunicacaoComUsuario(Efeito.voltar, null);
                         break;
                     case "1":
                         NovoJogoDaVelha(false);
@@ -94,7 +86,7 @@ namespace HubDeJogos.Controllers
                         opcao = "0";
                         break;
                     default:
-                        Console.WriteLine("  Opção não encontrada.");
+                        Comunicacao.ComunicacaoComUsuario(Efeito.falha, null);
                         break;
                 }
             } while (opcao != "0");
@@ -105,6 +97,7 @@ namespace HubDeJogos.Controllers
             string opcao;
             do
             {
+                Thread.Sleep(300);
                 Som.Musica(Musica.tutorial);
                 _tela.ImprimirTutorial();
                 opcao = Console.ReadLine();
@@ -126,7 +119,7 @@ namespace HubDeJogos.Controllers
                         NovoJogoDeBatalhaNaval(true);
                         break;
                     default:
-                        Console.WriteLine("  Opção não encontrada.");
+                        Comunicacao.ComunicacaoComUsuario(Efeito.falha, null);
                         break;
                 }
             } while (opcao != "0");
@@ -139,6 +132,7 @@ namespace HubDeJogos.Controllers
                 new JogoDaVelha.Services.JogoDaVelha();
             else
             {
+                Comunicacao.ComunicacaoComUsuario(Efeito.gamestart, null);
                 new JogoDaVelha.Services.JogoDaVelha(_jogador1, _jogador2);
                 _hub.PassarListaDeJogadoresParaRepositorio();
             }
@@ -149,6 +143,7 @@ namespace HubDeJogos.Controllers
                 new Xadrez.Services.Xadrez();
             else
             {
+                Comunicacao.ComunicacaoComUsuario(Efeito.gamestart, null);
                 new Xadrez.Services.Xadrez(_jogador1, _jogador2);
                 _hub.PassarListaDeJogadoresParaRepositorio();
             }
@@ -160,6 +155,7 @@ namespace HubDeJogos.Controllers
                 new BatalhaNaval.Services.BatalhaNaval();
             else
             {
+                Comunicacao.ComunicacaoComUsuario(Efeito.gamestart, null);
                 new BatalhaNaval.Services.BatalhaNaval(_jogador1, _jogador2);
                 _hub.PassarListaDeJogadoresParaRepositorio();
             }
@@ -169,6 +165,7 @@ namespace HubDeJogos.Controllers
             string opcao;
             do
             {
+                Thread.Sleep(300);
                 _tela.ImprimirHistoricoMenu(_jogador1.NomeDeUsuario, _jogador2.NomeDeUsuario);
                 opcao = Console.ReadLine();
                 switch (opcao)
@@ -178,26 +175,33 @@ namespace HubDeJogos.Controllers
                         break;
                     case "1":
                         _tela.ImprimirHistoricoMenu(_jogador1.NomeDeUsuario);
-                        Utilidades.Visual.Carregando();
+                        Utilidades.Comunicacao.Carregando();
                         Som.Musica(Musica.historico);
                         _tela.ImprimirHistoricoDoJogador(_jogador1.HistoricoDePartidas);
                         opcao = "0";
                         break;
                     case "2":
                         _tela.ImprimirHistoricoMenu(_jogador2.NomeDeUsuario);
-                        Utilidades.Visual.Carregando();
+                        Utilidades.Comunicacao.Carregando();
                         Som.Musica(Musica.historico);
                         _tela.ImprimirHistoricoDoJogador(_jogador2.HistoricoDePartidas);
                         opcao = "0";
                         break;
                     default:
-                        Console.WriteLine("  Opção não encontrada.");
+                        Comunicacao.ComunicacaoComUsuario(Efeito.falha, null);
                         break;
                 }
             } while (opcao != "0");
         }
 
-
-
+        private void RecepcionarJogadores()
+        {
+            Console.Clear();
+            Console.WriteLine($"\n  Olá, {_jogador1.NomeDeUsuario} e {_jogador2.NomeDeUsuario}!\n\n" +
+                                "  Parece que pelo menos um de vocês está acessando o Hub de Jogos pela primeira vez.\n" +
+                                "  Vamos redirecioná-los para nossa seção de Tutoriais.\n" +
+                                "  Caso não quiserem ver os tutoriais, basta voltar para o menu principal de jogos.");
+            Comunicacao.AperteEnterParaContinuar();
+        }
     }
 }

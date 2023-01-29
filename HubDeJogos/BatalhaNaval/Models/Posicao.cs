@@ -5,7 +5,8 @@
         public int Linha { get; set; }
         public int Coluna { get; set; }
 
-
+        // construtor para gerar uma posição aleatória,
+        // usado para colocar os barcos pela matriz aleatoriamente
         public Posicao()
         {
             Random random = new Random();
@@ -65,6 +66,7 @@
             int linha = (int)Char.GetNumericValue(jogada[1]) - 1;
             char coluna = jogada[0];
 
+            // se a posicao da jogada for na linha 10
             if (jogada.Length > 2)
                 linha = 9;
 
@@ -79,5 +81,6 @@
             Posicao other = obj as Posicao;
             return (other.Coluna == Coluna && other.Linha == Linha);
         }
+
     }
 }

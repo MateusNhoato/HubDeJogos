@@ -21,22 +21,24 @@ public class Xadrez
     public Cor CorAtual { get; private set; }
     public bool Terminada { get; private set; }
     public Peca? VulneravelEnPassant { get; private set; }
-    private readonly HashSet<Peca> _pecas;
-    private readonly HashSet<Peca> _capturadas;
     public bool Xeque { get; private set; }
     public bool Empate { get; private set; } = false;
     public bool Render { get; private set; } = false;
+
+    public readonly Jogador Jogador1;
+    public readonly Jogador Jogador2;
+    private readonly HashSet<Peca> _pecas;
+    private readonly HashSet<Peca> _capturadas; 
     private bool _roquePequeno = false;
     private bool _roqueGrande = false;
     private bool _tutorial = false;
-    private readonly Tela _tela = new();
-    public readonly Jogador Jogador1;
-    public readonly Jogador Jogador2;
+    private readonly Tela _tela = new(); 
     private readonly Pgn? _pgn;
     private bool _brancasPediuEmpate = false;
     private bool _pretasPediuEmpate = false;
 
 
+    // construtor para apresentar o tutorial
     public Xadrez()
     {
         Tabuleiro = new TabuleiroDeXadrez(8, this);
@@ -54,6 +56,7 @@ public class Xadrez
         Tutorial();
 
     }
+    // construtor do jogo em si
     public Xadrez(Jogador jogador1, Jogador jogador2)
     {
         Tabuleiro = new TabuleiroDeXadrez(8, this);
@@ -78,7 +81,7 @@ public class Xadrez
         {
             Console.Clear();
             Console.WriteLine(Tutoriais.ExplicacoesXadrez[i]);
-            Visual.AperteEnterParaContinuar();
+            Comunicacao.AperteEnterParaContinuar();
 
             if (i == 0)
             {
@@ -88,7 +91,7 @@ public class Xadrez
             {
                 _tela.ImprimirPartida(this, true);
                 Console.WriteLine("  Jogada: a2");
-                Visual.AperteEnterParaContinuar();
+                Comunicacao.AperteEnterParaContinuar();
 
                 Posicao origem = _tela.LerPosicaoXadrez("a2").ToPosicao();
                 ValidarPosicaoDeOrigem(origem);
@@ -98,7 +101,7 @@ public class Xadrez
                 Console.WriteLine("\n  A peça selecionada foi o Peão Branco na 'a2', logo o destaque aparece\n" +
                                   "  nas posições 'a3' e 'a4', que são os movimentos disponíveis para ele.\n" +
                                   "  Vamos mover o peão para 'a4'.");
-                Visual.AperteEnterParaContinuar();
+                Comunicacao.AperteEnterParaContinuar();
 
                 Posicao destino = _tela.LerPosicaoXadrez("a4").ToPosicao();
                 ValidarPosicaoDeDestino(origem, destino);
@@ -111,7 +114,7 @@ public class Xadrez
             {
                 _tela.ImprimirPartida(this, true);
                 Console.WriteLine("  Jogada: render");
-                Visual.AperteEnterParaContinuar();
+                Comunicacao.AperteEnterParaContinuar();
                 Terminada = true;
                 Render = true;
                 MudaJogador();
@@ -123,7 +126,7 @@ public class Xadrez
                 Console.WriteLine("\n  Peças:");
                 Console.WriteLine(Tutoriais.ArteFinalTutorialXadrez);
             }
-            Visual.AperteEnterParaContinuar();
+            Comunicacao.AperteEnterParaContinuar();
         }
         Console.CursorVisible = true;
     }
@@ -156,33 +159,18 @@ public class Xadrez
                     {
                         if (PodePedirEmpate())
                         {
-                            string nomeDoJogador =
-                            (CorAtual == Cor.Brancas) ? Jogador1.NomeDeUsuario : Jogador2.NomeDeUsuario;
-                            // mudando de jogador para ver se o outro jogador concorda com o empate
-                            MudaJogador();
-                            Console.Clear();
-                            _tela.ImprimirPartida(this, false);
-                            Console.WriteLine($"  {nomeDoJogador}({CorAtual}) sugeriu um empate. Caso queria aceitar basta digitar 'empate'");
-                            Console.Write("\n  Jogada: ");
-                            jogada = Console.ReadLine().ToLower();
-
-                            if (jogada == "empate")
-                            {
-                                Terminada = true;
-                                Empate = true;
+                            if (Empatar())
                                 break;
-                            }
-                            else
-                                MudaJogador();
                         }
                         else
                         {
                             Console.WriteLine("  Cada jogador só pode pedir empate uma vez!");
-                            Visual.AperteEnterParaContinuar();
+                            Comunicacao.AperteEnterParaContinuar();
                         }
                     }
                 } while (!rg.IsMatch(jogada));
 
+                // checkando para ver se a partida não terminou por rendição ou empate
                 if (Terminada)
                     break;
 
@@ -250,12 +238,36 @@ public class Xadrez
 
         Console.Clear();
         _tela.ImprimirPartida(this, false);
-        Visual.AperteEnterParaContinuar();
+        Comunicacao.AperteEnterParaContinuar();
         Som.Musica(Musica.pgn);
         _tela.ImprimirPgn(_pgn);
-        Visual.AperteEnterParaContinuar();
+        Comunicacao.AperteEnterParaContinuar();
     }
 
+    private bool Empatar()
+    {
+        string nomeDoJogador =
+                            (CorAtual == Cor.Brancas) ? Jogador1.NomeDeUsuario : Jogador2.NomeDeUsuario;
+        // mudando de jogador para ver se o outro jogador concorda com o empate
+        MudaJogador();
+        Console.Clear();
+        _tela.ImprimirPartida(this, false);
+        Console.WriteLine($"  {nomeDoJogador}({_adversaria(CorAtual)}) sugeriu um empate. Caso queria aceitar basta digitar 'empate'");
+        Console.Write("\n  Jogada: ");
+        string jogada = Console.ReadLine().ToLower();
+
+        if (jogada == "empate")
+        {
+            Terminada = true;
+            Empate = true;
+            return true;
+        }
+        else
+        {
+            MudaJogador();
+            return false;
+        }
+    }
 
     private Peca? ExecutaMovimento(Posicao origem, Posicao destino)
     {

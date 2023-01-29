@@ -100,7 +100,7 @@ namespace HubDeJogos.Views
                 auxJogo2 = "(Pretas)";
             }
 
-            Console.WriteLine($"{Utilidades.Visual.Linha}\n");
+            Console.WriteLine($"{Utilidades.Comunicacao.Linha}\n");
             Console.WriteLine($"  Partida de {partida.Jogo} | {dateTime}\n");
             if (partida.Jogo != Jogo.BatalhaNaval)
                 Console.WriteLine($"  {partida.Jogador1} {auxJogo1} VS {partida.Jogador2} {auxJogo2} \n");
@@ -260,7 +260,7 @@ namespace HubDeJogos.Views
             {
                 tela.ImprimirPartida(partida);
             }
-            Visual.AperteEnterParaContinuar();
+            Comunicacao.AperteEnterParaContinuar();
         }
         #endregion
     }

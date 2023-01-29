@@ -32,6 +32,7 @@ namespace HubDeJogos.Controllers
         public void Menu()
         {
             string? opcao;
+
             do
             {
                 Thread.Sleep(300);
@@ -43,7 +44,7 @@ namespace HubDeJogos.Controllers
                 switch (opcao)
                 {
                     case "0":
-                        Som.ReproduzirEfeito(Efeito.obrigado);
+                        Comunicacao.ComunicacaoComUsuario(Efeito.obrigado, null);
                         Thread.Sleep(2200);
                         break;
                     case "1":
@@ -65,29 +66,30 @@ namespace HubDeJogos.Controllers
                         ManipularContaJogador();
                         break;
                     default:
-                        Som.ReproduzirEfeito(Efeito.falha);
+                        Comunicacao.ComunicacaoComUsuario(Efeito.falha, null);
                         break;
                 }
             } while (opcao != "0");
         }
+
 
         private void AcessarMenuDeJogos()
         {
             _tela.ImprimirLogIn(false);
             if (_jogadores.Count < 2)
             {
-                Console.WriteLine("  Parece que ainda não temos dois jogadores para escolher essa opção!\n" +
+                Comunicacao.ComunicacaoComUsuario(Efeito.novatela, 
+                    "Parece que ainda não temos dois jogadores para escolher essa opção!\n" +
                     "  Redirecionando para Registar Novo Jogador.");
 
-
-                Visual.Carregando();
-                Visual.AperteEnterParaContinuar();
+                Comunicacao.Carregando();
+                Comunicacao.AperteEnterParaContinuar();
                 RegistrarJogador();
                 AcessarMenuDeJogos();
                 return;
             }
 
-            Som.ReproduzirEfeito(Efeito.novatela);
+            Comunicacao.ComunicacaoComUsuario(Efeito.novatela, null);
             _tela.ImprimirLogIn(false);
             Jogador? jogador2;
             Jogador? jogador1;
@@ -117,16 +119,15 @@ namespace HubDeJogos.Controllers
 
                 if (jogador1 == jogador2)
                 {
-                    Console.WriteLine("\n\n  Não é possível jogar contra si mesmo.");
-                    Som.ReproduzirEfeito(Efeito.falha);
-                    Visual.AperteEnterParaContinuar();
+                    Comunicacao.ComunicacaoComUsuario(Efeito.falha, "Não é possível jogar contra si mesmo.");
+                    Comunicacao.AperteEnterParaContinuar();
                     return;
                 }
             } while (jogador2 == null);
 
 
             MenuDeJogos menuDeJogos = new(jogador1, jogador2, this);
-            Som.ReproduzirEfeito(Efeito.novatela);
+            Comunicacao.ComunicacaoComUsuario(Efeito.novatela, null);
 
             if (jogador1.HistoricoDePartidas.Count < 1 || jogador2.HistoricoDePartidas.Count < 1)
                 menuDeJogos.Menu(true);
@@ -149,9 +150,8 @@ namespace HubDeJogos.Controllers
                 {
                     if (nomeDoUsuario.Equals(jogador.NomeDeUsuario))
                     {
-                        Console.WriteLine("\n  Jogador já cadastrado.");
-                        Som.ReproduzirEfeito(Efeito.falha);
-                        Visual.AperteEnterParaContinuar();
+                        Comunicacao.ComunicacaoComUsuario(Efeito.falha, "Jogador já cadastrado.");
+                        Comunicacao.AperteEnterParaContinuar();
                         return;
                     }
                 }
@@ -159,17 +159,12 @@ namespace HubDeJogos.Controllers
                 Jogador novoJogador = new Jogador(nomeDoUsuario, senha);
                 _jogadores.Add(novoJogador);
                 PassarListaDeJogadoresParaRepositorio();
-                Som.ReproduzirEfeito(Efeito.confirma);
-                Console.WriteLine("\n\n\n  Novo jogador cadastrado com sucesso!!");
+                Comunicacao.ComunicacaoComUsuario(Efeito.confirma, "Novo jogador cadastrado com sucesso!!");
             }
             else
-            {
-                Som.ReproduzirEfeito(Efeito.falha);
-                Console.WriteLine("\n\n\n  Nome de usuário e/ou senha inválido(s).");
-            }
-
-
-            Visual.AperteEnterParaContinuar();
+                Comunicacao.ComunicacaoComUsuario(Efeito.falha, "Nome de usuário e/ou senha inválido(s).");
+                        
+            Comunicacao.AperteEnterParaContinuar();
         }
 
         private void ListarJogadores()
@@ -187,14 +182,14 @@ namespace HubDeJogos.Controllers
                     Console.WriteLine($"\n  # {jogador}");
                     Console.ForegroundColor = aux;
                     Console.WriteLine($"{jogador.Pontuacoes()}");
-                    Console.WriteLine(Visual.MeiaLinha);
+                    Console.WriteLine(Comunicacao.MeiaLinha);
                 }
 
             }
 
 
 
-            Visual.AperteEnterParaContinuar();
+            Comunicacao.AperteEnterParaContinuar();
         }
 
         private void RankingDosJogadores()
@@ -219,7 +214,7 @@ namespace HubDeJogos.Controllers
                 Console.WriteLine("\n  Nenhum jogador cadastrado.");
             else
             {
-                Visual.Carregando();
+                Comunicacao.Carregando();
                 Som.Musica(Musica.ranking);
                 _tela.ImprimirRanking();
                 for (int i = 0; i < jogadores.Count; i++)
@@ -231,7 +226,7 @@ namespace HubDeJogos.Controllers
                     Console.WriteLine($"  Top {i + 1}: {jogadores[i]} | Pontuação Total: {jogadores[i].GetPontuacao()}\n");
                 }
             }
-            Visual.AperteEnterParaContinuar();
+            Comunicacao.AperteEnterParaContinuar();
         }
 
 
@@ -266,18 +261,11 @@ namespace HubDeJogos.Controllers
 
             }
             if (jogador != null)
-            {
-                Console.WriteLine("\n\n  Jogador logado com sucesso!");
-                Som.ReproduzirEfeito(Efeito.confirma);
-            }
-
+                Comunicacao.ComunicacaoComUsuario(Efeito.confirma, "Jogador logado com sucesso!");
             else
-            {
-                Som.ReproduzirEfeito(Efeito.falha);
-                Console.WriteLine("\n\n  Jogador não encontrado");
-            }
+                Comunicacao.ComunicacaoComUsuario(Efeito.falha, "Jogador não encontrado");
 
-            Visual.AperteEnterParaContinuar();
+            Comunicacao.AperteEnterParaContinuar();
             return jogador;
         }
 
@@ -318,7 +306,7 @@ namespace HubDeJogos.Controllers
         {
             Console.Clear();
             Console.WriteLine("\n");
-            Visual.Carregando();
+            Comunicacao.Carregando();
             Som.Musica(Musica.historico);
             _tela.ImprimirHistoricoMenu(null);
             if (Partidas.HistoricoDePartidas.Count > 0)
@@ -329,21 +317,20 @@ namespace HubDeJogos.Controllers
                 Console.WriteLine("\n  Nenhuma partida foi registrada até o momento.");
 
 
-            Visual.AperteEnterParaContinuar();
+            Comunicacao.AperteEnterParaContinuar();
         }
 
         private void TresTentativasDeLoginErrado()
         {
             _tela.ImprimirLogIn(false);
-            Console.WriteLine("  Três tentativas de LogIn foram feitas sem sucesso.\n" +
-                              "  Para a segurança da sua conta o procedimento será encerrado.");
-            Som.ReproduzirEfeito(Efeito.falha2);
-            Visual.AperteEnterParaContinuar();
+            Comunicacao.ComunicacaoComUsuario(Efeito.falha, "Três tentativas de LogIn foram feitas sem sucesso.\n" +      
+                "  Para a segurança da sua conta o procedimento será encerrado.");
+            Comunicacao.AperteEnterParaContinuar();
         }
 
         private void ManipularContaJogador()
         {
-            Som.ReproduzirEfeito(Efeito.novatela);
+            Comunicacao.ComunicacaoComUsuario(Efeito.novatela, null);
             _tela.ImprimirLogIn(true);
             Jogador jogador = Login(null);
             if (jogador != null)
@@ -357,7 +344,7 @@ namespace HubDeJogos.Controllers
                     switch (opcao)
                     {
                         case "0":
-                            Som.ReproduzirEfeito(Efeito.voltar);
+                            Comunicacao.ComunicacaoComUsuario(Efeito.voltar, null);
                             break;
                         case "1":
                             AlterarNomeDoUsuario(jogador);
@@ -370,7 +357,7 @@ namespace HubDeJogos.Controllers
                                 opcao = "0";
                             break;
                         default:
-                            Som.ReproduzirEfeito(Efeito.falha);
+                            Comunicacao.ComunicacaoComUsuario(Efeito.falha, null);
                             break;
                     }
                 } while (opcao != "0");
@@ -389,14 +376,13 @@ namespace HubDeJogos.Controllers
                 {
                     if (jog.NomeDeUsuario.ToLower().Equals(novoNome.ToLower()))
                     {
-                        Console.WriteLine("  Nome já cadastrado.");
-                        Som.ReproduzirEfeito(Efeito.falha);
-                        Visual.AperteEnterParaContinuar();
+                        Comunicacao.ComunicacaoComUsuario(Efeito.falha, "Jogador já cadastrado.");
+                        Comunicacao.AperteEnterParaContinuar();
                         return;
                     }
                 }
                 // mudando o nome do jogador no histórico antes de mudar para o novo nome
-                for(int i=0; i<jogador.HistoricoDePartidas.Count; i++)
+                for (int i = 0; i < jogador.HistoricoDePartidas.Count; i++)
                 {
                     Partida partida = jogador.HistoricoDePartidas[i];
 
@@ -409,24 +395,18 @@ namespace HubDeJogos.Controllers
                     {
                         partida.JogadorGanhou = novoNome;
                     }
-                    
-                }
-              
 
+                }
 
                 jogador.AlterarNomeDeUsuario(novoNome);
-                Console.WriteLine($"  Deu certo, {novoNome}!");
-                Console.WriteLine("\n  Nome de Usuário alterado com sucesso!");
-                Som.ReproduzirEfeito(Efeito.confirma);
+                Comunicacao.ComunicacaoComUsuario(Efeito.confirma, $"Deu certo, {novoNome}!\n" +
+                    $"  Nome de Usuário alterado com sucesso!");
                 PassarListaDeJogadoresParaRepositorio();
             }
             else
-            {
-                Som.ReproduzirEfeito(Efeito.falha);
-                Console.WriteLine("  Nome inválido.");
-            }
-
-            Visual.AperteEnterParaContinuar();
+                Comunicacao.ComunicacaoComUsuario(Efeito.falha, "Nome inválido.");
+       
+            Comunicacao.AperteEnterParaContinuar();
         }
 
         private void AlterarSenhaDoUsuario(Jogador jogador)
@@ -438,16 +418,13 @@ namespace HubDeJogos.Controllers
             {
                 jogador.AlterarSenha(novaSenha);
                 _tela.ImprimirConta();
-                Console.WriteLine("  Senha alterada com sucesso!");
-                Som.ReproduzirEfeito(Efeito.confirma);
+                Comunicacao.ComunicacaoComUsuario(Efeito.confirma, "Senha alterada com sucesso!");
                 PassarListaDeJogadoresParaRepositorio();
             }
             else
-            {
-                Console.WriteLine("  Senha inválida.");
-                Som.ReproduzirEfeito(Efeito.falha);
-            }
-            Visual.AperteEnterParaContinuar();
+                Comunicacao.ComunicacaoComUsuario(Efeito.falha, "Senha inválida.");
+           
+            Comunicacao.AperteEnterParaContinuar();
         }
 
         private bool DeletarConta(Jogador jogador)
@@ -468,9 +445,8 @@ namespace HubDeJogos.Controllers
             {
                 case "1":
                     _jogadores.Remove(jogador);
-                    Console.WriteLine("\n  Conta excluída com sucesso.");
-                    Som.ReproduzirEfeito(Efeito.confirma);
-                    Visual.AperteEnterParaContinuar();
+                    Comunicacao.ComunicacaoComUsuario(Efeito.confirma, "Conta excluída com sucesso!");
+                    Comunicacao.AperteEnterParaContinuar();
                     PassarListaDeJogadoresParaRepositorio();
                     return true;
                 case "2":
@@ -481,6 +457,9 @@ namespace HubDeJogos.Controllers
             }
             return false;
         }
+
+
+
 
         public void PassarListaDeJogadoresParaRepositorio()
         {

@@ -203,13 +203,13 @@ namespace HubDeJogos.BatalhaNaval.Views
         public void ImprimirVezDoJogador(int jogador)
         {
             Console.Clear();
-            Console.WriteLine(Utilidades.Visual.Linha);
+            Console.WriteLine(Utilidades.Comunicacao.Linha);
             Console.WriteLine(_player);
             if (jogador == 1)
                 Console.WriteLine(_1);
             else
                 Console.WriteLine(_2);
-            Console.WriteLine(Utilidades.Visual.Linha);
+            Console.WriteLine(Utilidades.Comunicacao.Linha);
             Thread.Sleep(1000);
         }
     }

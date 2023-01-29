@@ -20,13 +20,13 @@ namespace HubDeJogos.BatalhaNaval.Models
         private void PreencherMatriz()
         {
             Navios = new List<Navio>();
-            AdicionarNavio(2);
-            AdicionarNavio(2);
-            AdicionarNavio(2);
-            AdicionarNavio(3);
-            AdicionarNavio(3);
             AdicionarNavio(4);
             AdicionarNavio(4);
+            AdicionarNavio(3);
+            AdicionarNavio(3);
+            AdicionarNavio(2);
+            AdicionarNavio(2);
+            AdicionarNavio(2);
 
         }
 

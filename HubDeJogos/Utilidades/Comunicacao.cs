@@ -1,6 +1,6 @@
 ﻿namespace Utilidades
 {
-    internal static class Visual
+    internal static class Comunicacao
     {
         public readonly static string Linha = @"                                                
    ____   ____   ____   ____   ____   ____   ____   ____
@@ -22,6 +22,12 @@
             Console.CursorVisible = true;
         }
 
+        public static void ComunicacaoComUsuario(Efeito efeito, string? msg)
+        {
+            if (msg != null)
+                Console.WriteLine($"\n\n  {msg}");
+            Som.ReproduzirEfeito(efeito);
+        }
 
         public static void Carregando()
         {

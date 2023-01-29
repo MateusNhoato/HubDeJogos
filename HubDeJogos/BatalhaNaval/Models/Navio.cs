@@ -13,6 +13,7 @@ namespace HubDeJogos.BatalhaNaval.Models
         public Navio(int tamanho)
         {
             Random random = new Random();
+            // a chance de ser um barco na horizontal ou vertical é a mesma, 50/50
             if (random.Next(1, 3) == 1)
                 Direcao = Direcao.Horizontal;
             else
